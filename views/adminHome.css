@@ -1,0 +1,122 @@
+*{
+  margin: 0%;
+  padding: 0%;
+}
+
+body{
+    background-image: url('images/bg2.jpeg');
+    width: 100vw;
+    height: 100%;
+}
+.header{
+    background:grey;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* padding: 0px 20px; */
+    margin-top: 0;
+    height: 18vh;
+}
+.logo1{
+    display: inline-block;
+    margin: 10px;
+}
+.logo1 img{
+    height: 70px;
+}
+.header .action__btns{
+  margin-right: 2rem;
+} 
+.action__btns a, .action__btns button{
+    font-size: 1rem;
+    font-weight: 550;
+    /* letter-spacing: 1px; */
+    padding: 1rem 2rem;
+    outline: none;
+    background-color: #ffffff;
+    border: 2px solid #a855f7;
+    border-radius: 10px;
+    transition: 0.3s;
+    cursor: pointer;
+    /* padding-inline: 20px; */
+    /* gap: 50px; */
+    /* margin: 0.5rem; */
+
+  }
+
+.searchbar {
+    float:right ;
+    display: flex;
+    display:inline-block;
+    line-height:52px; 
+    padding-right:8px; 
+    border-radius: 25px;
+    height: 60px;
+    align-items: center;
+    gap: 10px;
+}
+.icon{
+    float: left;
+    padding: 5px;
+}
+/* .searchbar input[type="text"]
+{
+    width: 250px;
+    border-radius: 25px;
+    height: 25px;
+
+} */
+.wlc{
+    text-align: center;
+    font-size: 40px;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+
+.second-container {
+    /* width: 70%; */
+    display: flex;
+    justify-content: space-between;
+    padding: 0 130px; /* Equal space from left and right */
+    margin-top: 5%;
+   
+  }
+
+  .box {
+    flex: 1;
+    max-width: calc(50% - 20px);
+    background-color: rgba(0, 0, 0, 0.5);
+    
+    padding: 20px;
+    margin: 10px;
+    color: white;
+    text-align: center;
+  }
+  /* .action__btns button {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    padding: 1rem 2rem;
+    outline: none;
+    border: 2px solid #a855f7;
+    border-radius: 10px;
+    transition: 0.3s;
+    cursor: pointer;
+    
+  } */
+  .logo{
+    max-width: 100px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    height: 4.5rem;
+  }
+  
+  .login {
+    color: #a855f7;
+  }
+  
+  .login:hover {
+    background-color: #9333ea;
+    color: #ffffff;
+  }
+  

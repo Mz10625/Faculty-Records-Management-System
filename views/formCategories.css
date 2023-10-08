@@ -1,0 +1,61 @@
+*{
+  margin: 0%;
+  padding: 0%;
+}
+body
+{
+    background-image: url('images/doc3.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+.second-container {
+    width: 100vw;
+    display: flex;
+    /* justify-content: space-between; */
+    margin-top: 5%;
+   
+  }
+
+  .box {
+    display: inline-block;
+    flex: 1;
+    /* max-width: calc(50% - 20px); */
+    border-radius: 1rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 2rem;
+    height: 25vh;
+    padding: 20px;
+    margin: 10px;
+    color: white;
+    text-align: center;
+  }
+  .logo{
+    max-width: 100px;
+    width: 60px;
+    margin-bottom: 10px;
+  }
+  
+  .action__btns button {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    padding: 1rem 2rem;
+    outline: none;
+    border: 2px solid #a855f7;
+    border-radius: 10px;
+    transition: 0.3s;
+    cursor: pointer;
+    
+  }
+  
+  .login {
+    color: #a855f7;
+  }
+  
+  .login:hover {
+    background-color: #9333ea;
+    color: #ffffff;
+  }
+  
