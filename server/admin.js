@@ -4,9 +4,27 @@ const ObjectId = require('mongodb').ObjectId;
 const uri = "mongodb+srv://suyashnalawade001:mongo0104atlas@cluster0.t7roaby.mongodb.net/?retryWrites=true&w=majority"
 const client = new MongoClient(uri)
 
-async function authenticate(u,p){
+async function connect_DB(){
     try{
         await client.connect();
+    }
+    catch{
+        console.log("Error connecting database!!");
+    }
+}
+
+async function close_DB(){
+    try{
+        await client.close();
+    }
+    catch{
+        console.log("Error disconnecting database!!");
+    }
+}
+
+async function authenticate(u,p){
+    //try{
+        //await client.connect();
         const db = client.db('KITCOEK');
         const adminCollection = db.collection('admin');
         const findResult = await adminCollection.findOne({username:u,password:p});
@@ -23,15 +41,14 @@ async function authenticate(u,p){
         // for await (const doc of aggregate) {
         //     console.log(doc);
         // }
-    }
-    finally{
-        await client.close();
-    }
-        
+    //}
+    // finally{
+    //     await client.close();
+    // }
 }
 async function checkCookie(reqCookie){
-    try{
-        await client.connect();
+    //try{
+        // await client.connect();
         const db = client.db('KITCOEK');
         const adminCollection = db.collection('admin');
         let reqCookie_id = new ObjectId(reqCookie);
@@ -40,14 +57,14 @@ async function checkCookie(reqCookie){
             return true;
         }
         return false;
-    }
-    finally{
-        await client.close();
-    }
+    // }
+    // finally{
+    //     await client.close();
+    // }
 }
 async function addUser(data){
-    try{
-        await client.connect();
+    // try{
+    //     await client.connect();
         const db = client.db('KITCOEK');
         const userCredentials = db.collection('userCredentials');
         let userdata = {"name":data.name,
@@ -61,10 +78,10 @@ async function addUser(data){
                 return result.result.ok;
         });
         return insert;
-    }
-    finally{
-        client.close();
-    }
+    // }
+    // finally{
+    //     client.close();
+    // }
 }
 
 
@@ -73,4 +90,6 @@ module.exports = {
     adminAuthenticate : authenticate,
     checkCookie : checkCookie,
     addUser : addUser,
+    connect : connect_DB,
+    close : close_DB,
 }

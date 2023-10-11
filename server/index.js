@@ -14,6 +14,7 @@ app.use(express.static(viewsPath));
 app.use(express.urlencoded());
 app.use(cookieParser());
 
+admin.connect();
 
 app.get("/",(req,res)=>{
     // res.status(200).render("home.pug");
