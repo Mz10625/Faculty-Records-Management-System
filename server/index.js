@@ -3,10 +3,31 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const admin = require("./admin");
+const user = require("./user")
 
 const app = express();
 const viewsPath = path.dirname(__dirname)+"/views";
 
+const {MongoClient} = require('mongodb');
+const ObjectId = require('mongodb').ObjectId;
+const uri = "mongodb+srv://suyashnalawade001:mongo0104atlas@cluster0.t7roaby.mongodb.net/?retryWrites=true&w=majority"
+const client = new MongoClient(uri)
+async function connect_DB(){
+    try{
+        await client.connect();
+    }
+    catch{
+        console.log("Error connecting database!!");
+    }
+}
+async function close_DB(){
+    try{
+        await client.close();
+    }
+    catch{
+        console.log("Error disconnecting database!!");
+    }
+}
 
 app.set("views",viewsPath);
 app.use(express.static(viewsPath));
@@ -14,7 +35,7 @@ app.use(express.static(viewsPath));
 app.use(express.urlencoded());
 app.use(cookieParser());
 
-admin.connect();
+connect_DB();
 
 app.get("/",(req,res)=>{
     // res.status(200).render("home.pug");
@@ -28,9 +49,29 @@ app.get("/adminLogin",(req,res)=>{
 })
 app.get("/adminHome",(req,res)=>{
     // console.log((req.cookies));
-    admin.checkCookie(req.cookies.connectId).then((value)=>{
+    admin.checkCookie(client,ObjectId,req.cookies.connectId).then((value)=>{
         if(value == true){
             res.sendFile(viewsPath+"/adminHome.html");
+        }
+        else{
+            res.sendStatus(404);
+        }
+    })    
+})
+app.get("/userHome",(req,res)=>{
+    user.checkUserCookie(client,ObjectId,req.cookies.connectId).then((value)=>{
+        if(value == true){
+            res.sendFile(viewsPath+"/userHome.html");
+        }
+        else{
+            res.sendStatus(404);
+        }
+    })    
+})
+app.get("/workshop",(req,res)=>{
+    user.checkUserCookie(client,ObjectId,req.cookies.connectId).then((value)=>{
+        if(value == true){
+            res.sendFile(viewsPath+"/workshop.html");
         }
         else{
             res.sendStatus(404);
@@ -42,7 +83,7 @@ app.get("/logout",(req,res)=>{
     res.redirect("/");
 })
 app.get("/addUser",(req,res)=>{
-    admin.checkCookie(req.cookies.connectId).then((value)=>{
+    admin.checkCookie(client,ObjectId,req.cookies.connectId).then((value)=>{
         if(value == true){
             res.sendFile(viewsPath+"/addUser.html");
         }
@@ -58,11 +99,26 @@ app.get("/addUser",(req,res)=>{
 app.post("/userLogin",(req,res)=>{
     let data = req.body
     //res.status(200).render("index.pug");
-    res.redirect("/");
+    user.userAuthenticate(client,data.UserName,data.Password).then((value)=>{
+        if(value.flag == true){
+            res.cookie(`connectId`,value.connectId,
+            {
+                maxAge: 1800000,
+                secure: true,
+                httpOnly: true,
+                // sameSite: 'lax'
+            }
+            );
+            res.redirect("/userHome");
+        }
+        else{
+            res.redirect("/userLogin");
+        }
+    }) 
 })
 app.post("/adminLogin",(req,res)=>{
     let data = req.body;
-    admin.adminAuthenticate(data.UserName,data.Password).then((value)=>{
+    admin.adminAuthenticate(client,data.UserName,data.Password).then((value)=>{
         if(value.flag == true){
             res.cookie(`connectId`,value.connectId,
             {
@@ -81,7 +137,7 @@ app.post("/adminLogin",(req,res)=>{
 })
 app.post("/addUser",(req,res)=>{
     let data = req.body;
-    admin.addUser(data).then((value)=>{
+    admin.addUser(client,data).then((value)=>{
         if(value){
             res.redirect("/addUser"); 
         }
@@ -90,8 +146,17 @@ app.post("/addUser",(req,res)=>{
         }
     })
 })
-
-
+app.post("/workshop",(req,res)=>{
+    let data = req.body;
+    user.addWorkshopData(client,data,ObjectId,req.cookies.connectId).then((value)=>{
+        if(value){
+            res.redirect("/workshop"); 
+        }
+        else{
+            res.sendStatus(417);
+        }
+    })
+})
 
 
 app.listen(80,"127.0.0.1",()=>{

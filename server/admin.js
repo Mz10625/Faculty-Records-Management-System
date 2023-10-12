@@ -1,28 +1,6 @@
-const {MongoClient} = require('mongodb');
-const ObjectId = require('mongodb').ObjectId;
 
-const uri = "mongodb+srv://suyashnalawade001:mongo0104atlas@cluster0.t7roaby.mongodb.net/?retryWrites=true&w=majority"
-const client = new MongoClient(uri)
 
-async function connect_DB(){
-    try{
-        await client.connect();
-    }
-    catch{
-        console.log("Error connecting database!!");
-    }
-}
-
-async function close_DB(){
-    try{
-        await client.close();
-    }
-    catch{
-        console.log("Error disconnecting database!!");
-    }
-}
-
-async function authenticate(u,p){
+async function authenticate(client,u,p){
     //try{
         //await client.connect();
         const db = client.db('KITCOEK');
@@ -46,7 +24,7 @@ async function authenticate(u,p){
     //     await client.close();
     // }
 }
-async function checkCookie(reqCookie){
+async function checkCookie(client,ObjectId,reqCookie){
     //try{
         // await client.connect();
         const db = client.db('KITCOEK');
@@ -62,7 +40,7 @@ async function checkCookie(reqCookie){
     //     await client.close();
     // }
 }
-async function addUser(data){
+async function addUser(client,data){
     // try{
     //     await client.connect();
         const db = client.db('KITCOEK');
@@ -90,6 +68,6 @@ module.exports = {
     adminAuthenticate : authenticate,
     checkCookie : checkCookie,
     addUser : addUser,
-    connect : connect_DB,
-    close : close_DB,
+    // connect : connect_DB,
+    // close : close_DB,
 }
