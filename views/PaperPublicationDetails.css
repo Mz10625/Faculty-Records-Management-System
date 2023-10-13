@@ -9,7 +9,31 @@
 body {
   background: linear-gradient(to top,black,black);
   z-index: 1;
+}/* style the google drive link*/
+.input-box {
+  margin-bottom: 20px;
 }
+
+.input-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.input-container input[type="url"] {
+  flex: 1;
+  margin-right: 10px;
+  border: none;
+  outline: none;
+}
+
+.input-container a {
+  text-decoration: none;
+  color: #007bff;
+}
+
 .container::before{
   content: "";
   position: fixed;
