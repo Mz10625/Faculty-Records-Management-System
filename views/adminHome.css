@@ -27,22 +27,60 @@ body{
 .header .action__btns{
   margin-right: 2rem;
 } 
-.action__btns a, .action__btns button{
+.action__btns a,
+ .action__btns button{
     font-size: 1rem;
-    font-weight: 550;
-    /* letter-spacing: 1px; */
+    font-weight: 600;
+    letter-spacing: 2px;
+    padding: 1rem 2rem;
+    outline: none;
+    border: 2px solid #a855f7;
+    border-radius: 25px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    
+
+
+  }
+  .action__btns a.login,
+.action__btns button.login,
+.action__btns a.add-user,
+.action__btns button.add-user {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 2px;
     padding: 1rem 2rem;
     outline: none;
     background-color: #ffffff;
+    color: #a855f7;
     border: 2px solid #a855f7;
-    border-radius: 10px;
-    transition: 0.3s;
+    border-radius: 25px;
     cursor: pointer;
-    /* padding-inline: 20px; */
-    /* gap: 50px; */
-    /* margin: 0.5rem; */
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+  
+  
+  .action__btns a {
+    background-color: #a855f7;
+    color: white;
+}
 
-  }
+.action__btns button {
+    background-color: #ffffff;
+    color: #a855f7;
+}
+
+/* Hover effect */
+.action__btns a:hover,
+.action__btns button:hover {
+    background-color: #9333ea; /* Darker purple on hover */
+    border-color: #9333ea;
+    color: white;
+}
 
 .searchbar {
     float:right ;
