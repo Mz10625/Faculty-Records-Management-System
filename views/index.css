@@ -9,6 +9,41 @@ body{
   height: 100vh;
   z-index: 1;
 }
+/* Add these styles to your existing CSS */
+
+.action__btns a {
+  text-decoration: none;
+  color: white;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.action__btns a:hover {
+  background-color: #a855f7;
+  color: #ffffff;
+}
+
+.login {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  padding: 1rem 2rem;
+  outline: none;
+  border: 2px solid #a855f7;
+  border-radius: 10px;
+  transition: 0.3s;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  background-color: #9333ea;
+}
+
+.login:hover {
+  background-color: #a855f7;
+  border-color: #9333ea;
+  color: #ffffff;
+}
+
 
 .container::before{
   content: "";
