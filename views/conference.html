@@ -11,16 +11,16 @@
   <div class="container">
     <div class="title">Conference Details </div>
     <div class="content">
-      <form action="#">
+      <form method="post">
         <div class="user-details">
           <div class="input-box">
             <span class="details">Name of Faculty </span>
-            <input type="text" placeholder="Enter your name" required>
+            <input type="text" name="fName" placeholder="Enter your name" required>
           </div>
           <div class="input-box">
             <span class="details">Name of Department </span>
-            <select class="custom-select" name="support" id="inputGroupSelect01">
-              <option selected>Choose...</option>
+            <select class="custom-select" name="dept" id="inputGroupSelect01" required>
+              <option value="">Choose...</option>
               <option value="Computer Science and Engineering">Computer Science and Engineering</option>
               <option value="Electronics and Telecommunication Engineering">Electronics and Telecommunication Engineering</option>
               <option value="Environmental Engineering">Environmental Engineering</option>
@@ -35,8 +35,8 @@
           </div>
           <div class="input-box">
             <span class="details">Designation</span>
-            <select class="custom-select" name="support" id="inputGroupSelect01">
-              <option selected>Choose...</option>
+            <select class="custom-select" name="desig" id="inputGroupSelect01" required>
+              <option value="">Choose...</option>
               <option value="Director">Director</option>
               <option value="Professor">Professor</option>
               <option value="Assistant Professor">Assistant Professor</option>
@@ -46,122 +46,117 @@
           </div>
           
           <div class="input-box">
-            <span class="details">Author Or Co-author</span>
-              
+            <span class="details">Author Or Co-author</span>             
           
-          <select class="custom-select" id="inputGroupSelect01">
-            <option selected>Choose...</option>
-            <option value="1">Author</option>
-            <option value="2">Co-Author</option>
+          <select class="custom-select" name="authorOrCo" id="inputGroupSelect01" required>
+            <option value="">Choose...</option>
+            <option value="Author">Author</option>
+            <option value="Co-Author">Co-Author</option>
             
           </select>
           </div>
         
           <div class="input-box">
             <span class="details">Name of First Author</span>
-            <input type="text" placeholder="Enter First Author" required>
+            <input type="text" name="firstAuthor" placeholder="Enter First Author" required>
           </div>
           <div class="input-box">
             <span class="details">Name of Co-Author-1</span>
-            <input type="text" placeholder="Enter co-author-1" required>
+            <input type="text" name="coAuthor1" placeholder="Enter co-author-1" >
           </div>
           <div class="input-box">
             <span class="details">Name of Co-Author-2</span>
-            <input type="text" placeholder="Enter co-author-2" required>
+            <input type="text" name="coAuthor2" placeholder="Enter co-author-2" >
           </div>
           <div class="input-box">
             <span class="details">Name of Co-Author-3</span>
-            <input type="text" placeholder="Enter co-author-3" required>
+            <input type="text" name="coAuthor3" placeholder="Enter co-author-3" >
           </div>
           <div class="input-box">
             <span class="details">Title of Paper</span>
-            <input type="text" placeholder="Enter the title of paper" required>
+            <input type="text" name="title" placeholder="Enter the title of paper" required>
           </div>
           <div class="input-box">
             <span class="details">Name of Conference</span>
-            <input type="text" placeholder="Enter Confreence name" required>
+            <input type="text" name="confName" placeholder="Enter Confreence name" required>
           </div>
           <div class="input-box">
             <span class="details">International or National </span>
               
           
-          <select class="custom-select" id="inputGroupSelect01">
-            <option selected>Choose...</option>
-            <option value="1">International</option>
-            <option value="2">National</option>
+          <select class="custom-select" name="nationalOrInter" id="inputGroupSelect01" required>
+            <option value="">Choose...</option>
+            <option value="International">International</option>
+            <option value="National">National</option>
             
           </select>
           </div>
           <div class="input-box">
             <span class="details">Name of Organizing Institute</span>
-            <input type="text" placeholder="Enter organizing institute" required>
+            <input type="text" name="institute" placeholder="Enter organizing institute" required>
           </div>
           <div class="input-box">
-            <span class="details">Name of Conference</span>
-            <input type="text" placeholder="Enter Confreence name" required>
+            <span class="details">ISSN or e-ISSN Number</span>
+            <input type="text" name="issnNo" placeholder="ISSN or e-ISSN">
           </div>
           <div class="input-box">
-            <span class="details">Name of Volume</span>
-            <input type="text" placeholder="Enter volume" required>
+            <span class="details">Volumes</span>
+            <input type="text" name="volumes" placeholder="Enter volume">
           </div>
           <div class="input-box">
-            <span class="details">Enter page number</span>
-            <input type="text" placeholder="Enter page number" required>
+            <span class="details">Page No [From-To]</span>
+            <input type="text" name="pageNo" placeholder="Enter page number">
           </div>
           <div class="input-box">
             <span class="details">Date of Conference</span>
-            <input type="date" placeholder="Enter Date" required>
+            <input type="date" name="date" placeholder="Enter Date" required>
           </div>
           <div class="input-box">
-            <span class="details">Indexing</span>
-            <input type="text" placeholder="Enter Index" required>
+            <span class="details">Indexing (like Scopus, SCI, Web of Science, etc)</span>
+            <input type="text" name="indexing" placeholder="Enter index" >
           </div>
           <div class="input-box">
             <span class="details">Number of Citation</span>
-            <input type="text" placeholder="Enter number of citation " required>
+            <input type="text" name="citationsNo" placeholder="Enter number of citation " required>
           </div>
           
           <div class="input-box">
-            <span class="details">Any Financial Support </span>
-              
-          
-          
-          <select class="custom-select" id="inputGroupSelect01">
-            <option selected>Choose...</option>
-            <option value="1">YES</option>
-            <option value="2">NO</option>
-            
+            <span class="details">Any Financial Support </span>            
+          <select class="custom-select" name="support" id="inputGroupSelect01" required>
+            <option value="">Choose...</option>
+            <option value="YES">YES</option>
+            <option value="NO">NO</option>            
           </select>
           </div>
+
           <div class="input-box">
             <span class="details">Name of Organization who suppoted for finance</span>
-            <input type="text" placeholder="Enter name of insituite" required>
+            <input type="text" name="supportOrg" placeholder="Enter name of insituite">
           </div>
           <div class="input-box">
             <span class="details">Sponsored Amount</span>
-            <input type="text" placeholder="Enter Account  " required>
+            <input type="text" name="amount" placeholder="Enter Account ">
           </div>
           <div class="input-box">
             <span class="details">Upload Certificate (GDrive Link)</span>
             <div class="input-container">
-                
-                <a href="https://drive.google.com/open?id=1C2JDwjkHFLqW4upKiRU0DBOyYMBwSRxa" target="_blank">Google Drive Link</a>
+               <input type="url" name="link" placeholder="">
+                <!-- <a href="https://drive.google.com/open?id=1C2JDwjkHFLqW4upKiRU0DBOyYMBwSRxa" target="_blank">Google Drive Link</a> -->
             </div>
         </div>
         
           <div class="input-box">
             <span class="details">Issue</span>
-            <input type="text" placeholder="Enter any issue you have " required>
+            <input type="text" name="issue" placeholder="Issue">
           </div>
+
           <div class="input-box">
-            <span class="details">Peresented/published</span>
-              
+            <span class="details">Peresented/published</span>            
           
-          
-          <select class="custom-select" id="inputGroupSelect01">
-            <option selected>Choose...</option>
-            <option value="1">Presented</option>
-            <option value="2">Published</option>
+          <select class="custom-select" name="presentedPub" id="inputGroupSelect01" required>
+            <option value="">Choose...</option>
+            <option value="Presented">Presented</option>
+            <option value="Published">Published</option>
             
           </select>
           </div>

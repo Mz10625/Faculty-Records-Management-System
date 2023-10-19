@@ -24,7 +24,7 @@ async function checkCookie(client,ObjectId,reqCookie){
 async function addWorkshopData(client,data,ObjectId,reqCookie){
     const db = client.db('KITCOEK');
     const userCollection = db.collection('userCredentials');
-    console.log(data);
+    // console.log(data);
     let workshopData = {"facultyName":data.fName,
                         "facultyDesignation": data.desig,
                         "facultyDept":data.dept,
@@ -49,6 +49,45 @@ async function addWorkshopData(client,data,ObjectId,reqCookie){
     }
     return false;
 }
+async function addConferenceData(client,data,ObjectId,reqCookie){
+    const db = client.db('KITCOEK');
+    const userCollection = db.collection('userCredentials');
+    console.log(data);
+    let conferenceData = {"facultyName":data.fName,
+                        "facultyDesignation": data.desig,
+                        "facultyDept":data.dept,
+                        "authorCoAuthor":data.authorOrCo,
+                        "firstAuthor":data.firstAuthor,
+                        "coAuthor1":data.coAuthor1,
+                        "coAuthor2":data.coAuthor2,
+                        "coAuthor3":data.coAuthor3,
+                        "title":data.title,
+                        "conferenceName":data.confName,
+                        "nationalOrInternational":data.nationalOrInter,
+                        "organizingInstitute":data.institute,
+                        "issnNo":data.issnNo,
+                        "volumes":data.volumes,
+                        "pageNo":data.pageNo,
+                        "date":data.date,
+                        "indexing":data.indexing,
+                        "citationsNo":data.citationsNo,
+                        "financialSupport":data.support,
+                        "issue":data.issue,
+                        "link":data.link,
+                        "presentedPublished":data.presentedPub,
+                        "financeSupportOrganisation":data.supportOrg,
+                        "amount":data.amount,                        
+    }
+    let reqCookie_id = new ObjectId(reqCookie);
+    const updateResult = await userCollection.updateOne(
+        {_id : reqCookie_id},
+        {$set :{conference : conferenceData}}
+    );
+    if(updateResult != null){
+        return true;
+    }
+    return false;
+}
 
 
 
@@ -56,4 +95,5 @@ module.exports = {
     userAuthenticate : authenticate,
     checkUserCookie : checkCookie,
     addWorkshopData : addWorkshopData,
+    addConferenceData : addConferenceData,
 }
