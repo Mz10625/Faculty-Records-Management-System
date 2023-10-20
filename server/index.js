@@ -78,6 +78,16 @@ app.get("/workshop",(req,res)=>{
         }
     })    
 })
+app.get("/conference",(req,res)=>{
+    user.checkUserCookie(client,ObjectId,req.cookies.connectId).then((value)=>{
+        if(value == true){
+            res.sendFile(viewsPath+"/conference.html");
+        }
+        else{
+            res.sendStatus(404);
+        }
+    })    
+})
 app.get("/logout",(req,res)=>{
     res.clearCookie("connectId");
     res.redirect("/");
@@ -85,6 +95,7 @@ app.get("/logout",(req,res)=>{
 app.get("/addUser",(req,res)=>{
     admin.checkCookie(client,ObjectId,req.cookies.connectId).then((value)=>{
         if(value == true){
+            
             res.sendFile(viewsPath+"/addUser.html");
         }
         else{
@@ -92,7 +103,14 @@ app.get("/addUser",(req,res)=>{
         }
     }) 
 })
-
+app.get("/download",(req,res)=>{
+    admin.download(client).then((value)=>{
+        if(value){
+            console.log(value);
+            res.render(viewsPath+"/Download.pug");
+        }
+    })
+})
 
 
 
@@ -151,6 +169,18 @@ app.post("/workshop",(req,res)=>{
     user.addWorkshopData(client,data,ObjectId,req.cookies.connectId).then((value)=>{
         if(value){
             res.redirect("/workshop"); 
+        }
+        else{
+            res.sendStatus(417);
+        }
+    })
+})
+app.post("/conference",(req,res)=>{
+    let data = req.body;
+    console.log(data);
+    user.addConferenceData(client,data,ObjectId,req.cookies.connectId).then((value)=>{
+        if(value){
+            res.redirect("/conference"); 
         }
         else{
             res.sendStatus(417);

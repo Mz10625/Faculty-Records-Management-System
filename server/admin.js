@@ -1,3 +1,4 @@
+const user = require("./user");
 
 
 async function authenticate(client,u,p){
@@ -62,12 +63,18 @@ async function addUser(client,data){
     // }
 }
 
-
+async function download(client){
+    const db = client.db('KITCOEK');
+    const userCredentials = db.collection('userCredentials');
+    let userdata = await userCredentials.find()
+    return userdata;
+}
 
 module.exports = {
     adminAuthenticate : authenticate,
     checkCookie : checkCookie,
     addUser : addUser,
+    download : download,
     // connect : connect_DB,
     // close : close_DB,
 }
