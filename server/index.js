@@ -105,9 +105,15 @@ app.get("/addUser",(req,res)=>{
 })
 app.get("/download",(req,res)=>{
     admin.download(client).then((value)=>{
+        // for (each value.userdata) {
+        //     console.log(x);
+        // }
+        // console.log();
         if(value){
-            console.log(value);
-            res.render(viewsPath+"/Download.pug");
+            res.render(viewsPath+"/Download.pug",{userdata:value.userdata,length:value.userdata.length});
+        }
+        else{
+            res.sendStatus(404);
         }
     })
 })

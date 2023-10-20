@@ -6,6 +6,7 @@ head
   link(rel='stylesheet' href='Download.css')
   link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
   
+
 .container0
   #clg_logo
     img(src='images/logo1.png' alt='logo')
@@ -26,13 +27,20 @@ head
   table#table 
     tr 
       th Name
+      th E-mail
       th Department
       th Contact Number
-    tr 
-      td Mz10
-      td Mz10
-      td Mz10
-    tr 
-      td Mz10
-      td Mz10
-      td Mz10
+     
+      each x in userdata 
+        tr
+          td= x.username
+          td= x.email
+          td= x.dept
+          td= x.phone
+       
+    
+     
+    //- tr 
+    //-   td Mz10
+    //-   td Mz10
+    //-   td Mz10

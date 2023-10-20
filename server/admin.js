@@ -66,8 +66,13 @@ async function addUser(client,data){
 async function download(client){
     const db = client.db('KITCOEK');
     const userCredentials = db.collection('userCredentials');
-    let userdata = await userCredentials.find()
-    return userdata;
+    let doc = await userCredentials.find()
+    let list = []
+    for await(const x of doc) {        
+        list.push(x);
+    }
+    // console.log(userdata[1])
+    return {value:true,userdata:list,};
 }
 
 module.exports = {
