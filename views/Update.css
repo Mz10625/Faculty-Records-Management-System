@@ -274,5 +274,38 @@
       flex-direction: column;
     }
   }
-  
+  .searchbar {
+    margin-right: 2rem;
+    display: flex;
+    align-items: center;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+.search-form input[type="text"] {
+    height: 100%;
+    padding: 0.5rem;
+    border: none;
+    outline: none;
+}
+
+.search-form button {
+    background-color: #a855f7;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.search-form button:hover {
+    background-color: #9333ea;
+}
+
   
