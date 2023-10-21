@@ -31,7 +31,7 @@ async function close_DB(){
 
 app.set("views",viewsPath);
 app.use(express.static(viewsPath));
-// app.use(express.json())      Data cannot be parsed in json form as it is urlencoded
+app.use(express.json())//      Data cannot be parsed in json form as it is urlencoded
 app.use(express.urlencoded());
 app.use(cookieParser());
 
@@ -110,7 +110,7 @@ app.get("/download",(req,res)=>{
         // }
         // console.log();
         if(value){
-            res.render(viewsPath+"/Download.pug",{userdata:value.userdata,length:value.userdata.length});
+            res.render(viewsPath+"/Download.pug",{userdata:value.userdata});
         }
         else{
             res.sendStatus(404);
@@ -193,7 +193,10 @@ app.post("/conference",(req,res)=>{
         }
     })
 })
-
+app.post("/download",(req,res)=>{
+    let contact = req.body.contact;
+    
+})
 
 app.listen(80,"127.0.0.1",()=>{
     console.log("listening...")

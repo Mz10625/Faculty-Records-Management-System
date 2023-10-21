@@ -5,7 +5,7 @@ head
   title Remove User
   link(rel='stylesheet' href='Download.css')
   link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
-  
+  script(src='download.js')
 
 .container0
   #clg_logo
@@ -30,6 +30,7 @@ head
       th E-mail
       th Department
       th Contact Number
+      th Download
      
       each x in userdata 
         tr
@@ -37,10 +38,6 @@ head
           td= x.email
           td= x.dept
           td= x.phone
-       
-    
-     
-    //- tr 
-    //-   td Mz10
-    //-   td Mz10
-    //-   td Mz10
+          td
+            button(onclick=`sendData('${x}')`) Download
+          
