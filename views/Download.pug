@@ -39,5 +39,5 @@ head
           td= x.dept
           td= x.phone
           td
-            button(onclick=`sendData('${x}')`) Download
+            button(onclick=`sendData('${JSON.stringify(x)}')`) Download
           

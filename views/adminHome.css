@@ -4,31 +4,65 @@
 }
 
 body{
-    background-image: url('images/bg2.jpeg');
+    /* background-image: url('images/bg2.jpeg'); */
+    
     width: 100vw;
     height: 100%;
 }
-.header{
-    background:grey;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    /* padding: 0px 20px; */
-    margin-top: 0;
-    height: 18vh;
+.container::before{
+  content: "";
+  background-image: url(images/doc3.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 50%;
 }
-.logo1{
+.container {
+  display: flex;
+  width: 100vw;
+  height: 20%;
+  background-color: rgba(0, 0, 0, 0.6);
+  /* justify-content: center; */
+}
+.container #clg_logo{
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  width:18%;
+  height: 100%;
+}
+.container #clg_logo img{
+  width:100%;
+  margin-left: 2.5rem;
+}
+/* .logo1{
     display: inline-block;
     margin: 10px;
 }
 .logo1 img{
     height: 70px;
+} */
+.first-rectangle h2{
+  padding: 0.1rem;
+  margin-left: 3rem;
+}
+.first-rectangle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%; 
+  color: white;
 }
 .header .action__btns{
   margin-right: 2rem;
 } 
 .action__btns a,
  .action__btns button{
+  margin-right: 1rem;
     font-size: 1rem;
     font-weight: 600;
     letter-spacing: 2px;
@@ -82,7 +116,7 @@ body{
     color: white;
 }
 
-.searchbar {
+/* .searchbar {
     float:right ;
     display: flex;
     display:inline-block;
@@ -96,19 +130,20 @@ body{
 .icon{
     float: left;
     padding: 5px;
-}
+} */
 /* .searchbar input[type="text"]
 {
     width: 250px;
     border-radius: 25px;
     height: 25px;
 
-} */
+} 
 .wlc{
     text-align: center;
     font-size: 40px;
     font-family:Arial, Helvetica, sans-serif;
 }
+*/
 
 
 .second-container {

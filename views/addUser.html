@@ -9,58 +9,81 @@
 <body>
 
     <!--header-->
-    <div class="header">
-        <div class="logo">
-            <img src="images/logo1.png" alt="logo">
-        </div>
-        <form action="Admin_home.html">
-            <div class="action__btns">
-          
-                <a class="login" href="adminHome">Home</a>
-          
-            </div>
-        </form>
+    <div class="container0">
+      <div id="clg_logo">
+        <img src="images/logo1.png" alt="logo">
+      </div>
+      <div class="first-rectangle">
+        <h2 style="color: orange;">Kolhapur Institute of Technology's</h2>
+        <h2>College of Engineering (Autonomous) Kolhapur</h2>
+      </div>
+      
+      <div class="action__btns">
+        <br><br>
         
-
+        <a class="login" href="adminHome.html">Home</a>
+      </div> 
     </div>
     
     <!--form-->
-    <div class="container"  >
-        <form action="/addUser" method="post">
-            <div class="form-row">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" placeholder="Enter Name.." class="input-field"  required>
-      
-                <label for="dept">Department</label>
-                <input type="text" id="dept" name="dept" placeholder="Enter Department name.." class="input-field"  required>
+    <div class="container">
+      <div class="title">Add User Details</div>
+      <div class="content">
+  
+        <form action="addUser" method="post">
+          <div class="user-details">
+            <div class="input-box">
+              <span class="details">Name of Faculty </span>
+              <input type="text" name="fname" placeholder="Enter your name" required>
             </div>
-
-            <div class="form-row">
-                <label for="email">email</label>
-                <input type="text" id="email" name="email" placeholder="Enter Email.." class="input-field"  required>
-      
-                <label for="ph no.">Ph_Number</label>
-                <input type="text" id="ph no." name="phone" placeholder="Enter Phone Number.." class="input-field" pattern="[789][0-9]{9}"
-                 title="It should start with 7,8 or 9 and must be 10 digits" required>
+            <div class="input-box">
+              <span class="details">Name of Department </span>
+              <select class="custom-select" name="dept" id="inputGroupSelect01" required>
+                <option value="">Choose...</option>
+                <option value="Computer Science and Engineering">Computer Science and Engineering</option>
+                <option value="Electronics and Telecommunication Engineering">Electronics and Telecommunication Engineering</option>
+                <option value="Environmental Engineering">Environmental Engineering</option>
+                <option value="Mechanical Engineering">Mechanical Engineering</option>
+                <option value="Basic Science and Humanities">Basic Science and Humanities</option>
+                <option value="Biotechnology Engineering">Biotechnology Engineering</option>
+                <option value="Electrical Engineering">Electrical Engineering</option>
+                <option value="Civil Engineering">Civil Engineering</option>
+                <option value="Electronics Engineering">Electronics Engineering</option>
+                <option value="Library">Library</option>
+              </select>
+              
             </div>
-
-          <label for="uname">Set UserName</label>
-          <input type="text" id="uname" name="username" placeholder="Set Your UserName.." class="input-field"  required>
-      
-          <label for="pass">Set Password</label>
-          <input type="text" id="pass" name="password" placeholder="Set Your Password.." class="input-field"  required>
+            
           
-
-            <br>
-            <br>
-
-          <div class="action__btns">
-          
-            <button class="login">Submit</button>
-      
+            <div class="input-box">
+              <span class="details">Email </span>
+              <input type="text" name="email" placeholder="Enter Email.." required>
+            </div>
+            <div class="input-box">
+              <span class="details">Mobile Number</span>
+              <input type="text" name="phone" placeholder="Enter Mobile Number" required>
+            </div>
+            <div class="input-box">
+              <span class="details">User Name</span>
+              <input type="text" name="username" placeholder="Enter User Name" required>
+            </div>
+            <div class="input-box">
+              <span class="details">Password</span>
+              <input type="text" name="password" placeholder="Enter Password" required>
+            </div>    
+  <!--           
+            <div class="input-box">
+              <span class="details">Upload Certificate</span>
+              <input type="file" accept=".pdf,.doc,.docx" required>
+            </div>
+             -->             
           </div>
+         
+          <div class="action__btns" align="center">
+            <button class="login">Submit</button>
+          </div> 
         </form>
       </div>
-  
+    </div>
 </body>
 </html>

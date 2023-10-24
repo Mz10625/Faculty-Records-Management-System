@@ -46,13 +46,14 @@ async function addUser(client,data){
     //     await client.connect();
         const db = client.db('KITCOEK');
         const userCredentials = db.collection('userCredentials');
-        let userdata = {"name":data.name,
+        let userdata = {"name":data.fname,
                         "email":data.email,
                         "dept":data.dept,
                         "phone":data.phone,
                         "username":data.username,
                         "password":data.password,
         }
+        console.log(userdata);
         const insert = await userCredentials.insertOne(userdata,(error,result)=>{
                 return result.result.ok;
         });

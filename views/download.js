@@ -7,6 +7,5 @@ function sendData(x){
     //     },
     //     body: JSON.stringify({ contact: contact }),
     // })
-    console.log(x);
-   
+    data = JSON.parse(x);
 }
