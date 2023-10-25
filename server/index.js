@@ -117,6 +117,28 @@ app.get("/download",(req,res)=>{
         }
     })
 })
+app.get("/updateList",(req,res)=>{
+    admin.download(client).then((value)=>{
+        if(value){
+            res.render(viewsPath+"/updateList.pug",{userdata:value.userdata});
+        }
+        else{
+            res.sendStatus(404);
+        }
+    })
+})
+// app.get("/update",(req,res)=>{
+//     admin.checkCookie(client,ObjectId,req.cookies.connectId).then((value)=>{
+//         if(value == true){        
+//             console.log("T");   
+//             // res.sendFile(viewsPath+"/addUser.html");
+//             res.render(viewsPath+"/Remove.pug");
+//         }
+//         else{  
+//             res.sendStatus(404);
+//         }
+//     }) 
+// })
 
 
 
@@ -197,7 +219,23 @@ app.post("/download",(req,res)=>{
     let contact = req.body.contact;
     
 })
-
+app.post("/updateList",(req,res)=>{
+    let data = req.body;
+    admin.getDataToUpdate(client,data.contact).then((value)=>{
+        if(value){
+            // console.log(value.userdata);
+            res.render(viewsPath+"/update.pug",{data:value.userdata}); 
+        }
+        else{
+            res.sendStatus(417);
+        }
+    })
+    
+})
+app.post("/updateUserData",(req,res)=>{
+    let data = req.body;
+    console.log(data);
+})
 app.listen(80,"127.0.0.1",()=>{
     console.log("listening...")
 })

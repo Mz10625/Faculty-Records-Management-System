@@ -5,7 +5,7 @@
 
 body{
     /* background-image: url('images/bg2.jpeg'); */
-    
+    background-color: black;
     width: 100vw;
     height: 100%;
 }
@@ -16,17 +16,18 @@ body{
   background-size: cover;
   background-position: center;
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   z-index: -1;
   opacity: 50%;
 }
 .container {
   display: flex;
   width: 100vw;
-  height: 20%;
-  background-color: rgba(0, 0, 0, 0.6);
+  height: 18vh;
+  background-color: rgba(0, 0, 0, 0.753);
   /* justify-content: center; */
+  /* align-items: center; */
 }
 .container #clg_logo{
   display: flex;
@@ -57,40 +58,42 @@ body{
   width: 100%; 
   color: white;
 }
-.header .action__btns{
-  margin-right: 2rem;
+.container .action__btns{
+  width: 16rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 } 
 .action__btns a,
  .action__btns button{
-  margin-right: 1rem;
+  /* margin-right: 1rem; */
     font-size: 1rem;
     font-weight: 600;
     letter-spacing: 2px;
     padding: 1rem 2rem;
     outline: none;
     border: 2px solid #a855f7;
-    border-radius: 25px;
+    /* border-radius: 20px; */
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
     transition: all 0.3s ease;
-    
-
 
   }
-  .action__btns a.login,
+
+.action__btns a.login,
 .action__btns button.login,
 .action__btns a.add-user,
 .action__btns button.add-user {
     font-size: 1rem;
     font-weight: 600;
     letter-spacing: 2px;
-    padding: 1rem 2rem;
+    /* padding: 1rem 2rem; */
     outline: none;
     background-color: #ffffff;
     color: #a855f7;
     border: 2px solid #a855f7;
-    border-radius: 25px;
+    border-radius: 18px;
     cursor: pointer;
     transition: all 0.3s ease;
     text-decoration: none;
@@ -151,15 +154,15 @@ body{
     display: flex;
     justify-content: space-between;
     padding: 0 130px; /* Equal space from left and right */
-    margin-top: 5%;
+    margin-top: 2%;
    
   }
 
   .box {
     flex: 1;
     max-width: calc(50% - 20px);
-    background-color: rgba(0, 0, 0, 0.5);
-    
+    background-color:rgba(0, 0, 0, 0.562);
+    border-radius: 1rem;
     padding: 20px;
     margin: 10px;
     color: white;
@@ -180,7 +183,7 @@ body{
   .logo{
     max-width: 100px;
     margin-bottom: 10px;
-    border-radius: 20px;
+    border-radius: 100px;
     height: 4.5rem;
   }
   

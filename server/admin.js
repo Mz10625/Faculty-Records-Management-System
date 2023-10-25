@@ -75,12 +75,19 @@ async function download(client){
     // console.log(userdata[1])
     return {value:true,userdata:list,};
 }
+async function getDataToUpdate(client,contact){
+    const db = client.db('KITCOEK');
+    const userCredentials = db.collection('userCredentials');
+    let data = await userCredentials.findOne({phone : contact});
+    return {value:true,userdata:data,};
+}
 
 module.exports = {
     adminAuthenticate : authenticate,
     checkCookie : checkCookie,
     addUser : addUser,
     download : download,
+    getDataToUpdate :getDataToUpdate ,
     // connect : connect_DB,
     // close : close_DB,
 }

@@ -77,7 +77,7 @@ body {
 }
 .container0::before{
   content: "";
-   background-image: url(images/doc3.jpg); 
+   /* background-image: url(images/doc3.jpg);  */
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
