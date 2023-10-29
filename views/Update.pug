@@ -21,10 +21,10 @@ head
       .user-details
         .input-box
           span.details Name of Faculty 
-          input(type='text' name='fName' value= data.name required='')
+          input(type='text' name='name' value= data.name required='')
         .input-box
           span.details Name of Department 
-          select#inputGroupSelect01.custom-select(name='support')
+          select#inputGroupSelect01.custom-select(name='dept')
             option(selected=data.dept)  #{data.dept}
             option(value='Computer Science and Engineering') Computer Science and Engineering
             option(value='Electronics and Telecommunication Engineering') Electronics and Telecommunication Engineering
@@ -38,15 +38,16 @@ head
             option(value='Library') Library
         .input-box
           span.details Email 
-          input(type='text' name='Email' value=data.email required='')
+          input(type='text' name='email' value=data.email required='')
         .input-box
           span.details Mobile Number
-          input(type='text' name='Mobile Number' value=data.phone required='')
+          input(type='text' name='phone' value=data.phone required='')
         .input-box
           span.details User Name
-          input(type='text' name='User Name' value=data.username required='')
+          input(type='text' name='username' value=data.username required='')
         .input-box
           span.details Password
-          input(type='text' name='Password' value=data.password required='')
+          input(type='text' name='password' value=data.password required='')
+          input(type="hidden" name="_id" value=data._id)
       .action__btns(align='center')
         button(type="submit") Submit 
