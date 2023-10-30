@@ -41,5 +41,9 @@ head
           td= x.dept
           td= x.phone
           td
-            button(onclick=`sendData('${JSON.stringify(x)}')`) Download
-          
+            //- button(onclick=`sendData('${JSON.stringify(x)}')`) Download
+            //- form(action="/download" method="post")
+            //-   input(type="hidden" name="jsonData" id="jsonDataField")
+            //-   button(type="submit" onclick=`jsonD('${JSON.stringify(x)}')`) Submit
+            button(onclick=`jsonD('${JSON.stringify(x)}')`) click
+            a(id="getAnchor" href="/downloadFile") d

@@ -33,7 +33,7 @@ async function close_DB(){
 app.set("views",viewsPath);
 app.use(express.static(viewsPath));
 app.use(express.json())//      Data cannot be parsed in json form as it is urlencoded
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 connect_DB();
@@ -131,13 +131,19 @@ app.get("/updateList",(req,res)=>{
 app.get("/downloadFile",(req,res)=>{
     console.log("Getting file...")
     // const stat = fs.statSync(__dirname+"/firstExcel.xlsx");
-    const stat = fs.statSync("E:/Projects/Mini Project - II/controllers/firstExcel.xlsx");
-    const fileSize = stat.size;
-    res.setHeader('Content-Type', 'application/vnd.openxmlformats');
-    res.setHeader('Content-Length', 7000);
-    res.setHeader('Content-Disposition', 'attachment; filename=firstExcel.xlsx');
-    res.sendFile('firstExcel.xlsx', { root: __dirname });
-    // res.download('./firstExcel.xlsx');
+    // const stat = fs.statSync("E:/Projects/Mini Project - II/controllers/firstExcel.xlsx");
+    // const fileSize = stat.size;
+    // res.setHeader('Content-Type', 'application/vnd.openxmlformats');
+    // res.setHeader('Content-Length', 7000);
+    // res.setHeader('Content-Disposition', 'attachment; filename=firstExcel.xlsx');
+    // res.sendFile('firstExcel.xlsx', { root: __dirname });
+    res.download(__dirname+"/firstExcel.xlsx", 'downloaded-file.xlsx', (err) => {
+        if (err) {
+          // Handle any errors that occur during the download
+          console.error(err);
+          res.status(500).send('Error downloading the file.');
+        }
+    });
 })
 // app.get("/update",(req,res)=>{
 //     admin.checkCookie(client,ObjectId,req.cookies.connectId).then((value)=>{
@@ -253,9 +259,19 @@ app.post("/updateUserData",(req,res)=>{
 
 app.post("/download",(req,res)=>{
     let data= req.body;
-    admin.createExcelFile(data).then((value)=>{
-        console.log(__dirname)
+    // let parsedData = JSON.parse(data.jsonData);
+    // console.log(typeof(parsedData));
+    admin.createExcelFile(JSON.parse(data.jsonData)).then((value)=>{
+        res.redirect("/downloadFile");
+        // console.log(__dirname)
         // res.sendFile(__dirname+"/firstExcel.xlsx");
+        // res.download(__dirname+"/firstExcel.xlsx", 'downloaded-file.xlsx', (err) => {
+        //     if (err) {
+        //       // Handle any errors that occur during the download
+        //       console.error(err);
+        //       res.status(500).send('Error downloading the file.');
+        //     }
+        // });
     })
 })
 

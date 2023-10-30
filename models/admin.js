@@ -108,7 +108,7 @@ async function updateUserData(client,ObjectId,updatedData){
 
 async function createExcelFile(data){
     let workshopdata = data.workshop;
-    // console.log(workshopData);
+    // console.log(workshopdata);
     
     const wb = new Excel.Workbook();
     const ws = wb.addWorksheet('My Sheet');

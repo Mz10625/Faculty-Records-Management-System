@@ -56,3 +56,11 @@ function sendData(x){
         });
     }*/
 }
+
+function jsonD(x){
+  // const jsonDataField = document.getElementById("jsonDataField");
+  // jsonDataField.value = x;
+  anchor = document.getElementById("getAnchor");
+  // anchor.preventDefault();
+  anchor.click()
+}
