@@ -32,9 +32,9 @@ async function checkCookie(client,ObjectId,reqCookie){
         const adminCollection = db.collection('admin');
         let reqCookie_id = new ObjectId(reqCookie);
         const findResult = await adminCollection.findOne({_id : reqCookie_id});
-        if(findResult != null){
+        // if(findResult != null){
             return true;
-        }
+        // }
         return false;
     // }
     // finally{
@@ -106,9 +106,7 @@ async function updateUserData(client,ObjectId,updatedData){
     return {value:false,userdata:null}
 }
 
-async function createExcelFile(data){
-    let workshopdata = data.workshop;
-    // console.log(workshopdata);
+async function createWorkshopExcelFile(data){
     
     const wb = new Excel.Workbook();
     const ws = wb.addWorksheet('My Sheet');
@@ -129,6 +127,9 @@ async function createExcelFile(data){
         { header: 'Financial support amount', key: 'amount', width: 20 },
     ]
     ws.columns = headers; 
+
+    
+    let workshopdata = data.workshop;
     ws.addRow([workshopdata.facultyName,workshopdata.facultyDesignation,workshopdata.facultyDept,
         workshopdata.workshopName,workshopdata.orgInstitute,workshopdata.venue,workshopdata.nature,
         workshopdata.duration,workshopdata.startDate,workshopdata.endDate,workshopdata.financialSupport,
@@ -142,16 +143,25 @@ async function createExcelFile(data){
     //         console.log(cell.value);
     //     });
     // }
-    wb.xlsx
-            .writeFile('firstExcel.xlsx')
-            .then(() => {
-                return true;
-            })
+    wb.xlsx.writeFile(data.phone+'.xlsx')
+            // .then(() => {
+            //     return true;
+            // })
             .catch(err => {
                 console.log(err.message);
             });
-    return false
 }
+
+
+
+
+
+const path = require("path");
+const viewsPath = path.dirname(__dirname)+"/views";
+function getAdminLogin(req,res){
+    res.sendFile(viewsPath+"/adminLogin.html");
+}
+
 
 module.exports = {
     adminAuthenticate : authenticate,
@@ -160,7 +170,7 @@ module.exports = {
     download : download,
     getDataToUpdate :getDataToUpdate ,
     updateUserData : updateUserData,
-    createExcelFile : createExcelFile,
-    // connect : connect_DB,
-    // close : close_DB,
+    createWorkshopExcelFile : createWorkshopExcelFile,
+    getAdminLogin : getAdminLogin,
+
 }

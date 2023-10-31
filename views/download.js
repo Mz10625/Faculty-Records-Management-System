@@ -58,9 +58,17 @@ function sendData(x){
 }
 
 function jsonD(x){
-  // const jsonDataField = document.getElementById("jsonDataField");
-  // jsonDataField.value = x;
+  const jsonDataField = document.getElementById("jsonDataField");
+  jsonDataField.value = x;
   anchor = document.getElementById("getAnchor");
-  // anchor.preventDefault();
-  anchor.click()
+  // form = document.getElementById("form");
+  // form.submit()
+  clickAnchor(anchor);
+}
+async function clickAnchor(anchor){
+  console.log("start")
+  await new Promise(()=>{
+    setTimeout(()=>{ anchor.click() }, 1000);
+  });
+  // console.log("end") not executed
 }

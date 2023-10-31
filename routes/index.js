@@ -3,14 +3,15 @@ const express = require("express");
 const path = require("path");
 const fs = require('fs');
 const cookieParser = require("cookie-parser");
-const admin = require("../models/admin");
-const user = require("../models/user")
+const admin = require("../controllers/admin");
+const user = require("../controllers/user")
 
 const app = express();
 const viewsPath = path.dirname(__dirname)+"/views";
 
 const {MongoClient} = require('mongodb');
 const ObjectId = require('mongodb').ObjectId;
+const { validateHeaderName } = require("http");
 const uri = "mongodb+srv://suyashnalawade001:mongo0104atlas@cluster0.t7roaby.mongodb.net/?retryWrites=true&w=majority"
 const client = new MongoClient(uri)
 async function connect_DB(){
@@ -45,11 +46,9 @@ app.get("/",(req,res)=>{
 app.get("/userLogin",(req,res)=>{
     res.sendFile(viewsPath+"/userLogin.html");
 })
-app.get("/adminLogin",(req,res)=>{
-    res.sendFile(viewsPath+"/adminLogin.html");
-})
+app.get("/adminLogin",admin.getAdminLogin)
+
 app.get("/adminHome",(req,res)=>{
-    // console.log((req.cookies));
     admin.checkCookie(client,ObjectId,req.cookies.connectId).then((value)=>{
         if(value == true){
             res.sendFile(viewsPath+"/adminHome.html");
@@ -57,8 +56,9 @@ app.get("/adminHome",(req,res)=>{
         else{
             res.sendStatus(404);
         }
-    })    
+    })  
 })
+
 app.get("/userHome",(req,res)=>{
     user.checkUserCookie(client,ObjectId,req.cookies.connectId).then((value)=>{
         if(value == true){
@@ -128,22 +128,27 @@ app.get("/updateList",(req,res)=>{
         }
     })
 })
-app.get("/downloadFile",(req,res)=>{
-    console.log("Getting file...")
-    // const stat = fs.statSync(__dirname+"/firstExcel.xlsx");
-    // const stat = fs.statSync("E:/Projects/Mini Project - II/controllers/firstExcel.xlsx");
-    // const fileSize = stat.size;
-    // res.setHeader('Content-Type', 'application/vnd.openxmlformats');
-    // res.setHeader('Content-Length', 7000);
-    // res.setHeader('Content-Disposition', 'attachment; filename=firstExcel.xlsx');
-    // res.sendFile('firstExcel.xlsx', { root: __dirname });
-    res.download(__dirname+"/firstExcel.xlsx", 'downloaded-file.xlsx', (err) => {
+app.get("/downloadFile/:contact/:name",(req,res)=>{
+    const contact = req.params.contact;
+    const name = req.params.name;
+    res.download(__dirname+"/"+contact+".xlsx", name+'.xlsx', (err) => {
         if (err) {
-          // Handle any errors that occur during the download
           console.error(err);
           res.status(500).send('Error downloading the file.');
         }
     });
+})
+app.get("/downloadAllRecords",(req,res)=>{
+    async function processRequest(){
+        let userData = await admin.download(client)
+        await admin.createWorkshopExcelFile(userData);
+        res.download(__dirname+"/Records.xlsx", (err) => {
+            if (err) {
+            console.error(err);
+            res.status(500).send('Error downloading the file.');
+            }
+        });
+    }
 })
 // app.get("/update",(req,res)=>{
 //     admin.checkCookie(client,ObjectId,req.cookies.connectId).then((value)=>{
@@ -261,18 +266,7 @@ app.post("/download",(req,res)=>{
     let data= req.body;
     // let parsedData = JSON.parse(data.jsonData);
     // console.log(typeof(parsedData));
-    admin.createExcelFile(JSON.parse(data.jsonData)).then((value)=>{
-        res.redirect("/downloadFile");
-        // console.log(__dirname)
-        // res.sendFile(__dirname+"/firstExcel.xlsx");
-        // res.download(__dirname+"/firstExcel.xlsx", 'downloaded-file.xlsx', (err) => {
-        //     if (err) {
-        //       // Handle any errors that occur during the download
-        //       console.error(err);
-        //       res.status(500).send('Error downloading the file.');
-        //     }
-        // });
-    })
+    admin.createExcelFile(JSON.parse(data.jsonData));
 })
 
 

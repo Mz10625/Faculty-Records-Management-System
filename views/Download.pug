@@ -24,7 +24,7 @@ head
   .action__btns
     br
     br
-    a.login(href='#') Download
+    a.login(href='/downloadAllRecords') Download
 #tableDiv
   table#table 
     tr 
@@ -41,9 +41,8 @@ head
           td= x.dept
           td= x.phone
           td
-            //- button(onclick=`sendData('${JSON.stringify(x)}')`) Download
-            //- form(action="/download" method="post")
-            //-   input(type="hidden" name="jsonData" id="jsonDataField")
-            //-   button(type="submit" onclick=`jsonD('${JSON.stringify(x)}')`) Submit
-            button(onclick=`jsonD('${JSON.stringify(x)}')`) click
-            a(id="getAnchor" href="/downloadFile") d
+            form(id="form" action="/download" method="post")
+              input(type="hidden" name="jsonData" id="jsonDataField")
+              button(type="submit" onclick=`jsonD('${JSON.stringify(x)}')`) Submit
+            //- button(onclick=`jsonD('${JSON.stringify(x)}')`) click
+            a(id="getAnchor" href="/downloadFile/"+x.phone+"/"+x.name) 
