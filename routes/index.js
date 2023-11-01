@@ -131,7 +131,7 @@ app.get("/updateList",(req,res)=>{
 app.get("/downloadFile/:contact/:name",(req,res)=>{
     const contact = req.params.contact;
     const name = req.params.name;
-    res.download(__dirname+"/"+contact+".xlsx", name+'.xlsx', (err) => {
+    res.download(__dirname+"/"+contact+"Workshop.xlsx",contact+'Workshop.xlsx', (err) => {
         if (err) {
           console.error(err);
           res.status(500).send('Error downloading the file.');
@@ -263,10 +263,12 @@ app.post("/updateUserData",(req,res)=>{
 })
 
 app.post("/download",(req,res)=>{
-    let data= req.body;
+    let data=JSON.parse(req.body.jsonData);
+    let dataToList = [data];
+    // dataToList.push(data)
     // let parsedData = JSON.parse(data.jsonData);
     // console.log(typeof(parsedData));
-    admin.createExcelFile(JSON.parse(data.jsonData));
+    admin.createExcelFile(dataToList);
 })
 
 

@@ -71,10 +71,10 @@ async function addConferenceData(client,data,ObjectId,reqCookie){
                         "date":data.date,
                         "indexing":data.indexing,
                         "citationsNo":data.citationsNo,
-                        "financialSupport":data.support,
                         "issue":data.issue,
                         "link":data.link,
                         "presentedPublished":data.presentedPub,
+                        "financialSupport":data.support,
                         "financeSupportOrganisation":data.supportOrg,
                         "amount":data.amount,                        
     }

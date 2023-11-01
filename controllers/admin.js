@@ -106,11 +106,10 @@ async function updateUserData(client,ObjectId,updatedData){
     return {value:false,userdata:null}
 }
 
-async function createWorkshopExcelFile(data){
+async function createExcelFile(data){
     
-    const wb = new Excel.Workbook();
-    const ws = wb.addWorksheet('My Sheet');
-
+    const workshopWb = new Excel.Workbook();
+    const workshopWs = workshopWb.addWorksheet('Workshop Sheet');
     const headers = [
         { header: 'Faculty name', key: 'facultyName', width: 20 },
         { header: 'Faculty Designation', key: 'facultyDesignation', width: 20 },
@@ -126,24 +125,62 @@ async function createWorkshopExcelFile(data){
         { header: 'Financial support Organisation', key: 'financeSupportOrganisation', width: 20 },
         { header: 'Financial support amount', key: 'amount', width: 20 },
     ]
-    ws.columns = headers; 
+    workshopWs.columns = headers; 
 
-    
-    let workshopdata = data.workshop;
-    ws.addRow([workshopdata.facultyName,workshopdata.facultyDesignation,workshopdata.facultyDept,
-        workshopdata.workshopName,workshopdata.orgInstitute,workshopdata.venue,workshopdata.nature,
-        workshopdata.duration,workshopdata.startDate,workshopdata.endDate,workshopdata.financialSupport,
-        workshopdata.financeSupportOrganisation,workshopdata.amount
-    ]);
-    // let rows = ws.getRows(1, 2).values();
+    const conferenceWb = new Excel.Workbook();
+    const conferenceWs = conferenceWb.addWorksheet('Conference Sheet');
+    const headers = [
+        { header: 'Faculty name', key: 'facultyName', width: 20 },
+        { header: 'Faculty Designation', key: 'facultyDesignation', width: 20 },
+        { header: 'Faculty Department', key: 'facultyDept', width: 20 },
+        { header: 'Author Or Co-author', key: 'selectAuthorOrCo', width: 20 },
+        { header: 'First Author', key: 'firstAuth', width: 20 },
+        { header: 'Co-Author-1', key: 'CoAuth1', width: 20 },
+        { header: 'Co-Author-2', key: 'CoAuth2', width: 20 },
+        { header: 'Co-Author-3', key: 'CoAuth3', width: 20 },
+        { header: 'Title of Paper', key: 'paperTitle', width: 20 },
+        { header: 'Conference Name', key: 'confName', width: 20},
+        { header: 'International or National', key: 'InternationalOrnot', width: 20 },
+        { header: 'Name of Organizing Institute', key: 'orgInstitute', width: 20 },
+        { header: 'ISSN or e-ISSN Number', key: 'issn', width: 20 },
+        { header: 'Volume Number', key: 'volName', width: 20 },
+        { header: 'Page No [From-To]', key: 'pageNo', width: 20 },
+        { header: 'Date of Conference', key: 'confDate', width: 20 },
+        { header: 'Indexing (like Scopus, SCI, Web of Science etc)', key: 'indexing', width: 20 },
+        { header: 'Number of Citation', key: 'citationNum', width: 20 },
+        { header: 'Upload Certificate (GDrive Link)', key: 'certificateLink', width: 20 },
+        { header: 'Issue', key: 'issue', width: 20 },
+        { header: 'Peresented/published', key: 'peresentedPublished', width: 20 },
+        { header: 'Any Financial Support', key: 'financeSupport', width: 20 },
+        { header: 'Financial support Organisation', key: 'financeSupportOrganisation', width: 20 },
+        { header: 'Financial support amount', key: 'amount', width: 20 },
+    ]
+    conferenceWs.columns = headers; 
 
-    // for (let row of rows) {
-
-    //     row.eachCell((cell, cn) => {
-    //         console.log(cell.value);
-    //     });
-    // }
-    wb.xlsx.writeFile(data.phone+'.xlsx')
+    for(let i=0; i<data.length; i++){
+        let workshopdata = data[i].workshop;
+        let confData = data[i].conference;
+        workshopWs.addRow([workshopdata.facultyName,workshopdata.facultyDesignation,workshopdata.facultyDept,
+            workshopdata.workshopName,workshopdata.orgInstitute,workshopdata.venue,workshopdata.nature,
+            workshopdata.duration,workshopdata.startDate,workshopdata.endDate,workshopdata.financialSupport,
+            workshopdata.financeSupportOrganisation,workshopdata.amount
+        ]);
+        conferenceWs.addRow([confData.facultyName,confData.facultyDesignation,confData.facultyDept,
+            confData.authorCoAuthor,confData.firstAuthor,confData.coAuthor1,confData.coAuthor2,
+            confData.coAuthor3,confData.title,confData.conferenceName,confData.nationalOrInternational,
+            confData.organizingInstitute,confData.issnNo,confData.volumes,confData.pageNo,confData.date,confData.indexing,
+            confData.citationsNo,confData.issue,confData.link,confData.presentedPublished,confData.financialSupport,confData.financeSupportOrganisation,
+            confData.amount
+        ]);
+    }
+    workshopWb.xlsx.writeFile(data[0].phone+'Workshop.xlsx')
+            // .then(() => {
+            //     return true;
+            // })
+            .catch(err => {
+                console.log(err.message);
+            });
+    conferenceWb.xlsx.writeFile(data[0].phone+'conference.xlsx')
             // .then(() => {
             //     return true;
             // })
@@ -170,7 +207,7 @@ module.exports = {
     download : download,
     getDataToUpdate :getDataToUpdate ,
     updateUserData : updateUserData,
-    createWorkshopExcelFile : createWorkshopExcelFile,
+    createExcelFile : createExcelFile,
     getAdminLogin : getAdminLogin,
 
 }
