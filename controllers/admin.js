@@ -107,10 +107,10 @@ async function updateUserData(client,ObjectId,updatedData){
 }
 
 async function createExcelFile(data){
-    
+   
     const workshopWb = new Excel.Workbook();
     const workshopWs = workshopWb.addWorksheet('Workshop Sheet');
-    const headers = [
+    let headers = [
         { header: 'Faculty name', key: 'facultyName', width: 20 },
         { header: 'Faculty Designation', key: 'facultyDesignation', width: 20 },
         { header: 'Faculty Department', key: 'facultyDept', width: 20 },
@@ -129,7 +129,7 @@ async function createExcelFile(data){
 
     const conferenceWb = new Excel.Workbook();
     const conferenceWs = conferenceWb.addWorksheet('Conference Sheet');
-    const headers = [
+    headers = [
         { header: 'Faculty name', key: 'facultyName', width: 20 },
         { header: 'Faculty Designation', key: 'facultyDesignation', width: 20 },
         { header: 'Faculty Department', key: 'facultyDept', width: 20 },
@@ -148,8 +148,8 @@ async function createExcelFile(data){
         { header: 'Date of Conference', key: 'confDate', width: 20 },
         { header: 'Indexing (like Scopus, SCI, Web of Science etc)', key: 'indexing', width: 20 },
         { header: 'Number of Citation', key: 'citationNum', width: 20 },
-        { header: 'Upload Certificate (GDrive Link)', key: 'certificateLink', width: 20 },
         { header: 'Issue', key: 'issue', width: 20 },
+        { header: 'Upload Certificate (GDrive Link)', key: 'certificateLink', width: 20 },
         { header: 'Peresented/published', key: 'peresentedPublished', width: 20 },
         { header: 'Any Financial Support', key: 'financeSupport', width: 20 },
         { header: 'Financial support Organisation', key: 'financeSupportOrganisation', width: 20 },
@@ -160,33 +160,48 @@ async function createExcelFile(data){
     for(let i=0; i<data.length; i++){
         let workshopdata = data[i].workshop;
         let confData = data[i].conference;
-        workshopWs.addRow([workshopdata.facultyName,workshopdata.facultyDesignation,workshopdata.facultyDept,
-            workshopdata.workshopName,workshopdata.orgInstitute,workshopdata.venue,workshopdata.nature,
-            workshopdata.duration,workshopdata.startDate,workshopdata.endDate,workshopdata.financialSupport,
-            workshopdata.financeSupportOrganisation,workshopdata.amount
-        ]);
-        conferenceWs.addRow([confData.facultyName,confData.facultyDesignation,confData.facultyDept,
-            confData.authorCoAuthor,confData.firstAuthor,confData.coAuthor1,confData.coAuthor2,
-            confData.coAuthor3,confData.title,confData.conferenceName,confData.nationalOrInternational,
-            confData.organizingInstitute,confData.issnNo,confData.volumes,confData.pageNo,confData.date,confData.indexing,
-            confData.citationsNo,confData.issue,confData.link,confData.presentedPublished,confData.financialSupport,confData.financeSupportOrganisation,
-            confData.amount
-        ]);
+        if(workshopdata != null){
+            workshopWs.addRow([workshopdata.facultyName,workshopdata.facultyDesignation,workshopdata.facultyDept,
+                workshopdata.workshopName,workshopdata.orgInstitute,workshopdata.venue,workshopdata.nature,
+                workshopdata.duration,workshopdata.startDate,workshopdata.endDate,workshopdata.financialSupport,
+                workshopdata.financeSupportOrganisation,workshopdata.amount
+            ]);
+        }
+        if(confData != null){
+            conferenceWs.addRow([confData.facultyName,confData.facultyDesignation,confData.facultyDept,
+                confData.authorCoAuthor,confData.firstAuthor,confData.coAuthor1,confData.coAuthor2,
+                confData.coAuthor3,confData.title,confData.conferenceName,confData.nationalOrInternational,
+                confData.organizingInstitute,confData.issnNo,confData.volumes,confData.pageNo,confData.date,confData.indexing,
+                confData.citationsNo,confData.issue,confData.link,confData.presentedPublished,confData.financialSupport,confData.financeSupportOrganisation,
+                confData.amount
+            ]);
+        }
     }
-    workshopWb.xlsx.writeFile(data[0].phone+'Workshop.xlsx')
+    let newWorkshopFileName,newConferenceFileName;
+
+    if(data.length==1){
+        newWorkshopFileName = data[0].phone+'Workshop.xlsx';
+        newConferenceFileName = data[0].phone+'Conference.xlsx';
+    }
+    else{
+        newWorkshopFileName = 'Workshop.xlsx';
+        newConferenceFileName = 'Conference.xlsx';
+    }
+    workshopWb.xlsx.writeFile(newWorkshopFileName)
             // .then(() => {
             //     return true;
             // })
             .catch(err => {
                 console.log(err.message);
             });
-    conferenceWb.xlsx.writeFile(data[0].phone+'conference.xlsx')
+    conferenceWb.xlsx.writeFile(newConferenceFileName)
             // .then(() => {
             //     return true;
             // })
             .catch(err => {
                 console.log(err.message);
             });
+
 }
 
 

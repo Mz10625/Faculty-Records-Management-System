@@ -24,7 +24,8 @@ head
   .action__btns
     br
     br
-    a.login(href='/downloadAllRecords') Download
+    //- a.login(href='/downloadAllWorkshopRecords') Download
+    button(onclick=`downloadAllRecords()`) Download 
 #tableDiv
   table#table 
     tr 
@@ -45,4 +46,7 @@ head
               input(type="hidden" name="jsonData" id="jsonDataField")
               button(type="submit" onclick=`jsonD('${JSON.stringify(x)}')`) Submit
             //- button(onclick=`jsonD('${JSON.stringify(x)}')`) click
-            a(id="getAnchor" href="/downloadFile/"+x.phone+"/"+x.name) 
+            a(id="getAnchor1" href="/downloadWorkshopFile/"+x.phone+"/"+x.name) 
+            a(id="getAnchor2" href="/downloadConferenceFile/"+x.phone+"/"+x.name) 
+            a(id="getAnchor3" href="/downloadAllWorkshopRecords/") 
+            a(id="getAnchor4" href="/downloadAllConferenceRecords/") 

@@ -128,27 +128,57 @@ app.get("/updateList",(req,res)=>{
         }
     })
 })
-app.get("/downloadFile/:contact/:name",(req,res)=>{
+app.get("/downloadWorkshopFile/:contact/:name",(req,res)=>{
     const contact = req.params.contact;
     const name = req.params.name;
-    res.download(__dirname+"/"+contact+"Workshop.xlsx",contact+'Workshop.xlsx', (err) => {
+    const requestedFilePath = __dirname+"/"+contact+"Workshop.xlsx";
+    // var requestedFile = new File(requestedFilePath);
+    // while(!requestedFile.exists())
+    res.download(requestedFilePath,name+'Workshop.xlsx', (err) => {
         if (err) {
           console.error(err);
           res.status(500).send('Error downloading the file.');
         }
     });
 })
-app.get("/downloadAllRecords",(req,res)=>{
+app.get("/downloadConferenceFile/:contact/:name",(req,res)=>{
+    const contact = req.params.contact;
+    const name = req.params.name;
+    const requestedFilePath = __dirname+"/"+contact+"Conference.xlsx";
+    // var requestedFile = new File(requestedFilePath);
+    // while(!requestedFile.exists())
+    res.download(requestedFilePath,name+'Conference.xlsx', (err) => {
+        if (err) {
+          console.error(err);
+          res.status(500).send('Error downloading the file.');
+        }
+    });
+})
+app.get("/downloadAllWorkshopRecords",(req,res)=>{
+    const requestedFilePath = __dirname+"/Workshop.xlsx";
     async function processRequest(){
-        let userData = await admin.download(client)
-        await admin.createWorkshopExcelFile(userData);
-        res.download(__dirname+"/Records.xlsx", (err) => {
+        let value = await admin.download(client)
+        await admin.createExcelFile(value.userdata);
+        return true;
+    }
+    processRequest()
+    setTimeout(()=>{
+        res.download(requestedFilePath,"Workshop.xlsx", (err) => {
             if (err) {
             console.error(err);
             res.status(500).send('Error downloading the file.');
             }
         });
-    }
+    },4000)       
+})
+app.get("/downloadAllConferenceRecords",(req,res)=>{
+    const requestedFilePath = __dirname+"/Conference.xlsx";
+    res.download(requestedFilePath,"Conference.xlsx", (err) => {
+        if (err) {
+        console.error(err);
+        res.status(500).send('Error downloading the file.');
+        }
+    });     
 })
 // app.get("/update",(req,res)=>{
 //     admin.checkCookie(client,ObjectId,req.cookies.connectId).then((value)=>{
