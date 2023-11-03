@@ -9,18 +9,7 @@ body{
     width: 100vw;
     height: 100%;
 }
-.container::before{
-  content: "";
-  background-image: url(images/doc3.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1;
-  opacity: 50%;
-}
+
 .container {
   display: flex;
   width: 100vw;
@@ -37,8 +26,9 @@ body{
   height: 100%;
 }
 .container #clg_logo img{
-  width:100%;
-  margin-left: 2.5rem;
+  width:120%;
+  max-width: 200px;
+  margin-left: 2rem;
 }
 /* .logo1{
     display: inline-block;
@@ -48,8 +38,10 @@ body{
     height: 70px;
 } */
 .first-rectangle h2{
-  padding: 0.1rem;
-  margin-left: 3rem;
+  font-size: 2vw;
+  margin: 0.2% 0;
+  text-align: center;
+  font-family: 'Times New Roman', Times, serif;
 }
 .first-rectangle {
   display: flex;
@@ -64,36 +56,36 @@ body{
   justify-content: center;
   align-items: center;
 } 
-.action__btns a,
+/* .action__btns a,
  .action__btns button{
-  /* margin-right: 1rem; */
+  margin-right: 1rem;
     font-size: 1rem;
     font-weight: 600;
     letter-spacing: 2px;
-    padding: 1rem 2rem;
+    padding: 0.5rem 0.5rem;
     outline: none;
     border: 2px solid #a855f7;
-    /* border-radius: 20px; */
+    border-radius: 20px;
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
     transition: all 0.3s ease;
 
-  }
+  } */
 
 .action__btns a.login,
 .action__btns button.login,
 .action__btns a.add-user,
 .action__btns button.add-user {
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: 600;
-    letter-spacing: 2px;
-    /* padding: 1rem 2rem; */
+    /* letter-spacing: 2px; */
+    padding: 0.8rem 1.6rem;
     outline: none;
     background-color: #ffffff;
     color: #a855f7;
     border: 2px solid #a855f7;
-    border-radius: 18px;
+    border-radius: 1rem;
     cursor: pointer;
     transition: all 0.3s ease;
     text-decoration: none;
@@ -195,4 +187,88 @@ body{
     background-color: #9333ea;
     color: #ffffff;
   }
+  /* Add this CSS at the end of your existing styles */
+
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 14px; /* Adjust the base font size for smaller screens */
+  }
+
+  .container {
+    height: 12vh; /* Reduce the height of the container on smaller screens */
+  }
+
+  .container #clg_logo img {
+    width: 160%;
+    margin: 5% 0;
+    margin-left: 3rem; /* Reduce the left margin of the logo on smaller screens */
+  }
+
+  .first-rectangle h2 {
+    font-size:0.1rem;
+    /* margin: 0.3% 0;  */
+    margin-left: 3rem; 
+  }
+
+  .action__btns a.login,
+.action__btns button.login,
+.action__btns a.add-user,
+.action__btns button.add-user{
+    font-size: 0.5rem;
+   border-radius: 0.8rem;
+    padding: 0.6rem 1.2rem;
+    
+  }
+
+  .second-container {
+    padding: 0 10px; /* Reduce padding on smaller screens */
+    flex-direction: column; /* Stack boxes vertically on smaller screens */
+  }
+
+  .box {
+    max-width: 100%; /* Make boxes take full width on smaller screens */
+    margin: 10px 0; /* Adjust margin between boxes on smaller screens */
+  }
+  .container::before {
+    background-attachment: scroll; /* Allow the background to scroll on smaller screens */
+  }
+}
+/* Add this CSS at the end of your existing styles */
+
+.container::before {
+  content: "";
+  background-image: url(images/doc3.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 50%;
+}
+@media screen and (max-width:480px){
+  .first-rectangle h2 {
+    display: none;
+  }
+  .action__btns a.login,
+  .action__btns button.login,
+  .action__btns a.add-user,
+  .action__btns button.add-user{
+      font-size: 0.2rem;
+     border-radius: 0.8rem;
+      padding: 0.5rem 1rem;
+      
+    }
+    .container #clg_logo img {
+      width: 200%;
+      margin: 5% 0;
+      margin-left: 4rem; /* Reduce the left margin of the logo on smaller screens */
+    }
+}
+
+
+
   
