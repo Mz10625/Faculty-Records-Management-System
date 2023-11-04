@@ -1,5 +1,6 @@
-const user = require("./user");
+// const user = require("./user");
 const Excel = require('exceljs');
+const path = require("path");
 
 async function authenticate(client,u,p){
     //try{
@@ -180,21 +181,21 @@ async function createExcelFile(data){
     let newWorkshopFileName,newConferenceFileName;
 
     if(data.length==1){
-        newWorkshopFileName = data[0].phone+'Workshop.xlsx';
-        newConferenceFileName = data[0].phone+'Conference.xlsx';
+        newWorkshopFileName = "/"+data[0].phone+'Workshop.xlsx';
+        newConferenceFileName =  "/"+data[0].phone+'Conference.xlsx';
     }
     else{
-        newWorkshopFileName = 'Workshop.xlsx';
-        newConferenceFileName = 'Conference.xlsx';
+        newWorkshopFileName = '/Workshop.xlsx';
+        newConferenceFileName = '/Conference.xlsx';
     }
-    workshopWb.xlsx.writeFile(newWorkshopFileName)
+    workshopWb.xlsx.writeFile( path.dirname(__dirname)+"/routes"+newWorkshopFileName)
             // .then(() => {
             //     return true;
             // })
             .catch(err => {
                 console.log(err.message);
             });
-    conferenceWb.xlsx.writeFile(newConferenceFileName)
+    conferenceWb.xlsx.writeFile( path.dirname(__dirname)+"/routes"+newConferenceFileName)
             // .then(() => {
             //     return true;
             // })
@@ -203,13 +204,20 @@ async function createExcelFile(data){
             });
 
 }
+async function removeUser(client,ObjectId,id){
+    const db = client.db('KITCOEK');
+    const userCredentials = db.collection('userCredentials');
+    const reqId = new ObjectId(id);
+    const result = await userCredentials.deleteOne({_id:reqId});
+    return result.deletedCount;
+}
 
 
 
 
-
-const path = require("path");
+// const path = require("path");
 const viewsPath = path.dirname(__dirname)+"/views";
+
 function getAdminLogin(req,res){
     res.sendFile(viewsPath+"/adminLogin.html");
 }
@@ -224,5 +232,6 @@ module.exports = {
     updateUserData : updateUserData,
     createExcelFile : createExcelFile,
     getAdminLogin : getAdminLogin,
+    removeUser : removeUser,
 
 }

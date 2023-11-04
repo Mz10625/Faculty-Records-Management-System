@@ -180,18 +180,23 @@ app.get("/downloadAllConferenceRecords",(req,res)=>{
         }
     });     
 })
-// app.get("/update",(req,res)=>{
-//     admin.checkCookie(client,ObjectId,req.cookies.connectId).then((value)=>{
-//         if(value == true){        
-//             console.log("T");   
-//             // res.sendFile(viewsPath+"/addUser.html");
-//             res.render(viewsPath+"/Remove.pug");
-//         }
-//         else{  
-//             res.sendStatus(404);
-//         }
-//     }) 
-// })
+app.get("/removeUser",(req,res)=>{
+    admin.checkCookie(client,ObjectId,req.cookies.connectId).then((value)=>{
+        if(value == true){           
+            admin.download(client).then((value)=>{                
+                if(value){
+                    res.render(viewsPath+"/Remove.pug",{userdata:value.userdata});
+                }
+                else{
+                    res.sendStatus(404);
+                }
+            })
+        }
+        else{  
+            res.sendStatus(404);
+        }
+    }) 
+})
 
 
 
@@ -300,7 +305,18 @@ app.post("/download",(req,res)=>{
     // console.log(typeof(parsedData));
     admin.createExcelFile(dataToList);
 })
-
+app.post("/removeUser",(req,res)=>{
+    let data=req.body;
+    
+    admin.removeUser(client,ObjectId,data.jsonData).then((value)=>{
+        if(value==1){
+            res.redirect("/removeUser");
+        }
+        else{
+            res.sendStatus(404);
+        }
+    });
+})
 
 app.listen(80,"127.0.0.1",()=>{
     console.log("listening...")
