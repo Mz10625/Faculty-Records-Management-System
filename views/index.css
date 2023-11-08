@@ -2,7 +2,9 @@
   margin: 0%;
   padding: 0%;
 }
-
+#txt_color{
+  color: orange;
+}
 body{
   background: linear-gradient(to top,black,black);
   width: 100vw;
@@ -13,7 +15,7 @@ body{
 
 .action__btns a {
   text-decoration: none;
-  color: white;
+  color: #a855f7;
   transition: background-color 0.3s, color 0.3s;
 }
 
@@ -21,8 +23,17 @@ body{
   background-color: #a855f7;
   color: #ffffff;
 }
+.action__btns{
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  margin-top: 10px;
+  width: 12rem;
+  /* padding: 0 170px; */
 
-.login {
+}
+  
+.action__btns button {
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: 2px;
@@ -32,16 +43,30 @@ body{
   border-radius: 10px;
   transition: 0.3s;
   cursor: pointer;
+}
+  
+
+.login {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  padding: 1rem 2rem;
+  outline: none;
+  border: 2px solid #a855f7;
+  border-radius: 18px;
+  transition: 0.3s;
+  cursor: pointer;
   text-align: center;
   text-decoration: none;
   color: white;
-  background-color: #9333ea;
+  background-color: #f7f1fc;
 }
 
 .login:hover {
   background-color: #a855f7;
   border-color: #9333ea;
   color: #ffffff;
+  
 }
 
 
@@ -75,37 +100,7 @@ body{
   width:100%;
   margin-left: 2.5rem;
 }
-.action__btns{
-  display: flex;
-  gap: 1rem;
-  flex-direction: column;
-  margin-top: 10px;
-  width: 12rem;
-  /* padding: 0 170px; */
 
-}
-  
-.action__btns button {
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 2px;
-  padding: 1rem 2rem;
-  outline: none;
-  border: 2px solid #a855f7;
-  border-radius: 10px;
-  transition: 0.3s;
-  cursor: pointer;
-}
-    
-.login {
-  color: #a855f7;
-}
-  
-.login:hover {
-  background-color: #9333ea;
-  color: #ffffff;
-}
-  
 
 .first-rectangle h2{
   padding: 0.1rem;
@@ -117,9 +112,11 @@ body{
   justify-content: center;
   width: 100%; 
   color: white;
+  align-items: center;
+
 }
 .second-container {
-  width: 100%;
+  width:100%;
   height: 70%;
   display: flex;
   justify-content: space-evenly;
@@ -132,12 +129,13 @@ body{
   /* margin: 10px; */
   /* color: white; */
   /* text-align: center;  */
-  height: 60%;
+
+  height: 50%;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
-  width: 45%;
+  width: 40%; /* Adjust this percentage to make the boxes narrower */
   align-items: center;
   justify-content: center;
 }
@@ -154,3 +152,76 @@ body{
 .link a{
   text-decoration: none;
 }
+/* Global styles (no changes here) */
+
+/* Styles for screens larger than 768px (tablets and desktops) */
+@media (max-width: 768px) {
+  
+  .login {
+    font-size: 0.5rem; /* Adjust the font size for smaller screens */
+    padding: 0.7rem 1.1rem; /* Adjust the padding for smaller screens */
+    width: 4.5rem; /* Reduce the width for smaller screens */
+    text-align: center;
+  }
+  .first-rectangle h2 {
+    font-size: 0.8rem;
+    margin-left: 2rem;
+    margin-right: 2rem
+  }
+  .action__btns {
+    align-items:  center;
+  }
+  .box {
+    max-width: 100%; /* Make boxes take full width on smaller screens */
+    margin: 10px 0; /* Adjust margin between boxes on smaller screens */
+    height: 40%;
+  }
+  .logo {
+    max-width: 50px; /* Reduce the maximum width for smaller screens */
+    max-height: 70px; /* Maintain aspect ratio */
+  }
+
+  
+  .container::before {
+    background-attachment: scroll; /* Allow the background to scroll on smaller screens */
+  }
+  .second-container {
+    padding: 0 10px; /* Reduce padding on smaller screens */
+    flex-direction: column; /* Stack boxes vertically on smaller screens */
+  }
+  
+}
+
+/* Media query for screens even smaller than 480px */
+@media (max-width: 480px) {
+  .login {
+    font-size: 0.1rem; /* Further adjust the font size for very small screens */
+    padding: 0.1rem 0.2rem; /* Further adjust the padding for very small screens */
+    width: 6rem; /* Further reduce the width for very small screens */
+  }
+ 
+  .action__btns {
+    align-items:  center;
+    width: 10%;
+    height: 10%;
+  }
+  .box {
+    height: 30%; /* Adjust the height for smaller screens */
+  }
+  .logo {
+    max-width: 60px; /* Reduce the maximum width for smaller screens */
+    max-height: auto; /* Maintain aspect ratio */
+  }
+  .first-rectangle h2 {
+    font-size: 0.4rem;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem
+  }
+}
+
+
+
+
+
+
+

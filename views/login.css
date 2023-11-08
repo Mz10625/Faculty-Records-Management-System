@@ -32,14 +32,7 @@ input[type=text], select, textarea {
     resize: vertical;
   }
   
-  input[type=submit] {
-    background-color: #04AA6D;
-    color: white;
-    padding: 12px 20px;
-    border: 1px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+  
   
   input[type=submit]:hover {
     background-color: #45a049;
@@ -59,7 +52,10 @@ input[type=text], select, textarea {
     padding: 20px;
     box-shadow:0 2px 10px rgba(0,0,0,3);
   }
-   
+  .action__btns {
+    display: flex;
+    justify-content: center; /* Center the button horizontally */
+  }
   .action__btns button {
     font-size: 1rem;
     font-weight: 600;
@@ -67,7 +63,7 @@ input[type=text], select, textarea {
     padding: 1rem 2rem;
     outline: none;
     border: 2px solid #a855f7;
-    border-radius: 10px;
+    border-radius: 25px;
     transition: 0.3s;
     cursor: pointer;
     
@@ -80,5 +76,66 @@ input[type=text], select, textarea {
   .login:hover {
     background-color: #9333ea;
     color: #ffffff;
+  }
+  .input-field {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+  }
+  label {
+    font-size: 1rem;
+  }
+  
+  /* Responsive "Forget Password" link styles */
+  
+
+  @media (max-width: 768px) {
+    .container {
+      max-width: 90%; /* Decrease the maximum width for smaller screens */
+      margin: 30px; /* Adjust top margin for smaller screens */
+    }
+    .action__btns button {
+      font-size: 0.9rem; /* Decrease font size for smaller screens */
+      padding: 0.8rem 1.5rem; /* Adjust padding for smaller screens */
+    }
+    label {
+      font-size: 0.9rem;
+    }
+    input[type="text"], select, textarea {
+      padding: 10px; /* Adjust padding for smaller screens */
+    }
+  
+    input[type="text"]::placeholder, select::placeholder, textarea::placeholder {
+      font-size: 0.7rem; /* Decrease placeholder font size for smaller screens */
+    }
+    a {
+      font-size: 0.8rem; /* Decrease font size for smaller screens */
+      margin-top: 12px; /* Add spacing between the link and input fields */
+    }
+    
+  }
+  
+  /* Responsive button styles for even smaller screens */
+  @media (max-width: 480px) {
+    .container {
+      max-width: 95%; /* Further decrease the maximum width for very small screens */
+      padding: 10px; /* Reduce padding for very small screens */
+      margin: 20px; 
+    }
+    .action__btns button {
+      font-size: 0.7rem; /* Further decrease font size for very small screens */
+      padding: 0.6rem 1rem; /* Further adjust padding for very small screens */
+    }
+    .logo img{
+      height: 50px;
+    }
+    label {
+      font-size: 0.6rem;
+    }
   }
   
