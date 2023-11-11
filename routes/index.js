@@ -11,7 +11,7 @@ const viewsPath = path.dirname(__dirname)+"/views";
 
 const {MongoClient} = require('mongodb');
 const ObjectId = require('mongodb').ObjectId;
-const { validateHeaderName } = require("http");
+// const { validateHeaderName } = require("http");
 const uri = "mongodb+srv://suyashnalawade001:mongo0104atlas@cluster0.t7roaby.mongodb.net/?retryWrites=true&w=majority"
 const client = new MongoClient(uri)
 async function connect_DB(){
@@ -22,14 +22,14 @@ async function connect_DB(){
         console.log("Error connecting database!!");
     }
 }
-async function close_DB(){
-    try{
-        await client.close();
-    }
-    catch{
-        console.log("Error disconnecting database!!");
-    }
-}
+// async function close_DB(){
+//     try{
+//         await client.close();
+//     }
+//     catch{
+//         console.log("Error disconnecting database!!");
+//     }
+// }
 
 app.set("views",viewsPath);
 app.use(express.static(viewsPath));

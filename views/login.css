@@ -1,9 +1,7 @@
 *{
   margin: 0%;
 }
-body{
 
-}
 .header{
     background:linear-gradient(#e1cff2,#ebebeb) ;
     display: flex;
@@ -90,14 +88,12 @@ input[type=text], select, textarea {
   label {
     font-size: 1rem;
   }
-  
-  /* Responsive "Forget Password" link styles */
-  
+
 
   @media (max-width: 768px) {
     .container {
       max-width: 90%; /* Decrease the maximum width for smaller screens */
-      margin: 30px; /* Adjust top margin for smaller screens */
+      margin:30px 30px;
     }
     .action__btns button {
       font-size: 0.9rem; /* Decrease font size for smaller screens */

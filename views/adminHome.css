@@ -223,13 +223,13 @@ body{
   .action__btns button.login,
   .action__btns a.add-user,
   .action__btns button.add-user{
-      font-size: 0.2rem;
+      font-size: 0.4rem;
      border-radius: 0.8rem;
       padding: 0.5rem 1rem;
       
     }
     .container #clg_logo img {
-      width: 200%;
+      width: 150%;
       margin: 5% 0;
       margin-left: 4rem; /* Reduce the left margin of the logo on smaller screens */
     }
