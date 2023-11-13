@@ -1,5 +1,7 @@
 const exp = require("constants");
 const express = require("express");
+const jsonwebtoken = require("jsonwebtoken");
+
 const path = require("path");
 const fs = require('fs');
 const cookieParser = require("cookie-parser");
@@ -38,6 +40,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 connect_DB();
+const authenticate = function  (req,req,next){
+    console.log(req);
+    /*if (!req.headers.authorization) {
+        return res.status(401).json({ error: "Not Authorized" });
+    }
+    const authHeader = req.headers.authorization;
+    const token = authHeader.split(" ")[1];
+    try {       
+        const { user } = jwt.verify(token,"12345-");
+        next();
+    }catch (error) {
+        return res.status(401).json({ error: "Not Authorized" });
+    }*/
+}
 
 app.get("/",(req,res)=>{
     // res.status(200).render("home.pug");
@@ -48,7 +64,7 @@ app.get("/userLogin",(req,res)=>{
 })
 app.get("/adminLogin",admin.getAdminLogin)
 
-app.get("/adminHome",(req,res)=>{
+app.get("/adminHome",authenticate,(req,res)=>{
     admin.checkCookie(client,ObjectId,req.cookies.connectId).then((value)=>{
         if(value == true){
             res.sendFile(viewsPath+"/adminHome.html");
@@ -220,8 +236,10 @@ app.post("/userLogin",(req,res)=>{
         }
     }) 
 })
+
+
 app.post("/adminLogin",(req,res)=>{
-    let data = req.body;
+    let data = (req.body);
     admin.adminAuthenticate(client,data.UserName,data.Password).then((value)=>{
         if(value.flag == true){
             res.cookie(`connectId`,value.connectId,
@@ -232,7 +250,10 @@ app.post("/adminLogin",(req,res)=>{
                 // sameSite: 'lax'
             }
             );
-            res.redirect("/adminHome");
+            return res.json({
+                token: jsonwebtoken.sign({ pass: data.Password}, "12345"),
+                nextUrl : "/adminHome",
+            })
         }
         else{
             res.redirect("/adminLogin");
