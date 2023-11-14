@@ -10,6 +10,21 @@ function sendPostReq(){
         },
         body: JSON.stringify({ UserName : uname, Password : pass}),
     }).then(res => res.json())
-    .then(body => window.location.href = body.nextUrl)
+    .then((body)=>{
+      // const headers = {
+        
+      //   'Content-Type' : 'application/json',
+      // }
+      console.log(body.token);
+      fetch("/adminHome",{
+        method: 'Get',
+        headers: {
+          'Content-Type': 'application/json', 
+          'Authorization' : `Bearer ${body.token}`,
+        }
+      })
+    })
     .catch(err => console.log(err));
 }
+
+// body => window.location.href = body.nextUrl
