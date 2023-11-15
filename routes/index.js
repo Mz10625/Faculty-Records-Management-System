@@ -41,14 +41,13 @@ app.use(cookieParser());
 
 connect_DB();
 const authenticate = (req,res,next)=>{
-  
     if (!req.headers.authorization) {
         return res.status(401).json({ error: "Not Authorized" });
     }
     const authHeader = req.headers.authorization;
-    console.log("authHeader = "+authHeader);
+    // console.log("authHeader = "+authHeader);
     const token = authHeader.split(" ")[1];
-    console.log("Token = "+token);
+    // console.log("Token = "+token);
     try {      
         // console.log("Authenticating"); 
         const user = jsonwebtoken.verify(token,"12345");
@@ -69,17 +68,29 @@ app.get("/userLogin",(req,res)=>{
 })
 app.get("/adminLogin",admin.getAdminLogin)
 
-app.get("/adminHome",authenticate,(req,res)=>{
-    
-    console.log("Successfull authentication");
-    admin.checkCookie(client,ObjectId,req.cookies.connectId).then((value)=>{
-        if(value == true){
-            res.sendFile(viewsPath+"/adminHome.html");
-        }
-        else{
-            res.sendStatus(404);
-        }
-    })  
+app.get("/adminHome",(req,res)=>{   
+    let authenticUser = -1;
+    try{
+        const token = req.cookies.token;
+        const verify = jsonwebtoken.verify(token,"12345");
+        authenticUser = 1;
+    }catch(error){
+        console.log(error);
+    }
+    if(authenticUser==1){
+        admin.checkCookie(client,ObjectId,req.cookies.connectId).then((value)=>{
+            if(value == true){
+                console.log("Successfull authentication");
+                res.sendFile(viewsPath+"/adminHome.html");
+            }
+            else{
+                res.sendStatus(404);
+            }
+        })
+    }  
+    else{
+        res.send("Not authorized");
+    }
 })
 
 app.get("/userHome",(req,res)=>{
@@ -255,11 +266,18 @@ app.post("/adminLogin",(req,res)=>{
                 secure: true,
                 httpOnly: true,
                 // sameSite: 'lax'
-            }
-            );
-            return res.json({
-                token: jsonwebtoken.sign({ pass: data.Password}, "12345"),               
-            })
+            });
+            res.cookie(`token`, jsonwebtoken.sign({ pass: data.Password}, "12345"), 
+            {
+                maxAge: 1800000,
+                secure: true,
+                // httpOnly: true,
+                // sameSite: 'lax'
+            });
+            // res.json({
+            //     token: jsonwebtoken.sign({ pass: data.Password}, "12345"),               
+            // })
+            res.redirect("/adminHome");
         }
         else{
             res.redirect("/adminLogin");

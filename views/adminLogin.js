@@ -1,30 +1,34 @@
 function sendPostReq(){
     let uname = document.getElementById("uname").value;
-    let pass = document.getElementById("pass").value;
-    
+    let pass = document.getElementById("pass").value;    
     
     fetch("/adminLogin",{
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json', // Specify the content type as JSON
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ UserName : uname, Password : pass}),
-    }).then(res => res.json())
-    .then((body)=>{
-      // const headers = {
-        
-      //   'Content-Type' : 'application/json',
-      // }
-      console.log(body.token);
-      fetch("/adminHome",{
-        method: 'Get',
-        headers: {
-          'Content-Type': 'application/json', 
-          'Authorization' : `Bearer ${body.token}`,
-        }
-      })
     })
-    .catch(err => console.log(err));
-}
+    // .then(res => res.json())
+    // .then((body)=>{
+      // body.token
+    // })
 
-// body => window.location.href = body.nextUrl
+    // .then((body)=>{      
+    //   fetch("/adminHome",{
+    //     method: 'GET',
+    //     headers: {
+    //       'Content-Type': 'application/json', 
+    //       'Authorization' : `Bearer ${body.token}`,
+    //     }
+    //   })
+    //   .then(response => response.text())
+    //   .then(text => {
+    //     document.open();
+    //     document.write(text);
+    //     document.close();
+    //   })
+    //   .catch(error => console.error('Error fetching the HTML:', error));
+    // })
+    // .catch(err => console.log(err));
+}
