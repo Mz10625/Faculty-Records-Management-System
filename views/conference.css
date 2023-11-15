@@ -13,10 +13,8 @@ body {
   height: 100vh;
   width: 100vw;
   font-family: Arial;
-  overflow: hidden;
   /* box-sizing: border-box; */
   overflow-y: scroll;
-  
 }
 #txt_color
 {
@@ -51,7 +49,6 @@ body {
     text-decoration: none;
     display: inline-block;
     align-items: center;
-    margin: 20px;
   } 
   
   .action__btns a {
@@ -280,15 +277,15 @@ form .input-box span.details{
 {
   align-items: center;
 }
-@media(max-width:895px)
+@media(max-width:875px)
 {
   .first-rectangle h2 {
-    font-size:1em;
+    font-size:1.2em;
     /* margin: 0.3% 0;  */
-    margin-left: 0.7rem; 
+    margin-left: 2rem; 
     align-items: center; 
     .form{
-      padding: 1rem;
+      padding: 2rem;
     }
   }
 }
@@ -331,7 +328,7 @@ form .user-details .input-box{
     overflow-y: scroll;
   }
   .first-rectangle h2 {
-    font-size:0.85em;
+    font-size:1em;
     /* margin: 0.3% 0;  */
     margin-left: 2rem; 
     align-items: center; 
@@ -343,6 +340,7 @@ form .user-details .input-box{
     width: 100%;
   }
 
+
   
   .action__btns a.login,
   .action__btns button.login,
@@ -353,22 +351,29 @@ form .user-details .input-box{
       padding: 0.6rem 1.2rem;
       
     }
-   
   }
   @media(max-width: 580px){
   .container .content .category{
     flex-direction: column;
   }
   .first-rectangle h2 {
-    font-size:0.5em;
+    font-size:0.6em;
     /* margin: 0.3% 0;  */
     margin-left: 1rem; 
     align-items: center;
   }
  
 }
-
-@media(max-width:410px)
+@media(max-width:450px)
+{
+  .first-rectangle h2 {
+    font-size:0.6 em;
+    /* margin: 0.3% 0;  */
+    margin-left: 0.6rem; 
+    align-items: center;
+  }
+}
+@media(max-width:376px)
 {
   .first-rectangle h2 {
    display: none;
@@ -379,14 +384,4 @@ form .user-details .input-box{
      margin: 5% 0;
      margin-left: 3rem; /* Reduce the left margin of the logo on smaller screens */
    }
-   .action__btns a.login,
-   .action__btns button.login,
-   .action__btns a.add-user,
-   .action__btns button.add-user{
-       font-size: 0.4rem;
-      border-radius: 0.5rem;
-       padding: 0.4rem 1rem;
-       
-     }
-    
 }
