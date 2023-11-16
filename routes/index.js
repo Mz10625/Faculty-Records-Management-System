@@ -40,21 +40,26 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 connect_DB();
+
+const validateCookie =  (req,res,next)=>{
+    try{
+        admin.checkCookie(client,ObjectId,req.cookies.connectId)     
+        next();
+    }catch (error) {
+        return res.status(401).json({ error: "Not Authorized" });
+    }
+}
+
 const authenticate = (req,res,next)=>{
     if (!req.headers.authorization) {
         return res.status(401).json({ error: "Not Authorized" });
     }
-    const authHeader = req.headers.authorization;
-    // console.log("authHeader = "+authHeader);
+    const authHeader = req.headers.authorization;    
     const token = authHeader.split(" ")[1];
-    // console.log("Token = "+token);
-    try {      
-        // console.log("Authenticating"); 
+    try {              
         const user = jsonwebtoken.verify(token,"12345");
-        // console.log("Authentication complete");
         next();
     }catch (error) {
-        // console.log(error);
         return res.status(401).json({ error: "Not Authorized" });
     }
 }
@@ -80,7 +85,7 @@ app.get("/adminHome",(req,res)=>{
     if(authenticUser==1){
         admin.checkCookie(client,ObjectId,req.cookies.connectId).then((value)=>{
             if(value == true){
-                console.log("Successfull authentication");
+               
                 res.sendFile(viewsPath+"/adminHome.html");
             }
             else{
@@ -127,16 +132,8 @@ app.get("/logout",(req,res)=>{
     res.clearCookie("connectId");
     res.redirect("/");
 })
-app.get("/addUser",(req,res)=>{
-    admin.checkCookie(client,ObjectId,req.cookies.connectId).then((value)=>{
-        if(value == true){
-            
-            res.sendFile(viewsPath+"/addUser.html");
-        }
-        else{
-            res.sendStatus(404);
-        }
-    }) 
+app.get("/addUser",authenticate,validateCookie,(req,res)=>{
+    res.sendFile(viewsPath+"/addUser.html");
 })
 app.get("/download",(req,res)=>{
     admin.download(client).then((value)=>{

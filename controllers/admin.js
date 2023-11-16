@@ -33,9 +33,11 @@ async function checkCookie(client,ObjectId,reqCookie){
         const adminCollection = db.collection('admin');
         let reqCookie_id = new ObjectId(reqCookie);
         const findResult = await adminCollection.findOne({_id : reqCookie_id});
-        // if(findResult != null){
+        if(findResult != null){
             return true;
-        // }
+            // console.log("Error thrown")
+            // throw new Error("Invalid cookie");
+        }
         return false;
     // }
     // finally{
