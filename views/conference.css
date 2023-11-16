@@ -290,7 +290,7 @@ form .input-box span.details{
   }
 }
 
- @media(max-width: 786px){
+ @media(max-width: 800px){
  .container{
   max-width: 100%;
 }
@@ -373,7 +373,7 @@ form .user-details .input-box{
     align-items: center;
   }
 }
-@media(max-width:376px)
+@media(max-width:390px)
 {
   .first-rectangle h2 {
    display: none;

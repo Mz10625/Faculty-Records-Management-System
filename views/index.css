@@ -1,64 +1,53 @@
-*{
+* {
   margin: 0%;
   padding: 0%;
 }
-#txt_color{
+
+#txt_color {
   color: orange;
 }
-body{
-  background: linear-gradient(to top,black,black);
+
+body {
+  background: linear-gradient(to top, black, black);
   width: 100vw;
   height: 100vh;
   z-index: 1;
 }
-/* Add these styles to your existing CSS */
 
-.action__btns a {
-  text-decoration: none;
-  color: #a855f7;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.action__btns a:hover {
-  background-color: #a855f7;
-  color: #ffffff;
-}
-.action__btns{
+.action__btns {
   display: flex;
   gap: 1rem;
   flex-direction: column;
   margin-top: 10px;
   width: 12rem;
-  /* padding: 0 170px; */
-
 }
-  
 
 .login {
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: 2px;
-  padding: 1rem 2rem;
+  padding: 1rem 1.5rem; /* Adjusted padding */
   outline: none;
+  background-color: #f7f1fc;
+  color: #a855f7;
   border: 2px solid #a855f7;
   border-radius: 18px;
   transition: 0.3s;
   cursor: pointer;
   text-align: center;
   text-decoration: none;
-  color: white;
-  background-color: #f7f1fc;
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add ellipsis (...) for overflowed text */
 }
 
 .login:hover {
   background-color: #a855f7;
   border-color: #9333ea;
   color: #ffffff;
-  
 }
 
-
-.container::before{
+.container::before {
   content: "";
   background-image: url(images/doc3.jpg);
   background-repeat: no-repeat;
@@ -70,120 +59,127 @@ body{
   z-index: -1;
   opacity: 50%;
 }
+
 .container {
   display: flex;
   width: 100vw;
   height: 18vh;
   background-color: rgba(0, 0, 0, 0.4);
-  /* justify-content: center; */
 }
-.container #clg_logo{
+
+.container #clg_logo {
   display: flex;
   align-items: center;
-  justify-content: center; 
-  width:18%;
+  justify-content: center;
+  width: 18%;
   height: 100%;
 }
-.container #clg_logo img{
-  width:100%;
+
+.container #clg_logo img {
+  width: 100%;
   margin-left: 2.5rem;
 }
 
-
-.first-rectangle h2{
+.first-rectangle h2 {
   font-size: 2vw;
   margin: 0.1% 5%;
-  /* text-align: center; */
   font-family: 'Times New Roman', Times, serif;
 }
+
 .first-rectangle {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 100%; 
+  width: 100%;
   color: white;
-  /* align-items: center; */
-
 }
+
 .second-container {
-  width:100%;
+  width: 100%;
   height: 70%;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
 }
-.box {
-  /* flex: 1; */
-  /* max-width: calc(50% - 50px); */
-  /* padding: 20px; */
-  /* margin: 10px; */
-  /* color: white; */
-  /* text-align: center;  */
 
+.box {
   height: 50%;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
-  width: 40%; /* Adjust this percentage to make the boxes narrower */
+  width: 40%;
   align-items: center;
   justify-content: center;
 }
-.logo{
-    max-width: 100px;
-    margin-bottom: 10px;
-    border-radius: 8%;
+
+.logo {
+  max-width: 100px;
+  margin-bottom: 10px;
+  border-radius: 8%;
 }
-.link{
+
+.link {
   margin-top: 10px;
   text-decoration: none;
   font-size: 25px;
 }
-.link a{
+
+.link a {
   text-decoration: none;
 }
-@media screen and (max-width:700px) {
+
+@media screen and (max-width: 700px) {
   .container {
     height: 14vh;
   }
+
   .second-container {
-   flex-direction: column;
+    padding: 0 10px;
+    flex-direction: column;
   }
-  .box{
-    margin: 2rem;
-    width: 70%;
+
+  .box {
+    max-width: 100%;
+    margin: 10px 0;
+    height: 40%;
   }
-  .logo{
-    height:70px;
+
+  .logo {
+    height: 60px;
   }
+
+  .action__btns {
+    width: 60%;
+  }
+
   .login {
-    font-size: 0.8rem;
-    padding: 0.7rem 2rem;
-    border-radius: 10px; 
-    letter-spacing: 1px;
-  }
-  .action__btns{
-    width: 10rem;
+    font-size: 0.5rem;
+    padding: 0.5rem 1rem;
   }
 }
 
-@media screen and (max-width:450px) {
+@media screen and (max-width: 450px) {
   .container {
     height: 12vh;
   }
-  .box{
-    width: 80%;
+
+  .box {
+    width: 50%;
+    height: 33%;
   }
-  .logo{
-    height:60px;
+
+  .logo {
+    height: 50px;
   }
+
+  .action__btns {
+    width: 45%;
+ 
+  }
+
   .login {
-    font-size: 0.9rem;
-    padding: 0.6rem;
-    border-radius: 10px;    
-    letter-spacing: 0px;
-  }
-  .action__btns{
-    width: 9rem;    
+    font-size: 0.4rem;
+    padding: 0.3rem 0.7rem;
   }
 }
