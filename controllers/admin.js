@@ -1,9 +1,15 @@
-// const user = require("./user");
+
 const Excel = require('exceljs');
 const path = require("path");
+const jsonwebtoken = require("jsonwebtoken");
+const viewsPath = path.dirname(__dirname)+"/views";
+var client;
 
-async function authenticate(client,u,p){
-    //try{
+function getClientVariable(c){
+    client = c;
+}
+async function adminAuthenticate(u,p){
+    try{
         //await client.connect();
         const db = client.db('KITCOEK');
         const adminCollection = db.collection('admin');
@@ -20,32 +26,36 @@ async function authenticate(client,u,p){
         // const first = await collection.deleteMany();
         // for await (const doc of aggregate) {
         //     console.log(doc);
-        // }
+    }catch(error){
+        console.log(error);
+    }
     //}
     // finally{
     //     await client.close();
     // }
 }
-async function checkCookie(client,ObjectId,reqCookie){
-    //try{
+async function checkCookie(ObjectId,reqCookie){
+    try{
         // await client.connect();
         const db = client.db('KITCOEK');
         const adminCollection = db.collection('admin');
         let reqCookie_id = new ObjectId(reqCookie);
         const findResult = await adminCollection.findOne({_id : reqCookie_id});
-        if(findResult != null){
-            return true;
+        if(findResult == null){
+            return false;
             // console.log("Error thrown")
             // throw new Error("Invalid cookie");
         }
-        return false;
-    // }
+        return true;
+    }catch(error){
+        console.log(error);
+    }
     // finally{
     //     await client.close();
     // }
 }
 async function addUser(client,data){
-    // try{
+    try{
     //     await client.connect();
         const db = client.db('KITCOEK');
         const userCredentials = db.collection('userCredentials');
@@ -61,58 +71,76 @@ async function addUser(client,data){
                 return result.result.ok;
         });
         return insert;
-    // }
+    }catch(error){
+        console.log(error);
+    }
     // finally{
     //     client.close();
     // }
 }
 
 async function download(client){
-    const db = client.db('KITCOEK');
-    const userCredentials = db.collection('userCredentials');
-    let doc = await userCredentials.find()
-    let list = []
-    for await(const x of doc) {        
-        list.push(x);
+    try{
+
+        const db = client.db('KITCOEK');
+        const userCredentials = db.collection('userCredentials');
+        let doc = await userCredentials.find()
+        let list = []
+        for await(const x of doc) {        
+            list.push(x);
+        }
+        // console.log(userdata[1])
+        return {value:true,userdata:list,};
+    }catch(error){
+        console.log(error);
     }
-    // console.log(userdata[1])
-    return {value:true,userdata:list,};
 }
 async function getDataToUpdate(client,contact){
-    const db = client.db('KITCOEK');
-    const userCredentials = db.collection('userCredentials');
-    let data = await userCredentials.findOne({phone : contact});
-     
-    if(data != null){
-        return {value:true,userdata:data,};
+    try{
+
+        const db = client.db('KITCOEK');
+        const userCredentials = db.collection('userCredentials');
+        let data = await userCredentials.findOne({phone : contact});
+        
+        if(data != null){
+            return {value:true,userdata:data,};
+        }
+        return {value:false,userdata:null,};
+    }catch(error){
+        console.log(error);
     }
-    return {value:false,userdata:null,};
 }
 async function updateUserData(client,ObjectId,updatedData){
-    const db = client.db('KITCOEK');
-    const userCredentials = db.collection('userCredentials');
-    let reqId = new ObjectId(updatedData._id)
-    let updateResult =await userCredentials.updateOne(
-        {_id : reqId},
-        {$set :{
-            name : updatedData.name,
-            phone : updatedData.phone,
-            email : updatedData.email,
-            dept : updatedData.dept,
-            username : updatedData.username,
-            password : updatedData.password,
-        }}
-    )
-    if(updateResult.acknowledged){
-        return {value:true,userdata:updateResult}
+    try{
+
+        const db = client.db('KITCOEK');
+        const userCredentials = db.collection('userCredentials');
+        let reqId = new ObjectId(updatedData._id)
+        let updateResult =await userCredentials.updateOne(
+            {_id : reqId},
+            {$set :{
+                name : updatedData.name,
+                phone : updatedData.phone,
+                email : updatedData.email,
+                dept : updatedData.dept,
+                username : updatedData.username,
+                password : updatedData.password,
+            }}
+            )
+            if(updateResult.acknowledged){
+                return {value:true,userdata:updateResult}
+            }
+            return {value:false,userdata:null}
+    }catch(error){
+        console.log(error);
     }
-    return {value:false,userdata:null}
 }
 
 async function createExcelFile(data){
-   
-    const workshopWb = new Excel.Workbook();
-    const workshopWs = workshopWb.addWorksheet('Workshop Sheet');
+    try{
+        
+        const workshopWb = new Excel.Workbook();
+        const workshopWs = workshopWb.addWorksheet('Workshop Sheet');
     let headers = [
         { header: 'Faculty name', key: 'facultyName', width: 20 },
         { header: 'Faculty Designation', key: 'facultyDesignation', width: 20 },
@@ -159,7 +187,7 @@ async function createExcelFile(data){
         { header: 'Financial support amount', key: 'amount', width: 20 },
     ]
     conferenceWs.columns = headers; 
-
+    
     for(let i=0; i<data.length; i++){
         let workshopdata = data[i].workshop;
         let confData = data[i].conference;
@@ -198,12 +226,16 @@ async function createExcelFile(data){
                 console.log(err.message);
             });
     conferenceWb.xlsx.writeFile( path.dirname(__dirname)+"/routes"+newConferenceFileName)
-            // .then(() => {
-            //     return true;
+    // .then(() => {
+        //     return true;
             // })
             .catch(err => {
                 console.log(err.message);
             });
+
+    }catch(error){
+        console.log(error);
+    }
 
 }
 async function removeUser(client,ObjectId,id){
@@ -217,23 +249,223 @@ async function removeUser(client,ObjectId,id){
 
 
 
-// const path = require("path");
-const viewsPath = path.dirname(__dirname)+"/views";
-
 function getAdminLogin(req,res){
     res.sendFile(viewsPath+"/adminLogin.html");
 }
+function getIndex(req,res){
+    res.sendFile(viewsPath+"/index.html");
+}
+function getUserLogin(req,res){
+    res.sendFile(viewsPath+"/userLogin.html");
+}
+function getAdminHome(req,res){   
+    try{
+        const token = req.cookies.token;
+        const verify = jsonwebtoken.verify(token,"12345");
+    }catch(error){
+        console.log(error);
+    }
+    res.sendFile(viewsPath+"/adminHome.html");
+}
+function getAddUser(req,res){
+    res.sendFile(viewsPath+"/addUser.html");
+}
+function getDownload(req,res){
+    download(client).then((value)=>{
+        // for (each value.userdata) {
+        //     console.log(x);
+        // }
+        // console.log();
+        if(value){
+            res.render(viewsPath+"/Download.pug",{userdata:value.userdata});
+        }
+        else{
+            res.sendStatus(404);
+        }
+    })
+}
+function getUpdateList(req,res){
+    download(client).then((value)=>{
+        if(value){
+            res.render(viewsPath+"/updateList.pug",{userdata:value.userdata});
+        }
+        else{
+            res.sendStatus(404);
+        }
+    })
+}
+function getDownloadWorkshopFile(req,res){
+    const contact = req.params.contact;
+    const name = req.params.name;
+    const requestedFilePath = __dirname+"/"+contact+"Workshop.xlsx";
+    // var requestedFile = new File(requestedFilePath);
+    // while(!requestedFile.exists())
+    res.download(requestedFilePath,name+'Workshop.xlsx', (err) => {
+        if (err) {
+          console.error(err);
+          res.status(500).send('Error downloading the file.');
+        }
+    });
+}
+function getDownloadConferenceFile(req,res){
+    const contact = req.params.contact;
+    const name = req.params.name;
+    const requestedFilePath = __dirname+"/"+contact+"Conference.xlsx";
+    // var requestedFile = new File(requestedFilePath);
+    // while(!requestedFile.exists())
+    res.download(requestedFilePath,name+'Conference.xlsx', (err) => {
+        if (err) {
+          console.error(err);
+          res.status(500).send('Error downloading the file.');
+        }
+    });
+}
+function getDownloadAllWorkshopRecords(req,res){
+    const requestedFilePath = __dirname+"/Workshop.xlsx";
+    async function processRequest(){
+        let value = await download(client)
+        await createExcelFile(value.userdata);
+        return true;
+    }
+    processRequest()
+    setTimeout(()=>{
+        res.download(requestedFilePath,"Workshop.xlsx", (err) => {
+            if (err) {
+            console.error(err);
+            res.status(500).send('Error downloading the file.');
+            }
+        });
+    },4000)       
+}
+function getDownloadAllConferenceRecords(req,res){
+    const requestedFilePath = __dirname+"/Conference.xlsx";
+    res.download(requestedFilePath,"Conference.xlsx", (err) => {
+        if (err) {
+        console.error(err);
+        res.status(500).send('Error downloading the file.');
+        }
+    });     
+}
+function getRemoveUser(req,res){
+    download(client).then((value)=>{                
+        if(value){
+            res.render(viewsPath+"/Remove.pug",{userdata:value.userdata});
+        }
+        else{
+            res.sendStatus(404);
+        }
+    })
+}
+function postAdminLogin(req,res){
+    let data = (req.body);
+    adminAuthenticate(data.UserName,data.Password).then((value)=>{
+        if(value.flag == true){
+            res.cookie(`connectId`,value.connectId,
+            {
+                maxAge: 1800000,
+                secure: true,
+                httpOnly: true,
+                // sameSite: 'lax'
+            });
+            res.cookie(`token`, jsonwebtoken.sign({ pass: data.Password}, "12345"), 
+            {
+                maxAge: 1800000,
+                secure: true,
+                // httpOnly: true,
+                // sameSite: 'lax'
+            });
+            // res.json({
+            //     token: jsonwebtoken.sign({ pass: data.Password}, "12345"),               
+            // })
+            res.redirect("/adminHome");
+        }
+        else{
+            res.redirect("/adminLogin");
+        }
+    }) 
+}
+function postAddUser(req,res){
+    let data = req.body;
+    addUser(client,data).then((value)=>{
+        if(value){
+            res.redirect("/addUser"); 
+        }
+        else{
+            res.sendStatus(417);
+        }
+    })
+}
+function postUpdateList(req,res){
+    let data = req.body;
+    getDataToUpdate(client,data.contact).then((value)=>{
+        if(value.value){
+            res.render(viewsPath+"/update.pug",{data:value.userdata}); 
+        }
+        else{
+            res.sendStatus(417);
+        }
+    })
+}
+function postUpdateUserData(req,res){
+    let data = req.body;
+    updateUserData(client,ObjectId,data).then((value)=>{
+        if(value.value){
+            res.redirect("/updateList"); 
+        }
+        else{
+            res.sendStatus(417);
+        }
+    })
+}
+function postDownload(req,res){
+    let data=JSON.parse(req.body.jsonData);
+    let dataToList = [data];
+    // dataToList.push(data)
+    // let parsedData = JSON.parse(data.jsonData);
+    // console.log(typeof(parsedData));
+    admin.createExcelFile(dataToList);
+}
+function postRemoveUser(req,res){
+    let data=req.body;
+    removeUser(client,ObjectId,data.jsonData).then((value)=>{
+        if(value==1){
+            res.redirect("/removeUser");
+        }
+        else{
+            res.sendStatus(404);
+        }
+    });
+}
+
+
 
 
 module.exports = {
-    adminAuthenticate : authenticate,
-    checkCookie : checkCookie,
-    addUser : addUser,
-    download : download,
-    getDataToUpdate :getDataToUpdate ,
-    updateUserData : updateUserData,
-    createExcelFile : createExcelFile,
+    // adminAuthenticate : authenticate,
+    // checkCookie : checkCookie,
+    // addUser : addUser,
+    // download : download,
+    // getDataToUpdate :getDataToUpdate ,
+    // updateUserData : updateUserData,
+    // createExcelFile : createExcelFile,
+    // removeUser : removeUser,
+    getClientVariable : getClientVariable,
     getAdminLogin : getAdminLogin,
-    removeUser : removeUser,
-
+    getIndex : getIndex,
+    getUserLogin : getUserLogin,
+    getAdminHome : getAdminHome,
+    getAddUser : getAddUser,
+    getDownload : getDownload,
+    getUpdateList : getUpdateList,
+    getDownloadWorkshopFile : getDownloadWorkshopFile,
+    getDownloadConferenceFile : getDownloadConferenceFile,
+    getDownloadAllWorkshopRecords : getDownloadAllWorkshopRecords,
+    getDownloadAllConferenceRecords : getDownloadAllConferenceRecords,
+    getRemoveUser : getRemoveUser,
+    postAdminLogin : postAdminLogin,
+    postAddUser : postAddUser,
+    postUpdateList : postUpdateList,
+    postUpdateUserData : postUpdateUserData,
+    postDownload : postDownload,
+    postRemoveUser : postRemoveUser,
 }

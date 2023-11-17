@@ -1,6 +1,6 @@
 
 
-async function authenticate(client,u,p){
+async function userAuthenticate(client,u,p){
     const db = client.db('KITCOEK');
     const userCollection = db.collection('userCredentials');
     const findResult = await userCollection.findOne({username:u,password:p});
@@ -89,11 +89,69 @@ async function addConferenceData(client,data,ObjectId,reqCookie){
     return false;
 }
 
+function getUserHome(req,res){
+    res.sendFile(viewsPath+"/userHome.html");  
+}
+function getWorkshop(req,res){
+    res.sendFile(viewsPath+"/workshop.html"); 
+}
+function getConference(req,res){
+    res.sendFile(viewsPath+"/conference.html"); 
+}
+function postUserLogin(req,res){
+    let data = req.body
+    //res.status(200).render("index.pug");
+    userAuthenticate(client,data.UserName,data.Password).then((value)=>{
+        if(value.flag == true){
+            res.cookie(`connectId`,value.connectId,
+            {
+                maxAge: 1800000,
+                secure: true,
+                httpOnly: true,
+                // sameSite: 'lax'
+            }
+            );
+            res.redirect("/userHome");
+        }
+        else{
+            res.redirect("/userLogin");
+        }
+    }) 
+}
+function postWorkshop(req,res){
+    let data = req.body;
+    addWorkshopData(client,data,ObjectId,req.cookies.connectId).then((value)=>{
+        if(value){
+            res.redirect("/workshop"); 
+        }
+        else{
+            res.sendStatus(417);
+        }
+    })
+}
 
+function postConference(req,res){
+    let data = req.body;
+    console.log(data);
+    addConferenceData(client,data,ObjectId,req.cookies.connectId).then((value)=>{
+        if(value){
+            res.redirect("/conference"); 
+        }
+        else{
+            res.sendStatus(417);
+        }
+    })
+}
 
 module.exports = {
-    userAuthenticate : authenticate,
-    checkUserCookie : checkCookie,
-    addWorkshopData : addWorkshopData,
-    addConferenceData : addConferenceData,
+    // userAuthenticate : authenticate,
+    // checkUserCookie : checkCookie,
+    // addWorkshopData : addWorkshopData,
+    // addConferenceData : addConferenceData,
+    getUserHome : getUserHome,
+    getWorkshop : getWorkshop,
+    getConference : getConference,
+    postUserLogin : postUserLogin,
+    postWorkshop : postWorkshop,
+    postConference : postConference,
 }
