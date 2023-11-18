@@ -1,4 +1,7 @@
-
+var client;
+function getClientVariable(c){
+    client = c;
+}
 
 async function userAuthenticate(client,u,p){
     const db = client.db('KITCOEK');
@@ -148,6 +151,7 @@ module.exports = {
     // checkUserCookie : checkCookie,
     // addWorkshopData : addWorkshopData,
     // addConferenceData : addConferenceData,
+    getClientVariable : getClientVariable,
     getUserHome : getUserHome,
     getWorkshop : getWorkshop,
     getConference : getConference,

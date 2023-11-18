@@ -1,7 +1,27 @@
 
+async function authenticate(){
+    token =  sessionStorage.getItem("token");
+    let res = await fetch("/authenticate",{
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                        },        
+                    })
+    return res.json();
+}
+
 function jData(id){
-    const jsonDataField = document.getElementById("jsonDataField");
-    const form = document.getElementById("form");
-    jsonDataField.value = id;
-    form.submit();
+    authenticate().then((authenticateUser)=>{
+        if(authenticateUser==true){
+            const jsonDataField = document.getElementById("jsonDataField");
+            const form = document.getElementById("form");
+            jsonDataField.value = id;
+            form.submit();
+        }
+        else{
+            document.open();
+            document.write("Not Authorized");
+            document.close();
+        }
+    })
 }

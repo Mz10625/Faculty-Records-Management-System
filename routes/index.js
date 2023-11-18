@@ -43,13 +43,14 @@ app.use(cookieParser());
 
 connect_DB();
 admin.getClientVariable(client);
+user.getClientVariable(client);
 
 const validateCookie =  (req,res,next)=>{
    async function validate(){
         try{
             let isValid = await admin.checkCookie(ObjectId,req.cookies.connectId)
             if(isValid==true){
-                console.log("Valid Cookie")
+                // console.log("Valid Cookie")
                 next();
             }
             else{
@@ -64,15 +65,16 @@ const validateCookie =  (req,res,next)=>{
 
 const authenticate = (req,res,next)=>{
     if (!req.headers.authorization) {
-        return res.status(401).send( "Not Authorized");
+        return res.status(401).json(false);
     }    
     try {              
         const authHeader = req.headers.authorization;    
         const token = authHeader.split(" ")[1];
         const user = jsonwebtoken.verify(token,"12345");
-        next();
+        return res.json(true);
+        // next();
     }catch (error) {
-        return res.status(401).send( "Not Authorized");
+        return res.status(401).json(false);
     }
 }
 
@@ -81,21 +83,21 @@ app.get("/",admin.getIndex)
 app.get("/userLogin",admin.getUserLogin)
 app.get("/adminLogin",admin.getAdminLogin)
 app.get("/adminHome",validateCookie,admin.getAdminHome)
-app.get("/addUser",authenticate,validateCookie,admin.getAddUser)
-app.get("/download",authenticate,validateCookie,admin.getDownload)
-app.get("/updateList",authenticate,validateCookie,admin.getUpdateList)
-app.get("/downloadWorkshopFile/:contact/:name",authenticate,validateCookie,admin.getDownloadWorkshopFile)
-app.get("/downloadConferenceFile/:contact/:name",authenticate,validateCookie,admin.getDownloadConferenceFile)
-app.get("/downloadAllWorkshopRecords",authenticate,validateCookie,admin.getDownloadAllWorkshopRecords)
-app.get("/downloadAllConferenceRecords",authenticate,validateCookie,admin.getDownloadAllConferenceRecords)
-app.get("/removeUser",authenticate,validateCookie,admin.getRemoveUser)
+app.get("/addUser",validateCookie,admin.getAddUser)
+app.get("/download",validateCookie,admin.getDownload)
+app.get("/updateList",validateCookie,admin.getUpdateList)
+app.get("/downloadWorkshopFile/:contact/:name",validateCookie,admin.getDownloadWorkshopFile)
+app.get("/downloadConferenceFile/:contact/:name",validateCookie,admin.getDownloadConferenceFile)
+app.get("/downloadAllWorkshopRecords",validateCookie,admin.getDownloadAllWorkshopRecords)
+app.get("/downloadAllConferenceRecords",validateCookie,admin.getDownloadAllConferenceRecords)
+app.get("/removeUser",validateCookie,admin.getRemoveUser)
 
 // User GET Routes
 app.get("/userHome",authenticate,validateCookie,user.getUserHome)
 app.get("/workshop",authenticate,validateCookie,user.getWorkshop)
 app.get("/conference",authenticate,validateCookie,user.getConference)
 
-
+app.get("/authenticate",authenticate)
 app.get("/logout",(req,res)=>{
     res.clearCookie("connectId");
     res.redirect("/");

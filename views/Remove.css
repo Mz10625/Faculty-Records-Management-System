@@ -8,9 +8,9 @@ body{
   width: 100vw;
   height: 100vh;
   box-sizing: border-box;
- 
+  
 }
-.searchbar{
+/* .searchbar{
   margin:auto;
   width:25%;
 }
@@ -46,7 +46,7 @@ body{
   content: "";
   clear: both;
   display: table;
-}
+} */
 .action__btns{
   display: flex;
   align-items: center;
@@ -70,10 +70,7 @@ body{
 
 
   }
-  .action__btns a.login,
-.action__btns button.login,
-.action__btns a.add-user,
-.action__btns button.add-user {
+  .action__btns a.login {
     font-size: 1rem;
     font-weight: 600;
     letter-spacing: 2px;
@@ -123,7 +120,7 @@ body{
   display: flex;
   width: 100vw;
   height: 20%;
-background-color: rgba(0, 0, 0, 0.5); 
+  background-color: rgba(0, 0, 0, 0.5); 
   /* background-color: rgba(0, 0, 0, 0.5);  */
   /* justify-content: center; */
 }
@@ -131,7 +128,7 @@ background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center; 
-  width:18%;
+  width:20%;
   height: 100%;
 }
 .container0 #clg_logo img{
@@ -154,7 +151,6 @@ background-color: rgba(0, 0, 0, 0.5);
   text-align: center;
   width: 100%;
   padding: 0.4rem;   
-  
 }
 #table th{   
   background-color:rgba(255, 153, 37, 0.849);
@@ -167,4 +163,54 @@ background-color: rgba(0, 0, 0, 0.5);
   height: 2.5rem;
   font-size: 1.1rem;
   color: rgba(0, 0, 0, 0.822);
+}
+@media screen and (max-width: 830px){
+  .first-rectangle h2{
+    font-size: 1rem;
+  }
+  .action__btns a.login{
+    font-size: 0.8rem;
+    letter-spacing: 0px;
+    padding: 0.6rem 1.8rem;
+  }
+  #table td{
+    font-size: 0.9rem;
+  }
+  #table th{
+    font-size: 1rem;
+  }
+}
+@media screen and (max-width: 615px){
+  .first-rectangle h2{
+    font-size: 0.8rem;
+  }
+  .action__btns a.login{
+    font-size: 0.6rem;
+    letter-spacing: 0px;
+    padding: 0.4rem 1.2rem;
+    border-radius: 0.8rem;
+  }
+  #table td{
+    font-size: 0.7rem;
+  }
+  #table th{
+    font-size: 0.8rem;
+  }
+  .container0 #clg_logo img{
+    width:120%;
+    height: 50%;
+  }
+}
+@media screen and (max-width: 510px){
+  .first-rectangle h2{
+    display: none;
+  }
+  .container0 #clg_logo img{
+    margin-left: 4rem;
+    width:160%;
+    height: 60%;
+  }
+}
+@media screen and (max-width: 510px){
+
 }

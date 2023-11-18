@@ -1,8 +1,10 @@
 
 const Excel = require('exceljs');
+const fs = require('fs');
 const path = require("path");
 const jsonwebtoken = require("jsonwebtoken");
 const viewsPath = path.dirname(__dirname)+"/views";
+const ObjectId = require('mongodb').ObjectId;
 var client;
 
 function getClientVariable(c){
@@ -262,10 +264,10 @@ function getAdminHome(req,res){
     try{
         const token = req.cookies.token;
         const verify = jsonwebtoken.verify(token,"12345");
+        res.sendFile(viewsPath+"/adminHome.html");
     }catch(error){
-        console.log(error);
+        return res.status(401).send( "Not Authorized");
     }
-    res.sendFile(viewsPath+"/adminHome.html");
 }
 function getAddUser(req,res){
     res.sendFile(viewsPath+"/addUser.html");
@@ -280,7 +282,7 @@ function getDownload(req,res){
             res.render(viewsPath+"/Download.pug",{userdata:value.userdata});
         }
         else{
-            res.sendStatus(404);
+            res.sendStatus(401).send( false);
         }
     })
 }
@@ -294,10 +296,19 @@ function getUpdateList(req,res){
         }
     })
 }
+function deleteFiles(filePath){
+    fs.unlink(filePath, (err) => {
+        if (err) {
+            console.error('Error deleting file:', err);
+        } else {
+            console.log('File deleted successfully');
+        }
+    });
+}
 function getDownloadWorkshopFile(req,res){
     const contact = req.params.contact;
     const name = req.params.name;
-    const requestedFilePath = __dirname+"/"+contact+"Workshop.xlsx";
+    const requestedFilePath = path.dirname(__dirname)+"/routes/"+contact+"Workshop.xlsx";
     // var requestedFile = new File(requestedFilePath);
     // while(!requestedFile.exists())
     res.download(requestedFilePath,name+'Workshop.xlsx', (err) => {
@@ -306,11 +317,14 @@ function getDownloadWorkshopFile(req,res){
           res.status(500).send('Error downloading the file.');
         }
     });
+    setTimeout(()=>{
+        deleteFiles(requestedFilePath);
+    },30000)
 }
 function getDownloadConferenceFile(req,res){
     const contact = req.params.contact;
     const name = req.params.name;
-    const requestedFilePath = __dirname+"/"+contact+"Conference.xlsx";
+    const requestedFilePath = path.dirname(__dirname)+"/routes/"+contact+"Conference.xlsx";
     // var requestedFile = new File(requestedFilePath);
     // while(!requestedFile.exists())
     res.download(requestedFilePath,name+'Conference.xlsx', (err) => {
@@ -319,9 +333,12 @@ function getDownloadConferenceFile(req,res){
           res.status(500).send('Error downloading the file.');
         }
     });
+    setTimeout(()=>{
+        deleteFiles(requestedFilePath);
+    },35000)
 }
 function getDownloadAllWorkshopRecords(req,res){
-    const requestedFilePath = __dirname+"/Workshop.xlsx";
+    const requestedFilePath = path.dirname(__dirname)+"/routes"+"/Workshop.xlsx";
     async function processRequest(){
         let value = await download(client)
         await createExcelFile(value.userdata);
@@ -338,7 +355,7 @@ function getDownloadAllWorkshopRecords(req,res){
     },4000)       
 }
 function getDownloadAllConferenceRecords(req,res){
-    const requestedFilePath = __dirname+"/Conference.xlsx";
+    const requestedFilePath = path.dirname(__dirname)+"/routes"+"/Conference.xlsx";
     res.download(requestedFilePath,"Conference.xlsx", (err) => {
         if (err) {
         console.error(err);
@@ -423,7 +440,7 @@ function postDownload(req,res){
     // dataToList.push(data)
     // let parsedData = JSON.parse(data.jsonData);
     // console.log(typeof(parsedData));
-    admin.createExcelFile(dataToList);
+    createExcelFile(dataToList);
 }
 function postRemoveUser(req,res){
     let data=req.body;
@@ -442,7 +459,7 @@ function postRemoveUser(req,res){
 
 module.exports = {
     // adminAuthenticate : authenticate,
-    // checkCookie : checkCookie,
+    checkCookie : checkCookie,
     // addUser : addUser,
     // download : download,
     // getDataToUpdate :getDataToUpdate ,

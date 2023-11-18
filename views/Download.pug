@@ -44,9 +44,9 @@ head
           td
             form(id="form" action="/download" method="post")
               input(type="hidden" name="jsonData" id="jsonDataField")
-              button(type="submit" onclick=`jsonD('${JSON.stringify(x)}')`) Submit
+            button(type="submit" onclick=`jsonD('${JSON.stringify(x)}')`) Submit
             //- button(onclick=`jsonD('${JSON.stringify(x)}')`) click
-            a(id="getAnchor1" href="/downloadWorkshopFile/"+x.phone+"/"+x.name) 
-            a(id="getAnchor2" href="/downloadConferenceFile/"+x.phone+"/"+x.name) 
+            a(id="getAnchor1" href="#") 
+            a(id="getAnchor2" href="#") 
             a(id="getAnchor3" href="/downloadAllWorkshopRecords/") 
             a(id="getAnchor4" href="/downloadAllConferenceRecords/") 
