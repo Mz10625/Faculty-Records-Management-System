@@ -4,8 +4,8 @@
   <head>
     <meta charset="UTF-8">
     <title> Workshop </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="workshop.css">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
      
    </head>
 <body>
@@ -20,8 +20,7 @@
     </div>
     
     <div class="action__btns">
-      
-      <a class="login" href="index.html">Home</a>
+      <a class="login" id="homeBtn" href="userHome">Home</a>
     </div> 
   </div>
   
@@ -34,12 +33,12 @@
         <div class="user-details">
           <div class="input-box">
             <span class="details">Name of Faculty </span>
-            <input type="text" name="fName" placeholder="Enter your name" required>
+            <input type="text" name="fName" placeholder="Enter name" required>
           </div>
           <div class="input-box">
             <span class="details">Name of Department </span>
-            <select class="custom-select" name="support" id="inputGroupSelect01">
-              <option selected>Choose...</option>
+            <select class="custom-select" name="dept" id="inputGroupSelect01" required>
+              <option value="">Choose...</option>
               <option value="Computer Science and Engineering">Computer Science and Engineering</option>
               <option value="Electronics and Telecommunication Engineering">Electronics and Telecommunication Engineering</option>
               <option value="Environmental Engineering">Environmental Engineering</option>
@@ -50,13 +49,13 @@
               <option value="Civil Engineering">Civil Engineering</option>
               <option value="Electronics Engineering">Electronics Engineering</option>
               <option value="Library">Library</option>
-            </select>
-            
+            </select>            
           </div>
+
           <div class="input-box">
             <span class="details">Designation</span>
-            <select class="custom-select" name="support" id="inputGroupSelect01">
-              <option selected>Choose...</option>
+            <select class="custom-select" name="desig" id="inputGroupSelect01" required>
+              <option value="">Choose...</option>
               <option value="Director">Director</option>
               <option value="Professor">Professor</option>
               <option value="Assistant Professor">Assistant Professor</option>
@@ -67,39 +66,39 @@
           
         
           <div class="input-box">
-            <span class="details">Nameof workshop </span>
-            <input type="text" name="workshopName" placeholder="Enter name of workshop" required>
+            <span class="details">Name of workshop </span>
+            <input type="text" name="workshopName" placeholder="Name of workshop" required>
           </div>
           <div class="input-box">
             <span class="details">Organizing/Sponsoring Institute</span>
-            <input type="text" name="institute" placeholder="Enter Organizing Institute Name" required>
+            <input type="text" name="institute" placeholder="Organizing Institute name" required>
           </div>
           <div class="input-box">
             <span class="details">Venue of workshop</span>
-            <input type="text" name="venue" placeholder="Enter name of workshop venue" required>
+            <input type="text" name="venue" placeholder="Enter workshop venue" required>
           </div>
           <div class="input-box">
             <span class="details">Nature of Workshop</span>
-            <input type="text" name="nature"  placeholder="Enter Nature of workshop" required>
+            <input type="text" name="nature"  placeholder="FDP,STTP,TEQIP,SUMMER,etc" required>
           </div>
           <div class="input-box">
             <span class="details">Duration(Days)</span>
-            <input type="text" name="duration"  placeholder="Enter Duration you have attended" required>
+            <input type="text" name="duration"  placeholder="Duration" required>
           </div>
           <div class="input-box">
-            <span class="details">From date</span>
-            <input type="date" name="startDate" placeholder="Enter From date" required>
+            <span class="details">Start Date</span>
+            <input type="date" name="startDate" required>
           </div>
           
           <div class="input-box">
-            <span class="details">To Date</span>
-            <input type="date" name="endDate" placeholder="Enter To date " required>
+            <span class="details">End Date</span>
+            <input type="date" name="endDate" required>
           </div>
           <div class="input-box">
             <span class="details">Any Financial Support </span>     
 
-          <select class="custom-select" name="support" id="inputGroupSelect01">
-            <option selected>Choose...</option>
+          <select class="custom-select" name="support" id="inputGroupSelect01" required>
+            <option value="">Choose...</option>
             <option value="YES">YES</option>
             <option value="No">NO</option>
           </select>
@@ -127,7 +126,7 @@
         </div>
        
         <div class="action__btns">
-          <a class="login" href="#">Submit</a>
+          <button class="login" type="submit">Submit</button>
         </div> 
       </form>
     </div>

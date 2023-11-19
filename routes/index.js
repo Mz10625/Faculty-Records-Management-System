@@ -45,10 +45,26 @@ connect_DB();
 admin.getClientVariable(client);
 user.getClientVariable(client);
 
-const validateCookie =  (req,res,next)=>{
+const validateAdminCookie =  (req,res,next)=>{
    async function validate(){
         try{
             let isValid = await admin.checkCookie(ObjectId,req.cookies.connectId)
+            if(isValid==true){
+                next();
+            }
+            else{
+                throw new Error("Invalid Cookie");
+            }
+        }catch (error) {
+            return res.status(401).send("Not Authorized");
+        }
+    }
+    validate();
+}
+const validateUserCookie =  (req,res,next)=>{
+   async function validate(){
+        try{
+            let isValid = await user.checkCookie(ObjectId,req.cookies.connectId)
             if(isValid==true){
                 next();
             }
@@ -81,20 +97,21 @@ const authenticate = (req,res,next)=>{
 app.get("/",admin.getIndex)
 app.get("/userLogin",admin.getUserLogin)
 app.get("/adminLogin",admin.getAdminLogin)
-app.get("/adminHome",validateCookie,admin.getAdminHome)
-app.get("/addUser",validateCookie,admin.getAddUser)
-app.get("/download",validateCookie,admin.getDownload)
-app.get("/updateList",validateCookie,admin.getUpdateList)
-app.get("/downloadOneRecord/:contact/:name",validateCookie,admin.getDownloadOneRecord)
+app.get("/adminHome",validateAdminCookie,admin.getAdminHome)
+app.get("/addUser",validateAdminCookie,admin.getAddUser)
+app.get("/download",validateAdminCookie,admin.getDownload)
+app.get("/updateList",validateAdminCookie,admin.getUpdateList)
+app.get("/downloadOneRecord/:contact/:name",validateAdminCookie,admin.getDownloadOneRecord)
 // app.get("/downloadConferenceFile/:contact/:name",validateCookie,admin.getDownloadConferenceFile)
-app.get("/downloadAllRecords",validateCookie,admin.getDownloadAllRecords)
+app.get("/downloadAllRecords",validateAdminCookie,admin.getDownloadAllRecords)
 // app.get("/downloadAllConferenceRecords",validateCookie,admin.getDownloadAllConferenceRecords)
-app.get("/removeUser",validateCookie,admin.getRemoveUser)
+app.get("/removeUser",validateAdminCookie,admin.getRemoveUser)
 
 // User GET Routes
-app.get("/userHome",authenticate,validateCookie,user.getUserHome)
-app.get("/workshop",authenticate,validateCookie,user.getWorkshop)
-app.get("/conference",authenticate,validateCookie,user.getConference)
+app.get("/userHome",validateUserCookie,user.getUserHome)
+app.get("/workshop",validateUserCookie,user.getWorkshop)
+app.get("/conference",validateUserCookie,user.getConference)
+
 
 app.get("/authenticate",authenticate)
 app.get("/logout",(req,res)=>{
@@ -105,16 +122,16 @@ app.get("/logout",(req,res)=>{
 
 // Admin POST Routes
 app.post("/adminLogin",admin.postAdminLogin)
-app.post("/addUser",validateCookie,admin.postAddUser)
-app.post("/updateList",validateCookie,admin.postUpdateList)
-app.post("/updateUserData",validateCookie,admin.postUpdateUserData)
-app.post("/download",validateCookie,admin.postDownload)
-app.post("/removeUser",validateCookie,admin.postRemoveUser)
+app.post("/addUser",validateAdminCookie,admin.postAddUser)
+app.post("/updateList",validateAdminCookie,admin.postUpdateList)
+app.post("/updateUserData",validateAdminCookie,admin.postUpdateUserData)
+app.post("/download",validateAdminCookie,admin.postDownload)
+app.post("/removeUser",validateAdminCookie,admin.postRemoveUser)
 
 // User POST Routes
 app.post("/userLogin",user.postUserLogin)
-app.post("/workshop",validateCookie,user.postWorkshop)
-app.post("/conference",validateCookie,user.postConference)
+app.post("/workshop",validateUserCookie,user.postWorkshop)
+app.post("/conference",validateUserCookie,user.postConference)
 
 
 app.listen(80,"127.0.0.1",()=>{

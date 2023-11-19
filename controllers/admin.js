@@ -31,6 +31,7 @@ async function adminAuthenticate(u,p){
         //     console.log(doc);
     }catch(error){
         console.log(error);
+        return false;
     }
     //}
     // finally{
@@ -156,8 +157,7 @@ function createZipFile(contact){
     })
 }
 async function createExcelFile(data,singleUserData){
-    try{
-        
+    try{        
         const workshopWb = new Excel.Workbook();
         const workshopWs = workshopWb.addWorksheet('Workshop Sheet');
     let headers = [
@@ -211,20 +211,27 @@ async function createExcelFile(data,singleUserData){
         let workshopdata = data[i].workshop;
         let confData = data[i].conference;
         if(workshopdata != null){
-            workshopWs.addRow([workshopdata.facultyName,workshopdata.facultyDesignation,workshopdata.facultyDept,
-                workshopdata.workshopName,workshopdata.orgInstitute,workshopdata.venue,workshopdata.nature,
-                workshopdata.duration,workshopdata.startDate,workshopdata.endDate,workshopdata.financialSupport,
-                workshopdata.financeSupportOrganisation,workshopdata.amount
-            ]);
+            // console.log(workshopdata);
+            for(let i=1;i <= Object.keys(workshopdata).length;i++){
+                let j = i.toString();
+                workshopWs.addRow([workshopdata[j].facultyName,workshopdata[j].facultyDesignation,workshopdata[j].facultyDept,
+                    workshopdata[j].workshopName,workshopdata[j].orgInstitute,workshopdata[j].venue,workshopdata[j].nature,
+                    workshopdata[j].duration,workshopdata[j].startDate,workshopdata[j].endDate,workshopdata[j].financialSupport,
+                    workshopdata[j].financeSupportOrganisation,workshopdata[j].amount
+                ]);
+            }
         }
         if(confData != null){
-            conferenceWs.addRow([confData.facultyName,confData.facultyDesignation,confData.facultyDept,
-                confData.authorCoAuthor,confData.firstAuthor,confData.coAuthor1,confData.coAuthor2,
-                confData.coAuthor3,confData.title,confData.conferenceName,confData.nationalOrInternational,
-                confData.organizingInstitute,confData.issnNo,confData.volumes,confData.pageNo,confData.date,confData.indexing,
-                confData.citationsNo,confData.issue,confData.link,confData.presentedPublished,confData.financialSupport,confData.financeSupportOrganisation,
-                confData.amount
-            ]);
+            for(let i=1;i <= Object.keys(confData).length;i++){
+                let j = i.toString();
+                conferenceWs.addRow([confData[j].facultyName,confData[j].facultyDesignation,confData[j].facultyDept,
+                    confData[j].authorCoAuthor,confData[j].firstAuthor,confData[j].coAuthor1,confData[j].coAuthor2,
+                    confData[j].coAuthor3,confData[j].title,confData[j].conferenceName,confData[j].nationalOrInternational,
+                    confData[j].organizingInstitute,confData[j].issnNo,confData[j].volumes,confData[j].pageNo,confData[j].date,confData[j].indexing,
+                    confData[j].citationsNo,confData[j].issue,confData[j].link,confData[j].presentedPublished,confData[j].financialSupport,confData[j].financeSupportOrganisation,
+                    confData[j].amount
+                ]);
+            }
         }
     }
     let newWorkshopFileName,newConferenceFileName;
@@ -306,6 +313,11 @@ function getDownload(req,res){
         // }
         // console.log();
         if(value){
+            for(let i=0;i<value.userdata.length;i++){
+                value.userdata[i].workshop = null
+                value.userdata[i].conference = null
+                // console.log(value.userdata[i]);
+            }
             res.render(viewsPath+"/Download.pug",{userdata:value.userdata});
         }
         else{
@@ -342,8 +354,8 @@ function getDownloadOneRecord(req,res){
         if (exists) {
             res.download(requestedFilePath,name+".zip", (err) => {
                 if (err) {
-                console.error(err);
-                res.status(500).send('Error downloading the file.');
+                    console.error(err);
+                    res.status(500).send('Error downloading the file.');
                 }
             })
             res.on("finish",()=>{
@@ -494,12 +506,18 @@ function postUpdateUserData(req,res){
         }
     })
 }
-function postDownload(req,res){
+async function postDownload(req,res){
     let data=JSON.parse(req.body.jsonData);
-    let dataToList = [data];
+    // console.log(data.phone)
+    const db = client.db('KITCOEK');
+    const userCredentials = db.collection('userCredentials');
+    // let reqCookie_id = new ObjectId(req.cookies.connectId);
+    let result = await userCredentials.findOne({phone : data.phone});
+    dataToList = [result];
+    // let dataToList = [data];
     // dataToList.push(data)
     // let parsedData = JSON.parse(data.jsonData);
-    // console.log(typeof(parsedData));
+    // console.log(dataToList);
     createExcelFile(dataToList,1);
 }
 function postRemoveUser(req,res){

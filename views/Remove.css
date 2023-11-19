@@ -155,7 +155,7 @@ color: white;
   .first-rectangle h2{
     font-size: 1rem;
   }
-  .action__btns a.login{
+  .action__btns button{
     font-size: 0.8rem;
     letter-spacing: 0px;
     padding: 0.6rem 1.8rem;
@@ -174,11 +174,14 @@ color: white;
   .first-rectangle h2{
     font-size: 0.8rem;
   }
-  .action__btns a.login{
+  .action__btns button{
     font-size: 0.6rem;
     letter-spacing: 0px;
     padding: 0.4rem 1.2rem;
     border-radius: 0.8rem;
+  }
+  #submit{
+    font-size: 0.5rem;
   }
   #table td{
     font-size: 0.7rem;
@@ -193,6 +196,9 @@ color: white;
 @media screen and (max-width: 510px){
   .first-rectangle h2{
     display: none;
+  }
+  #submit{
+    width:3.5rem;
   }
   .container0 #clg_logo img{
     margin-left: 4.5rem;
