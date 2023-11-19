@@ -4,23 +4,21 @@ head
   meta(name='viewport' content='width=device-width, initial-scale=1.0')
   title Update User
   link(rel='stylesheet' href='updateList.css')
-  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
-  script(src='updateList.js')
+  //- link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+  
 
 .container0
   #clg_logo
     img(src='images/logo1.png' alt='logo')
   .first-rectangle
     h2(style='color: orange;') Kolhapur Institute of Technology&apos;s
-    h2 Colloge of Engineering (Autonomous) Kolhapur
-  .searchbar
-    input(type='text' placeholder='Search..')
-    button(type='submit')
-      i.fa.fa-search
-  //- .action__btns
+    h2 College of Engineering (Autonomous) Kolhapur
+  .action__btns
     br
     br
-    //- a.login(href='#') Download
+    button.login#homeBtn Home
+    a#homeAnchor(href='adminHome')
+
 #tableDiv
   table#table 
     tr 
@@ -40,5 +38,7 @@ head
             //- button(onclick=`sendPostReq('${JSON.stringify(x)}')`) Update
             form(action="updateList", method="post") 
               input(type="hidden" name="contact" value=x.phone)
-              button(type="submit") Update 
-          
+              button#submit(type="submit") Update 
+      
+      
+  script(src='updateList.js')

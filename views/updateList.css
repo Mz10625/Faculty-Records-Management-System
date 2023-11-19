@@ -9,114 +9,6 @@ body{
   height: 100vh;
  
 }
-
-.searchbar{
-  margin:auto 2rem;
-  width:25%;
-}
-.searchbar input[type=text] {
-  border-radius: 0.3rem;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  font-size: 17px;
-  border: 1px solid grey;
-  width: 80%;
-  background: #f1f1f1;
-}
-.searchbar button {
-  border-radius: 0.3rem;
-  float: right;
-  width: 19%;
-  padding-bottom: 10px;
-  padding-top: 10px;
-  background: #2196F3;
-  color: white;
-  font-size: 17px;
-  border: 1px solid grey;
-  border-left: none;
-  cursor: pointer;
-}
-.searchbar button:hover {
-  background: #0b7dda;
-}
-/* .searchbar::after {
-  content: "";
-  clear: both;
-  display: table;
-} */
-/* When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */
-@media screen and (max-width: 600px) {
-  .searchbar a, .searchbar input[type=text] {
-    float: none;
-    display: block;
-    text-align: left;
-    width: 100%;
-    margin: 0;
-    padding: 14px;
-  }
-  .searchbar input[type=text] {
-    border: 1px solid #ccc;
-  }
-}
-
-.header .action__btns{
-  margin-right: 20rem;
-} 
-.action__btns a,
- .action__btns button{
-  margin-right: 3rem;
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    padding: 1rem 2rem;
-    outline: none;
-    border: 2px solid #a855f7;
-    border-radius: 25px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.3s ease;
-    
-
-
-  }
-  .action__btns a.login,
-.action__btns button.login,
-.action__btns a.add-user,
-.action__btns button.add-user {
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    padding: 1rem 2rem;
-    outline: none;
-    background-color: #ffffff;
-    color: #a855f7;
-    border: 2px solid #a855f7;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-}
-  
-  
-  .action__btns a {
-    background-color: #a855f7;
-    color: white;
-}
-
-.action__btns button {
-    background-color: #ffffff;
-    color: #a855f7;
-}
-
-/* Hover effect */
-.action__btns a:hover,
-.action__btns button:hover {
-    background-color: #9333ea; /* Darker purple on hover */
-    border-color: #9333ea;
-    color: white;
-}
 .container0::before{
   content: "";
    background-image: url(images/doc3.jpg); 
@@ -134,8 +26,6 @@ body{
   width: 100vw;
   height: 20%;
   background-color: rgba(0, 0, 0, 0.5);
-  /* background-color: rgba(0, 0, 0, 0.5);  */
-  /* justify-content: center; */
 }
 .container0 #clg_logo{
   display: flex;
@@ -159,6 +49,49 @@ body{
   width: 100%; 
   color: white;
 }
+.action__btns{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action__btns button{
+  margin:2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    padding: 1rem 2rem;
+    outline: none;
+    border: 2px solid #a855f7;
+    border-radius: 25px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    background-color: #ffffff;
+    color: #a855f7;
+}
+.action__btns button:hover {
+    background-color: #9333ea; /* Darker purple on hover */
+    border-color: #9333ea;
+    color: white;
+}
+#submit{
+  padding: 0.4rem 0.8rem;
+  outline: none;
+  border: 2px solid gray;
+  border-radius: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  background-color: #ffffff;
+  color: gray;
+}
+#submit:hover {
+background-color: #9333ea; 
+border-color: #9333ea;
+color: white;
+}
 #table{
   color: rgba(0, 0, 0, 0.822);
   text-align: center;
@@ -166,6 +99,7 @@ body{
   padding: 0.4rem;   
   
 }
+
 #table th{   
   background-color:rgba(255, 153, 37, 0.849);
   height: 2.5rem;
@@ -177,4 +111,55 @@ body{
   height: 2.5rem;
   font-size: 1.1rem;
   color: rgba(0, 0, 0, 0.822);
+}
+@media screen and (max-width: 830px){
+  .first-rectangle h2{
+    font-size: 1rem;
+  }
+  .action__btns button{
+    font-size: 0.8rem;
+    letter-spacing: 0px;
+    padding: 0.6rem 1.8rem;
+  }
+  #table td{
+    font-size: 0.9rem;
+  }
+  #table th{
+    font-size: 1rem;
+  }
+}
+@media screen and (max-width: 615px){
+  .first-rectangle h2{
+    font-size: 0.8rem;
+  }
+  .action__btns button{
+    font-size: 0.6rem;
+    letter-spacing: 0px;
+    padding: 0.4rem 1.2rem;
+    border-radius: 0.8rem;
+  }
+  #table td{
+    font-size: 0.7rem;
+  }
+  #table th{
+    font-size: 0.8rem;
+  }
+  .container0 {
+    height: 18%; 
+  }
+}
+@media screen and (max-width: 510px){
+  .first-rectangle h2{
+    display: none;
+  }
+  .container0 #clg_logo img{
+    margin-left: 4.5rem;
+    width:8rem;
+    height: 4rem;
+  }
+}
+@media screen and (max-width: 380px){
+  #tableDiv{
+    overflow-x: scroll;
+  }
 }

@@ -50,7 +50,6 @@ const validateCookie =  (req,res,next)=>{
         try{
             let isValid = await admin.checkCookie(ObjectId,req.cookies.connectId)
             if(isValid==true){
-                // console.log("Valid Cookie")
                 next();
             }
             else{
@@ -86,10 +85,10 @@ app.get("/adminHome",validateCookie,admin.getAdminHome)
 app.get("/addUser",validateCookie,admin.getAddUser)
 app.get("/download",validateCookie,admin.getDownload)
 app.get("/updateList",validateCookie,admin.getUpdateList)
-app.get("/downloadWorkshopFile/:contact/:name",validateCookie,admin.getDownloadWorkshopFile)
-app.get("/downloadConferenceFile/:contact/:name",validateCookie,admin.getDownloadConferenceFile)
-app.get("/downloadAllWorkshopRecords",validateCookie,admin.getDownloadAllWorkshopRecords)
-app.get("/downloadAllConferenceRecords",validateCookie,admin.getDownloadAllConferenceRecords)
+app.get("/downloadOneRecord/:contact/:name",validateCookie,admin.getDownloadOneRecord)
+// app.get("/downloadConferenceFile/:contact/:name",validateCookie,admin.getDownloadConferenceFile)
+app.get("/downloadAllRecords",validateCookie,admin.getDownloadAllRecords)
+// app.get("/downloadAllConferenceRecords",validateCookie,admin.getDownloadAllConferenceRecords)
 app.get("/removeUser",validateCookie,admin.getRemoveUser)
 
 // User GET Routes

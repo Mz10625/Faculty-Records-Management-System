@@ -6,7 +6,7 @@ head
 
   link(rel='stylesheet' href='Download.css')
   //- <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
-  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+  //- link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
   script(src='download.js')
 
 .container0
@@ -14,18 +14,15 @@ head
     img(src='images/logo1.png' alt='logo')
   .first-rectangle
     h2(style='color: orange;') Kolhapur Institute of Technology&apos;s
-    h2 Colloge of Engineering (Autonomous) Kolhapur
-  .searchbar
-    br
-    br
-    input(type='text' placeholder='Search..')
-    button(type='submit')
-      i.fa.fa-search
+    h2 College of Engineering (Autonomous) Kolhapur
+  //- .searchbar
+  //-   br
+  //-   br
+  //-   input(type='text' placeholder='Search..')
+  //-   button(type='submit')
+  //-     i.fa.fa-search
   .action__btns
-    br
-    br
-    //- a.login(href='/downloadAllWorkshopRecords') Download
-    button(onclick=`downloadAllRecords()`) Download 
+    button(onclick=`downloadAllRecords()`) Download All Records
 #tableDiv
   table#table 
     tr 
@@ -44,9 +41,9 @@ head
           td
             form(id="form" action="/download" method="post")
               input(type="hidden" name="jsonData" id="jsonDataField")
-            button(type="submit" onclick=`jsonD('${JSON.stringify(x)}')`) Submit
+            button#submit(type="submit" onclick=`jsonD('${JSON.stringify(x)}')`) Download
             //- button(onclick=`jsonD('${JSON.stringify(x)}')`) click
             a(id="getAnchor1" href="#") 
-            a(id="getAnchor2" href="#") 
-            a(id="getAnchor3" href="/downloadAllWorkshopRecords/") 
-            a(id="getAnchor4" href="/downloadAllConferenceRecords/") 
+            //- a(id="getAnchor2" href="#") 
+            a(id="getAnchor3" href="/downloadAllRecords/") 
+            //- a(id="getAnchor4" href="/downloadAllConferenceRecords/") 

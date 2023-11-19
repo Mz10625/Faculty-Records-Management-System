@@ -23,7 +23,7 @@ body{
   justify-content: center;
 }
 
-.action__btns a,.action__btns button{
+.action__btns button{
     margin:2rem;
     font-size: 1rem;
     font-weight: 600;
@@ -219,7 +219,7 @@ form .input-box span.details{
   form .user-details select option[selected] {
     font-size: 10px;
   }
-  @media(max-width:950px)
+ @media(max-width:950px)
  {
    .first-rectangle h2 {
      font-size:1.3rem;

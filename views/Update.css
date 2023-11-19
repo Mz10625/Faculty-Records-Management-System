@@ -4,19 +4,17 @@
 }
 
 body{
-   background: linear-gradient(to top,black,rgb(104, 100, 100));
+   background: linear-gradient(to top,black,black);
   width: 100vw;
   height: 100vh;
-  font-family: Arial;
   box-sizing: border-box;
  
- 
 }
-.example{
+/* .example{
   margin:auto;
   width:20%;
-}
-form.example input[type=text] {
+} */
+/* form.example input[type=text] {
   border-radius: 0.3rem;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -24,31 +22,8 @@ form.example input[type=text] {
   border: 1px solid grey;
   width: 80%;
   background: #f1f1f1;
-}
+} */
 
-form.example button {
-  border-radius: 0.3rem;
-  float: right;
-  width: 19%;
-  padding-bottom: 10px;
-  padding-top: 10px;
-  background: #2196F3;
-  color: white;
-  font-size: 17px;
-  border: 1px solid grey;
-  border-left: none;
-  cursor: pointer;
-}
-
-form.example button:hover {
-  background: #0b7dda;
-}
-
-form.example::after {
-  content: "";
-  clear: both;
-  display: table;
-}
 .header .action__btns{
   margin-right: 20rem;
 } 
@@ -66,41 +41,11 @@ form.example::after {
     text-decoration: none;
     display: inline-block;
     transition: all 0.3s ease;
-    
-
-
-  }
-  .action__btns a.login,
-.action__btns button.login,
-.action__btns a.add-user,
-.action__btns button.add-user {
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    padding: 1rem 2rem;
-    outline: none;
     background-color: #ffffff;
     color: #a855f7;
-    border: 2px solid #a855f7;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-}
-  
-  
-  .action__btns a {
-    background-color: #a855f7;
-    color: white;
-}
 
-.action__btns button {
-    background-color: #ffffff;
-    color: #a855f7;
-}
 
-/* Hover effect */
+}
 .action__btns a:hover,
 .action__btns button:hover {
     background-color: #9333ea; /* Darker purple on hover */
@@ -109,11 +54,13 @@ form.example::after {
 }
 .container0::before{
   content: "";
-   background-image: url(images/doc3.jpg); 
+  position: fixed;
+  left: 0%;
+  top: 0%;
+  background-image: url(images/bg9.avif);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  position: absolute;
   width: 100%;
   height: 100%;
   z-index: -1;
@@ -158,7 +105,6 @@ form.example::after {
   margin: 20px auto;
 }
 
-/* Style the title */
 .container .title{
   font-size: 30px;
   font-weight: 500;
@@ -175,7 +121,10 @@ form.example::after {
   background: linear-gradient(135deg, #25c46c, #391db5);
 }
 
-/* Style the user details section */
+#homeBtn{
+  display: flex;
+  align-items: center;
+}
 .content form .user-details{
   display: flex;
   flex-wrap: wrap;
@@ -192,7 +141,7 @@ form .input-box span.details{
   margin-bottom: 5px;
 }
 
-.user-details .input-box input{
+/* .user-details .input-box input{
   height: 45px;
   width: 100%;
   outline: none;
@@ -202,15 +151,15 @@ form .input-box span.details{
   border: 1px solid #ccc;
   border-bottom-width: 2px;
   transition: all 0.3s ease;
-}
-.custom-select{
+} */
+/* .custom-select{
   position: relative;
   font-family: Arial;
 
-}
+} */
 
 .user-details .input-box input,
-.user-details .input-box select { /* Apply the styles to both input and select */
+.user-details .input-box select {
   height: 45px;
   width: 100%;
   outline: none;
@@ -222,20 +171,20 @@ form .input-box span.details{
   transition: all 0.3s ease;
 }
 
-.custom-select {
+/* .custom-select {
   position: relative;
   font-family: Arial;
-  height: 45px; /* Match the height with input boxes */
-}
+  height: 45px;
+} */
 .user-details .input-box input:focus,
 .user-details .input-box input:valid{
   border-color: #4d9a63;
 }
- form .gender-details .gender-title{
+ /* form .gender-details .gender-title{
   font-size: 20px;
   font-weight: 500;
- }
- form .category{
+ } */
+ /* form .category{
    display: flex;
    width: 80%;
    margin: 14px 0 ;
@@ -254,21 +203,21 @@ form .input-box span.details{
   background: #d9d9d9;
   border: 5px solid transparent;
   transition: all 0.3s ease;
-}
- #dot-1:checked ~ .category label .one,
+} */
+ /* #dot-1:checked ~ .category label .one,
  #dot-2:checked ~ .category label .two,
  #dot-3:checked ~ .category label .three{
    background: #2e16b7;
    border-color: #2484c0;
- }
- form input[type="radio"]{
+ } */
+ /* form input[type="radio"]{
    display: none;
  }
  form .button{
    height: 45px;
    margin: 35px 0
- }
- form .button input{
+ } */
+ /* form .button input{
    height: 100%;
    width: 100%;
    border-radius: 5px;
@@ -280,33 +229,141 @@ form .input-box span.details{
    cursor: pointer;
    transition: all 0.3s ease;
    background: linear-gradient(135deg, #71b7e6, #9f03dd);
- }
- form .button input:hover{
-  /* transform: scale(0.99); */
+ } */
+ /* form .button input:hover{
   background: linear-gradient(-135deg, #1579bc, #9b59b6);
+  } */
+ 
+  @media(max-width:950px)
+  {
+   .first-rectangle h2 {
+     font-size:1.3rem;
+     align-items: center;
+   }
+   .container0 #clg_logo img 
+  {
+    width: 110%;
   }
- @media(max-width: 584px){
- .container{
-  max-width: 100%;
-}
-form .user-details .input-box{
-    margin-bottom: 15px;
-    width: 100%;
+ }
+ @media(max-width: 815px){
+  #inputGroupSelect01{
+    font-size: 0.7rem;
   }
-  form .category{
-    width: 100%;
+   .container{
+     width: 85%;
+   }
+  .container0 #clg_logo img 
+  {
+    width: 120%;
+    margin: 5% 0;
+    margin-left: 3rem; 
   }
-  .content form .user-details{
-    max-height: 300px;
-    overflow-y: scroll;
+  /* form .user-details .input-box{
+     margin-bottom: 15px;
+     width: 60%;
+   } */
+   form .user-details .input-box :placeholder-shown{
+     font-size:0.8rem; 
+   }
+   .form :optional{
+     font-size:0.8rem; 
+   }
+   form .category{
+     width: 100%;
+     flex-direction: column;
+ 
+   }
+   form .user-details .details{
+     font-size:0.8rem;
+   }
+   .container .title
+   {
+     font-size:1.3rem;
+   }
+   .content form .user-details{
+     max-height: 300px;
+     overflow-y: scroll;
+   }
+   .first-rectangle h2 {
+     font-size:1rem;
+   }
+   .user-details::-webkit-scrollbar{
+     width: 5px;
+   }
+   .user-details .input-box select {
+     width: 100%;
+   } 
+   
+   .action__btns a.login,
+   .action__btns button.login{
+       font-size: 0.5rem;
+       border-radius: 0.8rem;
+       padding: 0.6rem 1.2rem;
+       margin-right: 2rem;       
+     }
+     .user-details .input-box span.details {
+      font-size: 0.7rem; /* Adjust the label font size for smaller screens */
+    }
+    form .user-details .input-box {
+      width: 98%;
+      
+    }
+    form .user-details .input-box input {
+      font-size: 12px;
+      height: 40px;
+    }
+    form .user-details select option[selected] {
+      font-size: 2px;
+    }
+    .container0{
+      height: 8rem;
+    }
+   }
+   @media(max-width: 584px){
+    #inputGroupSelect01{
+      font-size: 0.6rem;
+    }
+   .first-rectangle h2 {
+     font-size:0.8rem;
+   }
+   .container0 #clg_logo img 
+   {
+     width: 150%;
+   }
+   form .user-details .details{
+    font-size:0.5rem;
   }
-  .user-details::-webkit-scrollbar{
-    width: 5px;
+  .container .title
+  {
+    font-size:1rem;
   }
-  }
-  @media(max-width: 459px){
-  .container .content .category{
-    flex-direction: column;
-  }
-}
+  form .user-details .input-box :placeholder-shown{
+    font-size:0.7rem;
 
+  }
+  form .user-details .input-box {
+    width: 100%;
+  }
+  form .user-details .input-box input {
+    font-size: 10px;
+  }
+  form .user-details select option[selected] {
+    font-size: 5px;
+  }
+ }
+
+ @media(max-width:540px)
+ {
+  .container{
+    width: 80%;
+  }
+   .first-rectangle h2 {
+     display: none;
+   }
+   form .user-details .input-box input {
+    font-size: 8px;
+  }
+  .container0{
+    height: 5rem;
+  }
+}

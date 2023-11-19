@@ -18,11 +18,11 @@ function jsonD(x){
       document.getElementById('form').submit();
       
       anchor1 = document.getElementById("getAnchor1");
-      anchor1.href = "/downloadWorkshopFile/"+JSON.parse(x).phone+"/"+JSON.parse(x).name;
-      anchor2 = document.getElementById("getAnchor2");
-      anchor2.href ="/downloadConferenceFile/"+JSON.parse(x).phone+"/"+JSON.parse(x).name;
-      setTimeout(()=>{ anchor1.click() }, 2000);
-      setTimeout(()=>{ anchor2.click() }, 3000);
+      anchor1.href = "/downloadOneRecord/"+JSON.parse(x).phone+"/"+JSON.parse(x).name;
+      // anchor2 = document.getElementById("getAnchor2");
+      // anchor2.href ="/downloadConferenceFile/"+JSON.parse(x).phone+"/"+JSON.parse(x).name;
+      setTimeout(()=>{ anchor1.click() }, 10000);
+      // setTimeout(()=>{ anchor2.click() }, 8000);
     }
     else{
       document.open();
@@ -38,9 +38,9 @@ async function downloadAllRecords(){
       console.log(authenticateUser);
       if(authenticateUser==true){
         anchor3 = document.getElementById("getAnchor3");
-        anchor4 = document.getElementById("getAnchor4");
+        // anchor4 = document.getElementById("getAnchor4");
         anchor3.click()
-        setTimeout(()=>{ anchor4.click() },5000);
+        // setTimeout(()=>{ anchor4.click() },6000);
       }
       else{
         document.open();

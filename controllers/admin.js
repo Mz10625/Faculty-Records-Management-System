@@ -2,10 +2,11 @@
 const Excel = require('exceljs');
 const fs = require('fs');
 const path = require("path");
+const archiver = require('archiver');
 const jsonwebtoken = require("jsonwebtoken");
 const viewsPath = path.dirname(__dirname)+"/views";
 const ObjectId = require('mongodb').ObjectId;
-var client;
+var client,redirected=false;
 
 function getClientVariable(c){
     client = c;
@@ -68,7 +69,7 @@ async function addUser(client,data){
                         "username":data.username,
                         "password":data.password,
         }
-        console.log(userdata);
+        // console.log(userdata);
         const insert = await userCredentials.insertOne(userdata,(error,result)=>{
                 return result.result.ok;
         });
@@ -137,8 +138,24 @@ async function updateUserData(client,ObjectId,updatedData){
         console.log(error);
     }
 }
-
-async function createExcelFile(data){
+function createZipFile(contact){
+    const zip = archiver('zip');
+    let output="";
+    if(contact!=""){
+        output = fs.createWriteStream(path.dirname(__dirname)+"/routes/"+contact+".zip");
+    }
+    else{
+        output = fs.createWriteStream(path.dirname(__dirname)+"/routes/"+"Records.zip");
+    }
+    zip.pipe(output);
+    zip.file(path.dirname(__dirname)+"/routes/"+contact+"Workshop.xlsx", { name: 'Workshop.xlsx' });
+    zip.file(path.dirname(__dirname)+"/routes/"+contact+"Conference.xlsx", { name: 'Conference.xlsx' });
+    zip.finalize().then(()=>{
+        deleteFiles(path.dirname(__dirname)+"/routes/"+contact+"Workshop.xlsx");
+        deleteFiles(path.dirname(__dirname)+"/routes/"+contact+"Conference.xlsx");
+    })
+}
+async function createExcelFile(data,singleUserData){
     try{
         
         const workshopWb = new Excel.Workbook();
@@ -212,7 +229,7 @@ async function createExcelFile(data){
     }
     let newWorkshopFileName,newConferenceFileName;
 
-    if(data.length==1){
+    if(singleUserData==1){
         newWorkshopFileName = "/"+data[0].phone+'Workshop.xlsx';
         newConferenceFileName =  "/"+data[0].phone+'Conference.xlsx';
     }
@@ -227,13 +244,20 @@ async function createExcelFile(data){
             .catch(err => {
                 console.log(err.message);
             });
-    conferenceWb.xlsx.writeFile( path.dirname(__dirname)+"/routes"+newConferenceFileName)
+    let c = await conferenceWb.xlsx.writeFile( path.dirname(__dirname)+"/routes"+newConferenceFileName)
     // .then(() => {
         //     return true;
             // })
             .catch(err => {
                 console.log(err.message);
             });
+    if(singleUserData==1){
+        createZipFile(data[0].phone)
+    }
+    else{
+        createZipFile("");
+    }
+    
 
     }catch(error){
         console.log(error);
@@ -262,8 +286,11 @@ function getUserLogin(req,res){
 }
 function getAdminHome(req,res){   
     try{
-        const token = req.cookies.token;
-        const verify = jsonwebtoken.verify(token,"12345");
+        if(redirected==true){
+            const token = req.cookies.token;
+            const verify = jsonwebtoken.verify(token,"12345");
+            redirected = false;
+        }
         res.sendFile(viewsPath+"/adminHome.html");
     }catch(error){
         return res.status(401).send( "Not Authorized");
@@ -300,69 +327,101 @@ function deleteFiles(filePath){
     fs.unlink(filePath, (err) => {
         if (err) {
             console.error('Error deleting file:', err);
-        } else {
-            console.log('File deleted successfully');
         }
     });
 }
-function getDownloadWorkshopFile(req,res){
+function getDownloadOneRecord(req,res){
     const contact = req.params.contact;
     const name = req.params.name;
-    const requestedFilePath = path.dirname(__dirname)+"/routes/"+contact+"Workshop.xlsx";
+    const requestedFilePath = path.dirname(__dirname)+"/routes/"+contact+".zip";
     // var requestedFile = new File(requestedFilePath);
     // while(!requestedFile.exists())
-    res.download(requestedFilePath,name+'Workshop.xlsx', (err) => {
-        if (err) {
-          console.error(err);
-          res.status(500).send('Error downloading the file.');
+
+    fileCreationIterval = setInterval(() => {
+        const exists = fs.existsSync(requestedFilePath)
+        if (exists) {
+            res.download(requestedFilePath,name+".zip", (err) => {
+                if (err) {
+                console.error(err);
+                res.status(500).send('Error downloading the file.');
+                }
+            })
+            res.on("finish",()=>{
+                deleteFiles(requestedFilePath);                                        
+            })
+            clearInterval(fileCreationIterval);
         }
-    });
-    setTimeout(()=>{
-        deleteFiles(requestedFilePath);
-    },30000)
+    }, 1000);
 }
-function getDownloadConferenceFile(req,res){
-    const contact = req.params.contact;
-    const name = req.params.name;
-    const requestedFilePath = path.dirname(__dirname)+"/routes/"+contact+"Conference.xlsx";
-    // var requestedFile = new File(requestedFilePath);
-    // while(!requestedFile.exists())
-    res.download(requestedFilePath,name+'Conference.xlsx', (err) => {
-        if (err) {
-          console.error(err);
-          res.status(500).send('Error downloading the file.');
-        }
-    });
-    setTimeout(()=>{
-        deleteFiles(requestedFilePath);
-    },35000)
-}
-function getDownloadAllWorkshopRecords(req,res){
-    const requestedFilePath = path.dirname(__dirname)+"/routes"+"/Workshop.xlsx";
+// function getDownloadConferenceFile(req,res){
+//     const contact = req.params.contact;
+//     const name = req.params.name;
+//     const requestedFilePath = path.dirname(__dirname)+"/routes/"+contact+"Conference.xlsx";
+//     res.download(requestedFilePath,name+'Conference.xlsx', (err) => {
+//         if (err) {
+//           console.error(err);
+//           res.status(500).send('Error downloading the file.');
+//         }
+//     });
+//     setTimeout(()=>{
+//         deleteFiles(requestedFilePath);
+//     },35000)
+// }
+function getDownloadAllRecords(req,res){
+    const requestedFilePath = path.dirname(__dirname)+"/routes"+"/Records.zip";
     async function processRequest(){
         let value = await download(client)
-        await createExcelFile(value.userdata);
+        await createExcelFile(value.userdata,0);
         return true;
     }
     processRequest()
-    setTimeout(()=>{
-        res.download(requestedFilePath,"Workshop.xlsx", (err) => {
-            if (err) {
-            console.error(err);
-            res.status(500).send('Error downloading the file.');
-            }
-        });
-    },4000)       
+
+    // setTimeout(()=>{
+    //     res.download(requestedFilePath,"Records.zip", (err) => {
+    //         if (err) {
+    //             console.error(err);
+    //             res.status(500).send('Error downloading the file.');
+    //         }
+    //     });     
+    // },4000)
+    fileCreationIterval = setInterval(() => {
+                                const exists = fs.existsSync(requestedFilePath)
+                                if (exists) {
+                                    res.download(requestedFilePath,"Records.zip", (err) => {
+                                        if (err) {
+                                        console.error(err);
+                                        res.status(500).send('Error downloading the file.');
+                                        }
+                                    })
+                                    res.on("finish",()=>{
+                                        deleteFiles(requestedFilePath);                                        
+                                    })
+                                    clearInterval(fileCreationIterval);
+                                }
+                            }, 1000);
+
+    // setTimeout(()=>{
+        
+    // },1000)
 }
-function getDownloadAllConferenceRecords(req,res){
-    const requestedFilePath = path.dirname(__dirname)+"/routes"+"/Conference.xlsx";
-    res.download(requestedFilePath,"Conference.xlsx", (err) => {
-        if (err) {
-        console.error(err);
-        res.status(500).send('Error downloading the file.');
-        }
-    });     
-}
+// function getDownloadAllConferenceRecords(req,res){
+//     const requestedFilePath = path.dirname(__dirname)+"/routes"+"/Conference.xlsx";
+//     myInterval = setInterval(() => {
+//         const exists = fs.existsSync(requestedFilePath)
+//         if (exists) {
+//             res.download(requestedFilePath,"Conference.xlsx", (err) => {
+//                 if (err) {
+//                 console.error(err);
+//                 res.status(500).send('Error downloading the file.');
+//                 }
+//             }); 
+//             clearInterval(myInterval);
+//         }
+//     }, 1000);
+//     setTimeout(()=>{
+//         deleteFiles(requestedFilePath);
+//     },35000)
+// }
 function getRemoveUser(req,res){
     download(client).then((value)=>{                
         if(value){
@@ -394,6 +453,7 @@ function postAdminLogin(req,res){
             // res.json({
             //     token: jsonwebtoken.sign({ pass: data.Password}, "12345"),               
             // })
+            redirected = true;
             res.redirect("/adminHome");
         }
         else{
@@ -440,7 +500,7 @@ function postDownload(req,res){
     // dataToList.push(data)
     // let parsedData = JSON.parse(data.jsonData);
     // console.log(typeof(parsedData));
-    createExcelFile(dataToList);
+    createExcelFile(dataToList,1);
 }
 function postRemoveUser(req,res){
     let data=req.body;
@@ -474,10 +534,10 @@ module.exports = {
     getAddUser : getAddUser,
     getDownload : getDownload,
     getUpdateList : getUpdateList,
-    getDownloadWorkshopFile : getDownloadWorkshopFile,
-    getDownloadConferenceFile : getDownloadConferenceFile,
-    getDownloadAllWorkshopRecords : getDownloadAllWorkshopRecords,
-    getDownloadAllConferenceRecords : getDownloadAllConferenceRecords,
+    getDownloadOneRecord : getDownloadOneRecord,
+    // getDownloadConferenceFile : getDownloadConferenceFile,
+    getDownloadAllRecords : getDownloadAllRecords,
+    // getDownloadAllConferenceRecords : getDownloadAllConferenceRecords,
     getRemoveUser : getRemoveUser,
     postAdminLogin : postAdminLogin,
     postAddUser : postAddUser,

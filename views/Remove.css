@@ -4,7 +4,7 @@
 }
 
 body{
-   background: linear-gradient(to top,black,rgb(141, 136, 136));
+   background: linear-gradient(to top,black,black);
   width: 100vw;
   height: 100vh;
   box-sizing: border-box;
@@ -53,7 +53,7 @@ body{
   justify-content: center;
 }
 
-.action__btns a,.action__btns button{
+.action__btns button{
   margin:2rem;
     font-size: 1rem;
     font-weight: 600;
@@ -66,39 +66,9 @@ body{
     text-decoration: none;
     display: inline-block;
     transition: all 0.3s ease;
-    
-
-
-  }
-  .action__btns a.login {
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    padding: 1rem 2rem;
-    outline: none;
-    background-color: #ffffff;
-    color: #a855f7;
-    border: 2px solid #a855f7;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-}
-  
-  
-  .action__btns a {
-    background-color: #a855f7;
-    color: white;
-}
-
-.action__btns button {
     background-color: #ffffff;
     color: #a855f7;
 }
-
-/* Hover effect */
-.action__btns a:hover,
 .action__btns button:hover {
     background-color: #9333ea; /* Darker purple on hover */
     border-color: #9333ea;
@@ -120,7 +90,7 @@ body{
   display: flex;
   width: 100vw;
   height: 20%;
-  background-color: rgba(0, 0, 0, 0.5); 
+  background-color: rgba(0, 0, 0, 0.4); 
   /* background-color: rgba(0, 0, 0, 0.5);  */
   /* justify-content: center; */
 }
@@ -146,10 +116,27 @@ body{
   width: 100%; 
   color: white;
 }
+#submit{
+  padding: 0.4rem 0.8rem;
+  outline: none;
+  border: 2px solid gray;
+  border-radius: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  background-color: #ffffff;
+  color: gray;
+}
+#submit:hover {
+background-color: #9333ea; 
+border-color: #9333ea;
+color: white;
+}
 #table{
+  /* display: block; */
   color: rgba(0, 0, 0, 0.822);
   text-align: center;
-  width: 100%;
+  width: 100vw;
   padding: 0.4rem;   
 }
 #table th{   
@@ -172,6 +159,9 @@ body{
     font-size: 0.8rem;
     letter-spacing: 0px;
     padding: 0.6rem 1.8rem;
+  }
+  #submit{
+    font-size: 0.7rem;
   }
   #table td{
     font-size: 0.9rem;
@@ -196,9 +186,8 @@ body{
   #table th{
     font-size: 0.8rem;
   }
-  .container0 #clg_logo img{
-    width:120%;
-    height: 50%;
+  .container0 {
+    height: 18%; 
   }
 }
 @media screen and (max-width: 510px){
@@ -206,11 +195,13 @@ body{
     display: none;
   }
   .container0 #clg_logo img{
-    margin-left: 4rem;
-    width:160%;
-    height: 60%;
+    margin-left: 4.5rem;
+    width:8rem;
+    height: 4rem;
   }
 }
-@media screen and (max-width: 510px){
-
+@media screen and (max-width: 380px){
+  #tableDiv{
+    overflow-x: scroll;
+  }
 }

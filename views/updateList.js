@@ -16,3 +16,7 @@ function sendPostReq(x){
     //       window.locate.replace(response.body);
     //     })    
 }
+document.getElementById("homeBtn").addEventListener("click",()=>{
+  document.cookie = "token="+sessionStorage.getItem("token");
+  document.getElementById("homeAnchor").click();
+})

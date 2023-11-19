@@ -5,24 +5,19 @@ head
   title Remove User
   link(rel='stylesheet' href='Remove.css')
   link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
-  script(src='remove.js') 
+  
 
 .container0
   #clg_logo
     img(src='images/logo1.png' alt='logo')
   .first-rectangle
     h2(style='color: orange;') Kolhapur Institute of Technology&apos;s
-    h2 Colloge of Engineering (Autonomous) Kolhapur
-  //- .searchbar
-  //-   br
-  //-   br
-  //-   input(type='text' placeholder='Search..')
-  //-   button(type='submit')
-  //-     i.fa.fa-search
+    h2 College of Engineering (Autonomous) Kolhapur
   .action__btns
     br
     br
-    a.login(href='adminHome.html') Home
+    button.login#homeBtn Home
+    a#homeAnchor(href='adminHome')
 
 #tableDiv
   table#table 
@@ -42,4 +37,7 @@ head
           td
             form(id="form" action="/removeUser" method="post")
               input(type="hidden" name="jsonData" id="jsonDataField")
-            button(onclick=`jData(${JSON.stringify(x._id)})`) Submit
+            button#submit(onclick=`jData(${JSON.stringify(x._id)})`) Remove
+
+            
+  script(src='remove.js') 
