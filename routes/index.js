@@ -1,7 +1,7 @@
 // const exp = require("constants");
 const express = require("express");
 const jsonwebtoken = require("jsonwebtoken");
-
+const PORT = process.env.PORT || 80;
 const path = require("path");
 const fs = require('fs');
 const cookieParser = require("cookie-parser");
@@ -134,6 +134,6 @@ app.post("/workshop",validateUserCookie,user.postWorkshop)
 app.post("/conference",validateUserCookie,user.postConference)
 
 
-app.listen(80,"127.0.0.1",()=>{
+app.listen(PORT,"127.0.0.1",()=>{
     console.log("listening...")
 })
