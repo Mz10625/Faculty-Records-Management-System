@@ -1,7 +1,7 @@
 // const exp = require("constants");
 const express = require("express");
 const jsonwebtoken = require("jsonwebtoken");
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 3030;
 const path = require("path");
 const fs = require('fs');
 const cookieParser = require("cookie-parser");
