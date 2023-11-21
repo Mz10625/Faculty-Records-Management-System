@@ -444,6 +444,20 @@ function getRemoveUser(req,res){
         }
     })
 }
+function getUpdatePassword(req,res){
+    try{
+        const db = client.db('KITCOEK');
+        const adminCollection = db.collection('admin');
+        let reqCookie_id = new ObjectId(reqCookie);
+        const findResult = await adminCollection.findOne({_id : reqCookie_id});
+        if(findResult == null){
+            return false;
+        }
+        return true;
+    }catch(){
+
+    }
+}
 function postAdminLogin(req,res){
     let data = (req.body);
     adminAuthenticate(data.UserName,data.Password).then((value)=>{
@@ -553,10 +567,9 @@ module.exports = {
     getDownload : getDownload,
     getUpdateList : getUpdateList,
     getDownloadOneRecord : getDownloadOneRecord,
-    // getDownloadConferenceFile : getDownloadConferenceFile,
     getDownloadAllRecords : getDownloadAllRecords,
-    // getDownloadAllConferenceRecords : getDownloadAllConferenceRecords,
     getRemoveUser : getRemoveUser,
+    getUpdatePassword : getUpdatePassword,
     postAdminLogin : postAdminLogin,
     postAddUser : postAddUser,
     postUpdateList : postUpdateList,

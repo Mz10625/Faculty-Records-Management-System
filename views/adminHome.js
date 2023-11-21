@@ -73,3 +73,16 @@ document.getElementById('downloadBtn').addEventListener("click",()=>{
     })
     .catch(error => document.write(error));
 })
+document.getElementById('updatePasswordBtn').addEventListener("click",()=>{    
+    authenticate().then((authenticateUser)=>{
+        if(authenticateUser==true){
+            document.getElementById('updatePasswordAnchor').click();
+        }
+        else{
+            document.open();
+            document.write("Not Authorized");
+            document.close();
+        }
+    })
+    .catch(error => document.write(error));
+})

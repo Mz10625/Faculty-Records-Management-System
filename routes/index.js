@@ -1,7 +1,8 @@
 // const exp = require("constants");
 const express = require("express");
 const jsonwebtoken = require("jsonwebtoken");
-const PORT = process.env.PORT || 3030;
+const PORT = process.env.PORT || 80;
+// console.log(process.env)
 const path = require("path");
 const fs = require('fs');
 const cookieParser = require("cookie-parser");
@@ -106,6 +107,7 @@ app.get("/downloadOneRecord/:contact/:name",validateAdminCookie,admin.getDownloa
 app.get("/downloadAllRecords",validateAdminCookie,admin.getDownloadAllRecords)
 // app.get("/downloadAllConferenceRecords",validateCookie,admin.getDownloadAllConferenceRecords)
 app.get("/removeUser",validateAdminCookie,admin.getRemoveUser)
+app.get("/updatePassword",validateAdminCookie,admin.getUpdatePassword)
 
 // User GET Routes
 app.get("/userHome",validateUserCookie,user.getUserHome)
