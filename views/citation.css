@@ -1,0 +1,401 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap'); */
+* {
+  margin: 0px;
+  padding: 0px;
+  /* box-sizing: border-box; */
+  /* font-family: 'Poppins',sans-serif; */
+}
+
+body {
+  background: linear-gradient(to top,black,black);
+  width: 100vw;
+  height: 100vh;
+  /* font-family: Arial; */
+  /* box-sizing: border-box; */
+  z-index: 1;
+  overflow-x: hidden;
+}
+#txt_color
+{
+  color: orange;
+}
+.action__btns{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action__btns .login{
+    margin:2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    padding: 1rem 2rem;
+    outline: none;
+    border: 2px solid #a855f7;
+    border-radius: 25px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;  
+  }
+  .action__btns .login{
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    padding: 1rem 2rem;
+    outline: none;
+    background-color: #ffffff;
+    color: #a855f7;
+    border: 2px solid #a855f7;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.action__btns .login:hover{
+    background-color: #9333ea; /* Darker purple on hover */
+    border-color: #9333ea;
+    color: white;
+}
+#homeBtn{
+  margin-right: 4rem;
+}
+.container0 {
+  display: flex;
+  width: 100vw;
+  height: 20%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  /* background-color: rgba(0, 0, 0, 0.5);  */
+  /* justify-content: center; */
+}
+.container0 #clg_logo{
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  width:25%;
+  height: 100%;
+}
+.container0 #clg_logo img{
+  width:80%;
+  margin-left: 1rem;
+}
+.first-rectangle h2{
+  padding: 0.1rem;
+  /* margin-left: 3rem; */
+}
+.first-rectangle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%; 
+  color: white;
+  align-items: center;
+
+}
+/* style the google drive link*/
+
+
+.input-box {
+  margin-bottom: 20px;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.input-container input[type="url"] {
+  flex: 1;
+  margin-right: 10px;
+  border: none;
+  outline: none;
+}
+
+.input-container a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.container0::before{
+  content: "";
+  position: fixed;
+  left: 0%;
+  top: 0%;
+  background-image: url(images/bg9.avif);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 50%;
+}
+/* Style the container */
+.container {
+  max-width: 800px;
+  width: 90%;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  margin: 20px auto;
+}
+
+/* Style the title */
+.container .title{
+  font-size: 30px;
+  font-weight: 500;
+  position: relative;
+}
+.container .title::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 50px;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #25c46c, #391db5);
+}
+
+/* Style the user details section */
+.content form .user-details{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px 0 12px 0;
+}
+form .user-details .input-box{
+  margin-bottom: 10px;
+  width: calc(100% / 2 - 20px);
+}
+form .input-box span.details{
+  display: block;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.user-details .input-box input{
+  height: 45px;
+  width: 100%;
+  outline: none;
+  font-size: 16px;
+  border-radius: 5px;
+  padding-left: 15px;
+  border: 1px solid #ccc;
+  border-bottom-width: 2px;
+  transition: all 0.3s ease;
+}
+.custom-select{
+  position: relative;
+  font-family: Arial;
+
+}
+
+.user-details .input-box input,
+.user-details .input-box select { 
+  height: 45px;
+  width: 100%;
+  outline: none;
+  font-size: 16px;
+  border-radius: 5px;
+  padding-left: 15px;
+  border: 1px solid #ccc;
+  border-bottom-width: 2px;
+  transition: all 0.3s ease;
+}
+
+.custom-select {
+  position: relative;
+  font-family: Arial;
+  height: 45px; /* Match the height with input boxes */
+}
+.user-details .input-box input:focus,
+.user-details .input-box input:valid{
+  border-color: #4d9a63;
+}
+ form .gender-details .gender-title{
+  font-size: 20px;
+  font-weight: 500;
+ }
+ form .category{
+   display: flex;
+   width: 80%;
+   margin: 14px 0 ;
+   justify-content: space-between;
+ }
+ form .category label{
+   display: flex;
+   align-items: center;
+   cursor: pointer;
+ }
+ form .category label .dot{
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background: #d9d9d9;
+  border: 5px solid transparent;
+  transition: all 0.3s ease;
+}
+ #dot-1:checked ~ .category label .one,
+ #dot-2:checked ~ .category label .two,
+ #dot-3:checked ~ .category label .three{
+   background: #2e16b7;
+   border-color: #2484c0;
+ }
+ form input[type="radio"]{
+   display: none;
+ }
+ form .action__btns{
+   height: 45px;
+   margin: 35px 0;
+   align-items: center;
+ }
+ form .action__btns input{
+   height: 100%;
+   width: 100%;
+   border-radius: 5px;
+   border: none;
+   color: #fff;
+   font-size: 18px;
+   font-weight: 500;
+   letter-spacing: 1px;
+   cursor: pointer;
+   transition: all 0.3s ease;
+   background: linear-gradient(135deg, #71b7e6, #9f03dd);
+ }
+ @media(max-width:950px)
+ {
+   .first-rectangle h2 {
+     font-size:1rem;
+     margin-left: 0.6rem; 
+     align-items: center;
+   }
+   #homeBtn{
+    padding: 0.8rem 1.6rem;
+    font-size: 0.8rem;
+  }
+  .container{
+    max-width: 80%;
+  }
+ }
+ @media(max-width: 800px){
+  .container{
+    max-width: 70%;
+  }
+  .container0 #clg_logo img 
+  {
+    width: 100%;
+    /* margin: 5% 0; */
+    /* margin-left: 3rem; */
+  }
+  form .user-details .input-box{
+     margin-bottom: 15px;
+     width: 100%;
+   }
+   form .user-details .input-box :placeholder-shown{
+     font-size:0.8rem;
+ 
+   }
+   .form :optional{
+     font-size:0.8rem;
+ 
+   }
+   form .category{
+     width: 100%;
+     flex-direction: column;
+ 
+   }
+   form .user-details .details{
+     font-size:0.8rem;
+   }
+   .container .title
+   {
+     font-size:1.3rem;
+   }
+   .content form .user-details{
+     max-height: 300px;
+     overflow-y: scroll;
+   }
+   .first-rectangle h2 {
+     font-size:0.8rem;
+     align-items: center; 
+   }
+   .user-details::-webkit-scrollbar{
+     width: 5px;
+   }
+   .user-details .input-box select {
+     width: 100%;
+   }
+   form .user-details .input-box {
+    width: 100%;
+    
+  }
+  form .user-details .input-box input {
+    font-size: 12px;
+    height: 40px;
+  }
+  form .user-details select option[selected] {
+    font-size: 2px;
+  }
+  #homeBtn{
+    padding: 0.6rem 1.6rem;
+    margin-right: 2rem;
+    font-size: 0.7rem;
+  }
+   }
+   @media(max-width: 560px){
+   .container .content .category{
+     flex-direction: column;
+   }
+   #homeBtn{
+    padding: 0.6rem 1.6rem;
+    font-size: 0.5rem;
+    margin: 1rem;
+  }
+   .first-rectangle h2 {
+     font-size:0.5em;
+     align-items: center;
+    }
+   form .user-details .input-box :placeholder-shown{
+    font-size:0.7rem;
+
+  }
+  form .user-details .input-box {
+    width: 100%;
+  }
+  form .user-details .input-box input {
+    font-size: 10px;
+  }
+  form .user-details select option[selected] {
+    font-size: 5px;
+  }
+  
+ }
+ @media(max-width:450px)
+ {
+   .first-rectangle h2 {
+     font-size:0.3 em;
+     align-items: center;
+   }
+ }
+ @media(max-width:390px)
+ {
+   .first-rectangle h2 {
+    display: none;
+   }
+   .container0 #clg_logo img 
+   {
+     width: 190%;
+     margin: 5% 0;
+     margin-left: 3rem; 
+   }
+ }
+
