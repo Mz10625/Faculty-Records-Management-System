@@ -1,0 +1,60 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Update User
+  link(rel='stylesheet' href='updateUserProfile.css')
+.container0
+  #clg_logo
+    img(src='images/logo1.png' alt='logo')
+  .first-rectangle
+    h2(style='color: orange;') Kolhapur Institute of Technology&apos;s
+    h2 College of Engineering (Autonomous) Kolhapur
+  .action__btns#homeBtn
+    a.login(href='userHome') Home
+
+.container
+  .title Update Details
+  .content
+    form#form(method='post')
+      .user-details
+        .input-box
+          span.details Name of Faculty 
+          input(type='text' name='name' value= data.name required='')
+        .input-box
+          span.details Name of Department 
+          select#inputGroupSelect01.custom-select(name='dept')
+            option(selected=data.dept)  #{data.dept}
+            option(value='Computer Science and Engineering') Computer Science and Engineering
+            option(value='Electronics and Telecommunication Engineering') Electronics and Telecommunication Engineering
+            option(value='Environmental Engineering') Environmental Engineering
+            option(value='Mechanical Engineering') Mechanical Engineering
+            option(value='Basic Science and Humanities') Basic Science and Humanities
+            option(value='Biotechnology Engineering') Biotechnology Engineering
+            option(value='Electrical Engineering') Electrical Engineering
+            option(value='Civil Engineering') Civil Engineering
+            option(value='Electronics Engineering') Electronics Engineering
+            option(value='Library') Library
+        .input-box
+          span.details Email 
+          input(type='text' name='email' value=data.email required='')
+        .input-box
+          span.details Mobile Number
+          input(type='text' name='phone' value=data.phone required='')
+        .input-box
+          span.details User Name
+          input(type='text' name='username' value=data.username required='')
+        .input-box
+          span.details Password
+          input(type='text' name='password' placeholder="Enter password to update details" required='')
+        .input-box
+          span.details New Password
+          input#newPass(type='text' name='newPassword' placeholder="Optional" )
+        .input-box
+          span.details Confirm New Password
+          input#confirmNewPass(type='text' name='confirmNewPassword' placeholder="Optional" )
+
+      .action__btns(align='center')
+        button#submitBtn Submit 
+  
+  script(src="updateUserProfile.js") 

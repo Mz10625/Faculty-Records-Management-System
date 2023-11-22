@@ -42,3 +42,19 @@ document.getElementById('conferenceBtn').addEventListener("click",()=>{
     })
     .catch(error => console.error('Error:', error));
 })
+document.getElementById('updateProfileBtn').addEventListener("click",()=>{    
+    authenticate().then((authenticateUser)=>{
+        if(authenticateUser==true){
+            document.getElementById('updateProfileAnchor').click();
+        }
+        else{
+            document.open();
+            document.write("Not Authorized");
+            document.close();
+        }
+    })
+    .catch(error => document.write(error));
+})
+// document.getElementById('dropdown').addEventListener("click",()=>{
+//     document.getElementById("dropdown-options").style.display = "block";
+// })

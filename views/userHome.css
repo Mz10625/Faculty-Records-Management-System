@@ -60,6 +60,13 @@ body{
 .header .action__btns{
   margin-right: 2rem;
 } 
+
+.menubar{
+  width: 3rem;
+  height: 1rem;
+  background-color: rgb(255, 255, 255);
+  margin: 6px 0;
+}
 .action__btns a,
  .action__btns button{
   margin-right: 1rem;

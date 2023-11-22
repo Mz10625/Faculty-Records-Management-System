@@ -457,6 +457,7 @@ async function getUpdatePassword(req,res){
         res.render(viewsPath+"/updateAdminPassword.pug");
     }catch(error){
         console.log(error);
+        res.redirect("/adminHome");
     }
 }
 function postAdminLogin(req,res){
@@ -554,13 +555,14 @@ async function postUpdatePassword(req,res){
             {password : req.body.currentPassword},
             {$set : {password : req.body.newPassword,username : req.body.username}}
             );
-        console.log(updateResult.matchedCount);
+        // console.log(updateResult.matchedCount);
         if(updateResult.matchedCount == 0){
             throw new Error("Admin record not found");
         }
         res.render(viewsPath+"/updateAdminPassword.pug");
     }catch(error){
         console.log(error);
+        res.redirect("/updatePassword");
     }
 }
 

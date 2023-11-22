@@ -21,12 +21,20 @@ const client = new MongoClient(uri)
 async function connect_DB(){
     try{
         await client.connect();
+        return true;
     }
     catch{
         console.log("Error connecting database!!");
+        return false;
     }
 }
-
+connectInterval = setInterval(()=>{
+    connect_DB().then((value)=>{
+        if(value){
+            clearInterval(connectInterval);
+        }
+    })
+},5000)
 // async function close_DB(){
 //     try{
 //         await client.close();
@@ -42,7 +50,7 @@ app.use(express.json())//      Data cannot be parsed in json form as it is urlen
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-connect_DB();
+
 admin.getClientVariable(client);
 user.getClientVariable(client);
 
@@ -113,6 +121,7 @@ app.get("/updatePassword",validateAdminCookie,admin.getUpdatePassword)
 app.get("/userHome",validateUserCookie,user.getUserHome)
 app.get("/workshop",validateUserCookie,user.getWorkshop)
 app.get("/conference",validateUserCookie,user.getConference)
+app.get("/updateProfile",validateUserCookie,user.getUpdateProfile)
 
 
 app.get("/authenticate",authenticate)
@@ -135,6 +144,7 @@ app.post("/updatePassword",validateAdminCookie,admin.postUpdatePassword)
 app.post("/userLogin",user.postUserLogin)
 app.post("/workshop",validateUserCookie,user.postWorkshop)
 app.post("/conference",validateUserCookie,user.postConference)
+app.post("/updateProfile",validateUserCookie,user.postUpdateProfile)
 
 
 app.listen(PORT,"127.0.0.1",()=>{

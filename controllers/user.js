@@ -136,6 +136,25 @@ function getWorkshop(req,res){
 function getConference(req,res){
     res.sendFile(viewsPath+"/conference.html"); 
 }
+async function getUpdateProfile(req,res){
+    try{
+        const db = client.db('KITCOEK');
+        const userCollection = db.collection('userCredentials');
+        reqCookie = req.cookies.connectId;
+        let reqCookie_id = new ObjectId(reqCookie);
+        const findResult = await userCollection.findOne({_id : reqCookie_id});
+        if(findResult == null){
+            throw new Error("User record not found");
+        }
+        findResult.workshop = -1;
+        findResult.conference = -1;
+        // console.log(findResult)
+        res.render(viewsPath+"/updateUserProfile.pug",{data : findResult});
+    }catch(error){
+        console.log(error);
+        res.redirect("/userHome");
+    }
+}
 function postUserLogin(req,res){
     let data = (req.body);
     userAuthenticate(data.UserName,data.Password).then((value)=>{
@@ -185,7 +204,37 @@ function postConference(req,res){
         }
     })
 }
-
+async function postUpdateProfile(req,res){
+    try{
+        const db = client.db('KITCOEK');
+        const userCredentials = db.collection('userCredentials');
+        let reqId = new ObjectId(req.cookies.connectId);
+        let findResult =await userCredentials.findOne({password : req.body.password})
+        if(findResult == null){
+            throw new Error("Incorrect password!!");
+        }
+        let updateResult =await userCredentials.updateOne(
+            {_id : reqId},
+            {$set :{
+                name : req.body.name,
+                phone : req.body.phone,
+                email : req.body.email,
+                dept : req.body.dept,
+                username : req.body.username,
+            }}
+            )
+            if(!updateResult.acknowledged){
+                throw new Error("Failed to update!!");
+            }
+            if(updateResult.matchedCount == 0){
+                throw new Error("User not found!!");
+            }
+            res.redirect("userHome");
+    }catch(error){
+        console.log(error);
+        res.send("Failed to update Details");
+    }
+}
 module.exports = {
     // userAuthenticate : authenticate,
     checkCookie : checkCookie,
@@ -198,4 +247,6 @@ module.exports = {
     postUserLogin : postUserLogin,
     postWorkshop : postWorkshop,
     postConference : postConference,
+    getUpdateProfile : getUpdateProfile,
+    postUpdateProfile : postUpdateProfile,
 }

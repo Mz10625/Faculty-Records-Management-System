@@ -32,13 +32,6 @@ body{
   max-width: 200px;
   margin-left: 2rem;
 }
-/* .logo1{
-    display: inline-block;
-    margin: 10px;
-}
-.logo1 img{
-    height: 70px;
-} */
 #txt_color
 {
   color: orange;
@@ -64,30 +57,53 @@ body{
   justify-content: center;
   align-items: center;
 } 
-/* .action__btns a,
- .action__btns button{
-  margin-right: 1rem;
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    padding: 0.5rem 0.5rem;
-    outline: none;
-    border: 2px solid #a855f7;
-    border-radius: 20px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.3s ease;
-
-  } */
-
+/* #dropdownContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 10%;
+}
+#dropdown{
+  width: 100%;
+}
+#dropdown-options {
+  display: none;
+  position: absolute;
+  overflow: auto;
+  border-radius:5px;
+  box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.4);
+} */
+/* #dropdown-options a{
+  font-size: 0.9rem;
+  width: 100%;
+  text-align: center;
+  font-weight: 500;
+  padding: 0.7rem 0rem;
+  outline: none;
+  background-color: #ffffff;
+  color: #a855f7;
+  border: 1px solid #a855f7;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}  */
+/* #dropdown:hover .dropdown-options {
+  display: block;
+} */
+/* .menubar{
+  width: 35px;
+  height: 5px;
+  background-color: rgb(255, 255, 255);
+  margin: 3px 0;
+} */
 .action__btns a.login,
 .action__btns button.login,
 .action__btns a.add-user,
 .action__btns button.add-user {
     font-size: 0.8rem;
     font-weight: 600;
-    /* letter-spacing: 2px; */
     padding: 0.8rem 1.6rem;
     outline: none;
     background-color: #ffffff;
@@ -111,10 +127,10 @@ body{
     color: #a855f7;
 }
 
-/* Hover effect */
+/* #dropdown-options a, */
 .action__btns a:hover,
 .action__btns button:hover {
-    background-color: #9333ea; /* Darker purple on hover */
+    background-color: #9333ea; 
     border-color: #9333ea;
     color: white;
 }
