@@ -444,18 +444,19 @@ function getRemoveUser(req,res){
         }
     })
 }
-function getUpdatePassword(req,res){
+async function getUpdatePassword(req,res){
     try{
         const db = client.db('KITCOEK');
         const adminCollection = db.collection('admin');
+        reqCookie = req.cookies.connectId;
         let reqCookie_id = new ObjectId(reqCookie);
         const findResult = await adminCollection.findOne({_id : reqCookie_id});
         if(findResult == null){
-            return false;
+            throw new Error("Admin record not found");
         }
-        return true;
-    }catch(){
-
+        res.render(viewsPath+"/updateAdminPassword.pug");
+    }catch(error){
+        console.log(error);
     }
 }
 function postAdminLogin(req,res){
@@ -545,8 +546,23 @@ function postRemoveUser(req,res){
         }
     });
 }
-
-
+async function postUpdatePassword(req,res){
+    try{
+        const db = client.db('KITCOEK');
+        const adminCollection = db.collection('admin');
+        const updateResult = await adminCollection.updateOne(
+            {password : req.body.currentPassword},
+            {$set : {password : req.body.newPassword,username : req.body.username}}
+            );
+        console.log(updateResult.matchedCount);
+        if(updateResult.matchedCount == 0){
+            throw new Error("Admin record not found");
+        }
+        res.render(viewsPath+"/updateAdminPassword.pug");
+    }catch(error){
+        console.log(error);
+    }
+}
 
 
 module.exports = {
@@ -576,4 +592,5 @@ module.exports = {
     postUpdateUserData : postUpdateUserData,
     postDownload : postDownload,
     postRemoveUser : postRemoveUser,
+    postUpdatePassword : postUpdatePassword,
 }

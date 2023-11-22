@@ -129,6 +129,7 @@ app.post("/updateList",validateAdminCookie,admin.postUpdateList)
 app.post("/updateUserData",validateAdminCookie,admin.postUpdateUserData)
 app.post("/download",validateAdminCookie,admin.postDownload)
 app.post("/removeUser",validateAdminCookie,admin.postRemoveUser)
+app.post("/updatePassword",validateAdminCookie,admin.postUpdatePassword)
 
 // User POST Routes
 app.post("/userLogin",user.postUserLogin)
