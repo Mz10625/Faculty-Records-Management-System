@@ -1,0 +1,68 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Download
+
+  link(rel='stylesheet' href='downloadUpdateList.css')
+  
+
+.container0
+  #clg_logo
+    img(src='images/logo1.png' alt='logo')
+  .first-rectangle
+    h2(style='color: orange;') Kolhapur Institute of Technology&apos;s
+    h2 College of Engineering (Autonomous) Kolhapur
+  .action__btns
+    button(onclick=`downloadAllRecords()`) Download All Records
+    a(id="getAnchor1" href="downloadPersonalRecords") 
+.tableDiv
+  - var workshopIndex = 1
+  table#table 
+    tr 
+      th Record  
+      th Name
+      th Organizing Institute
+      th Venue
+      th Nature
+      th Update
+     
+      each x in userdata.workshop
+        tr
+          td= "Workshop"
+          td= x.workshopName
+          td= x.orgInstitute
+          td= x.venue
+          td= x.nature
+          td
+            form(id="workshopForm" action="/updateWorkshopPage" method="post")
+              input(type="hidden" name="workshopData" id="workshopDataField")
+              input(type="hidden" name="workshopIndex" id="workshopIndex")
+            button#submit(type="submit" onclick=`updateWorkshop('${JSON.stringify(x)}','${workshopIndex}')`) Update 
+            - workshopIndex = workshopIndex + 1
+.tableDiv
+  - var confIndex = 1
+  table#table 
+    tr 
+      th Record  
+      th Name
+      th Title
+      th Organizing Institute
+      th Date
+      th Update
+     
+      each x in userdata.conference
+        tr
+          td= "Conference"
+          td= x.conferenceName
+          td= x.title
+          td= x.organizingInstitute
+          td= x.date
+          td
+            form(id="confForm" action="/updateConferencePage" method="post")
+              input(type="hidden" name="conferenceData" id="conferenceDataField")
+              input(type="hidden" name="confIndex" id="confIndex")
+            button#submit(type="submit" onclick=`updateConference('${JSON.stringify(x)}','${confIndex}')`) Update 
+            - confIndex = confIndex + 1
+
+script(src='downloadUpdateList.js') 

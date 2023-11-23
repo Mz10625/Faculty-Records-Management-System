@@ -83,9 +83,8 @@ async function addUser(client,data){
     // }
 }
 
-async function download(client){
+async function download(){
     try{
-
         const db = client.db('KITCOEK');
         const userCredentials = db.collection('userCredentials');
         let doc = await userCredentials.find()
@@ -93,7 +92,6 @@ async function download(client){
         for await(const x of doc) {        
             list.push(x);
         }
-        // console.log(userdata[1])
         return {value:true,userdata:list,};
     }catch(error){
         console.log(error);
@@ -265,9 +263,10 @@ async function createExcelFile(data,singleUserData){
         createZipFile("");
     }
     
-
+    return true;
     }catch(error){
         console.log(error);
+        return false;
     }
 
 }
@@ -278,7 +277,13 @@ async function removeUser(client,ObjectId,id){
     const result = await userCredentials.deleteOne({_id:reqId});
     return result.deletedCount;
 }
-
+function deleteFiles(filePath){
+    fs.unlink(filePath, (err) => {
+        if (err) {
+            console.error('Error deleting file:', err);
+        }
+    });
+}
 
 
 
@@ -334,13 +339,6 @@ function getUpdateList(req,res){
             res.sendStatus(404);
         }
     })
-}
-function deleteFiles(filePath){
-    fs.unlink(filePath, (err) => {
-        if (err) {
-            console.error('Error deleting file:', err);
-        }
-    });
 }
 function getDownloadOneRecord(req,res){
     const contact = req.params.contact;
@@ -571,10 +569,11 @@ module.exports = {
     // adminAuthenticate : authenticate,
     checkCookie : checkCookie,
     // addUser : addUser,
-    // download : download,
+    deleteFiles : deleteFiles,
+    download : download,
     // getDataToUpdate :getDataToUpdate ,
     // updateUserData : updateUserData,
-    // createExcelFile : createExcelFile,
+    createExcelFile : createExcelFile,
     // removeUser : removeUser,
     getClientVariable : getClientVariable,
     getAdminLogin : getAdminLogin,

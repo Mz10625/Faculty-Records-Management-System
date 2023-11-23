@@ -55,6 +55,19 @@ document.getElementById('updateProfileBtn').addEventListener("click",()=>{
     })
     .catch(error => document.write(error));
 })
+document.getElementById('downloadUpdateBtn').addEventListener("click",()=>{    
+    authenticate().then((authenticateUser)=>{
+        if(authenticateUser==true){
+            document.getElementById('downloadUpdateAnchor').click();
+        }
+        else{
+            document.open();
+            document.write("Not Authorized");
+            document.close();
+        }
+    })
+    .catch(error => document.write(error));
+})
 // document.getElementById('dropdown').addEventListener("click",()=>{
 //     document.getElementById("dropdown-options").style.display = "block";
 // })

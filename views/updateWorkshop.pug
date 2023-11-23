@@ -1,0 +1,86 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title  Workshop 
+  link(rel='stylesheet' href='workshop.css')
+.container0
+  br
+  #clg_logo
+    img(src='images/logo1.png' alt='logo')
+  .first-rectangle
+    h2#txt_color Kolhapur Institute of Technology&apos;s
+    h2 College of Engineering (Autonomous) Kolhapur
+  .action__btns
+    a#homeBtn.login(href='userHome') Home
+.container
+  .title Workshop Details
+  .content
+    form(method='post' action="updateWorkshop")
+      .user-details
+        .input-box
+          span.details Name of Faculty 
+          input(type='text' name='fName' value=workshopData.facultyName required='')
+        .input-box
+          span.details Name of Department 
+          select#inputGroupSelect01.custom-select(name='dept' required='')
+            option(selected=workshopData.facultyDept) #{workshopData.facultyDept}
+            option(value='Computer Science and Engineering') Computer Science and Engineering
+            option(value='Electronics and Telecommunication Engineering') Electronics and Telecommunication Engineering
+            option(value='Environmental Engineering') Environmental Engineering
+            option(value='Mechanical Engineering') Mechanical Engineering
+            option(value='Basic Science and Humanities') Basic Science and Humanities
+            option(value='Biotechnology Engineering') Biotechnology Engineering
+            option(value='Electrical Engineering') Electrical Engineering
+            option(value='Civil Engineering') Civil Engineering
+            option(value='Electronics Engineering') Electronics Engineering
+            option(value='Library') Library
+        .input-box
+          span.details Designation
+          select#inputGroupSelect01.custom-select(name='desig' required='')
+            option(selected = workshopData.facultyDesignation) #{workshopData.facultyDesignation}
+            option(value='Director') Director
+            option(value='Professor') Professor
+            option(value='Assistant Professor') Assistant Professor
+            option(value='Librarian') Librarian
+        .input-box
+          span.details Name of workshop 
+          input(type='text' name='workshopName' value=workshopData.workshopName required='')
+        .input-box
+          span.details Organizing/Sponsoring Institute
+          input(type='text' name='institute' value=workshopData.orgInstitute required='')
+        .input-box
+          span.details Venue of workshop
+          input(type='text' name='venue' value=workshopData.venue required='')
+        .input-box
+          span.details Nature of Workshop
+          input(type='text' name='nature' value=workshopData.nature required='')
+        .input-box
+          span.details Duration(Days)
+          input(type='text' name='duration' value=workshopData.duration required='')
+        .input-box
+          span.details Start Date
+          input(type='date' name='startDate' value=workshopData.startDate required='')
+        .input-box
+          span.details End Date
+          input(type='date' name='endDate' value=workshopData.endDate required='')
+        .input-box
+          span.details Any Financial Support 
+          select#inputGroupSelect01.custom-select(name='support' required='')
+            option(selected=workshopData.financialSupport) #{workshopData.financialSupport}
+            option(value='YES') YES
+            option(value='No') NO
+        .input-box
+          span.details Name of Organization who suppoted for finance
+          input(type='text' name='supportOrg' value=workshopData.financeSupportOrganisation)
+        .input-box
+          span.details Amount
+          input(type='text' name='amount' value=workshopData.amount required='')
+          input(type='hidden' name='workshopIndex' value=workshopIndex)
+        //
+          <div class="input-box">
+          <span class="details">Upload Certificate</span>
+          <input type="file" accept=".pdf,.doc,.docx" required>
+          </div>
+      .action__btns
+        button.login(type='submit') Submit

@@ -1,7 +1,9 @@
 const jsonwebtoken = require("jsonwebtoken");
 const path = require("path");
+const fs = require('fs');
 const viewsPath = path.dirname(__dirname)+"/views";
 const ObjectId = require('mongodb').ObjectId;
+const admin = require("../controllers/admin");
 var client,redirected=false;
 
 
@@ -155,6 +157,55 @@ async function getUpdateProfile(req,res){
         res.redirect("/userHome");
     }
 }
+async function getDownloadUpdate(req,res){
+    try{
+        const db = client.db('KITCOEK');
+        const userCredentials = db.collection('userCredentials');
+        let reqId = new ObjectId(req.cookies.connectId);
+        let findResult = await userCredentials.findOne({_id : reqId})
+        if(findResult == null){
+            throw new Error("User not found!!");
+        }
+        findResult.password = -1;
+        res.render(viewsPath+"/downloadUpdateList.pug",{userdata : findResult});
+    }catch(error){
+        console.log(error);
+        res.send("Failed to update Details");
+    }
+}
+async function getdownloadPersonalRecords(req,res){
+    try{
+        const db = client.db('KITCOEK');
+        const userCredentials = db.collection('userCredentials');
+        let reqId = new ObjectId(req.cookies.connectId);
+        let findResult = await userCredentials.findOne({_id : reqId})
+        if(findResult == null){
+            throw new Error("User not found!!");
+        }
+        findResult.password = -1;
+        listData = [findResult]
+        const requestedFilePath = path.dirname(__dirname)+"/routes/"+findResult.phone+".zip";
+        admin.createExcelFile(listData,1)
+        fileCreationIterval = setInterval(() => {
+            const exists = fs.existsSync(requestedFilePath)
+            if (exists) {
+                res.download(requestedFilePath,"Records.zip", (err) => {
+                    if (err) {
+                    console.error(err);
+                    res.status(500).send('Error downloading the file.');
+                    }
+                })
+                res.on("finish",()=>{
+                    admin.deleteFiles(requestedFilePath);                                        
+                })
+                clearInterval(fileCreationIterval);
+            }
+        }, 1000);
+    }catch(error){
+        console.log(error);
+        res.send("Failed");
+    }
+}
 function postUserLogin(req,res){
     let data = (req.body);
     userAuthenticate(data.UserName,data.Password).then((value)=>{
@@ -235,6 +286,58 @@ async function postUpdateProfile(req,res){
         res.send("Failed to update Details");
     }
 }
+function postUpdateWorkshopPage(req,res){
+    res.render(viewsPath+"/updateWorkshop.pug",{workshopData : JSON.parse(req.body.workshopData),workshopIndex  : req.body.workshopIndex})
+}
+function postUpdateConferencePage(req,res){
+    res.render(viewsPath+"/updateConference.pug",{conferenceData : JSON.parse(req.body.conferenceData),conferenceIndex  : req.body.confIndex})
+}
+async function postupdateWorkshop(req,res){
+    updatedData = req.body;
+    
+    try{
+        const db = client.db('KITCOEK');
+        const userCredentials = db.collection('userCredentials');
+        let reqId = new ObjectId(req.cookies.connectId);
+        let findResult =await userCredentials.findOne({_id : reqId})
+        if(findResult == null){
+            throw new Error("User not found!!");
+        }
+        workshop = findResult.workshop[req.body.workshopIndex];
+
+        workshop.facultyName = updatedData.fName
+        workshop.facultyDesignation = updatedData.desig
+        workshop.facultyDept = updatedData.dept
+        workshop.workshopName = updatedData.workshopName
+        workshop.orgInstitute = updatedData.institute
+        workshop.venue = updatedData.venue
+        workshop.nature = updatedData.nature
+        workshop.duration = updatedData.duration
+        workshop.startDate = updatedData.startDate
+        workshop.endDate = updatedData.endDate
+        workshop.financialSupport = updatedData.support
+        workshop.financeSupportOrganisation = updatedData.supportOrg
+        workshop.amount = updatedData.amount
+        
+        findResult.workshop[req.body.workshopIndex] = workshop;
+        let updateResult =await userCredentials.updateOne(
+            {_id : reqId},
+            {$set :{workshop : findResult.workshop}}
+            )
+            if(!updateResult.acknowledged){
+                throw new Error("Failed to update!!");
+            }
+            if(updateResult.matchedCount == 0){
+                throw new Error("User not found!!");
+            }
+            res.redirect("userHome");
+    }catch(error){
+        console.log(error);
+        res.send("Failed to update Details");
+    }
+}
+
+
 module.exports = {
     // userAuthenticate : authenticate,
     checkCookie : checkCookie,
@@ -244,9 +347,15 @@ module.exports = {
     getUserHome : getUserHome,
     getWorkshop : getWorkshop,
     getConference : getConference,
+    getUpdateProfile : getUpdateProfile,
+    getDownloadUpdate : getDownloadUpdate,
+    getdownloadPersonalRecords : getdownloadPersonalRecords,
     postUserLogin : postUserLogin,
     postWorkshop : postWorkshop,
     postConference : postConference,
-    getUpdateProfile : getUpdateProfile,
     postUpdateProfile : postUpdateProfile,
+    postUpdateWorkshopPage : postUpdateWorkshopPage,
+    postupdateWorkshop : postupdateWorkshop,
+    postUpdateConferencePage : postUpdateConferencePage,
+
 }

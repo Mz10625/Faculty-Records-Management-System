@@ -122,6 +122,8 @@ app.get("/userHome",validateUserCookie,user.getUserHome)
 app.get("/workshop",validateUserCookie,user.getWorkshop)
 app.get("/conference",validateUserCookie,user.getConference)
 app.get("/updateProfile",validateUserCookie,user.getUpdateProfile)
+app.get("/downloadUpdate",validateUserCookie,user.getDownloadUpdate)
+app.get("/downloadPersonalRecords",validateUserCookie,user.getdownloadPersonalRecords)
 
 
 app.get("/authenticate",authenticate)
@@ -145,6 +147,9 @@ app.post("/userLogin",user.postUserLogin)
 app.post("/workshop",validateUserCookie,user.postWorkshop)
 app.post("/conference",validateUserCookie,user.postConference)
 app.post("/updateProfile",validateUserCookie,user.postUpdateProfile)
+app.post("/updateWorkshopPage",validateUserCookie,user.postUpdateWorkshopPage)
+app.post("/updateConferencePage",validateUserCookie,user.postUpdateConferencePage)
+app.post("/updateWorkshop",validateUserCookie,user.postupdateWorkshop)
 
 
 app.listen(PORT,"127.0.0.1",()=>{

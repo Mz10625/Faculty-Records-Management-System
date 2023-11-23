@@ -1,0 +1,122 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  title  Conference 
+  link(rel='stylesheet' href='conference.css')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+.container0
+  #clg_logo
+    img(src='images/logo1.png' alt='logo')
+  .first-rectangle
+    h2#txt_color Kolhapur Institute of Technology&apos;s
+    h2 College of Engineering (Autonomous) Kolhapur
+  .action__btns
+    a.login(href='userHome') Home
+.container
+  .title Conference Details 
+  .content
+    form(method='post')
+      .user-details
+        .input-box
+          span.details Name of Faculty 
+          input(type='text' name='fName' placeholder='Enter your name' required='')
+        .input-box
+          span.details Name of Department 
+          select#inputGroupSelect01.custom-select(name='dept' required='')
+            option(value='') Choose...
+            option(value='Computer Science and Engineering') Computer Science and Engineering
+            option(value='Electronics and Telecommunication Engineering') Electronics and Telecommunication Engineering
+            option(value='Environmental Engineering') Environmental Engineering
+            option(value='Mechanical Engineering') Mechanical Engineering
+            option(value='Basic Science and Humanities') Basic Science and Humanities
+            option(value='Biotechnology Engineering') Biotechnology Engineering
+            option(value='Electrical Engineering') Electrical Engineering
+            option(value='Civil Engineering') Civil Engineering
+            option(value='Electronics Engineering') Electronics Engineering
+            option(value='Library') Library
+        .input-box
+          span.details Designation
+          select#inputGroupSelect01.custom-select(name='desig' required='')
+            option(value='') Choose...
+            option(value='Director') Director
+            option(value='Professor') Professor
+            option(value='Assistant Professor') Assistant Professor
+            option(value='Librarian') Librarian
+        .input-box
+          span.details Author Or Co-author
+          select#inputGroupSelect01.custom-select(name='authorOrCo' required='')
+            option(value='') Choose...
+            option(value='Author') Author
+            option(value='Co-Author') Co-Author
+        .input-box
+          span.details Name of First Author
+          input(type='text' name='firstAuthor' placeholder='Enter First Author' required='')
+        .input-box
+          span.details Name of Co-Author-1
+          input(type='text' name='coAuthor1' placeholder='Enter co-author-1')
+        .input-box
+          span.details Name of Co-Author-2
+          input(type='text' name='coAuthor2' placeholder='Enter co-author-2')
+        .input-box
+          span.details Name of Co-Author-3
+          input(type='text' name='coAuthor3' placeholder='Enter co-author-3')
+        .input-box
+          span.details Title of Paper
+          input(type='text' name='title' placeholder='Enter the title of paper' required='')
+        .input-box
+          span.details Name of Conference
+          input(type='text' name='confName' placeholder='Enter Confreence name' required='')
+        .input-box
+          span.details International or National 
+          select#inputGroupSelect01.custom-select(name='nationalOrInter' required='')
+            option(value='') Choose...
+            option(value='International') International
+            option(value='National') National
+        .input-box
+          span.details Name of Organizing Institute
+          input(type='text' name='institute' placeholder='Enter organizing institute' required='')
+        .input-box
+          span.details ISSN or e-ISSN Number
+          input(type='text' name='issnNo' placeholder='ISSN or e-ISSN Number')
+        .input-box
+          span.details Volume
+          input(type='text' name='volumes' placeholder='Enter volume' required='')
+        .input-box
+          span.details Enter pages
+          input(type='text' name='pageNo' placeholder='[From - To]' required='')
+        .input-box
+          span.details Date of Conference
+          input(type='date' name='date' placeholder='Enter Date' required='')
+        .input-box
+          span.details Indexing
+          input(type='text' name='indexing' placeholder='like Scopus, SCI, Web of Science, etc' required='')
+        .input-box
+          span.details Number of Citation
+          input(type='text' name='citationsNo' placeholder='Enter number of citation ')
+        .input-box
+          span.details Any Financial Support 
+          select#inputGroupSelect01.custom-select(name='support' required='')
+            option(value='') Choose...
+            option(value='YES') YES
+            option(value='NO') NO
+        .input-box
+          span.details Name of Organization who suppoted for finance
+          input(type='text' name='supportOrg' placeholder='Name of Insituite')
+        .input-box
+          span.details Sponsored Amount
+          input(type='text' name='amount' placeholder='Amount ')
+        .input-box
+          span.details Upload Certificate (GDrive Link)
+          .input-container
+            input(type='link' name='link' placeholder='https://drive.google.com/' required='')
+        .input-box
+          span.details Issue
+          input(type='text' name='issue' placeholder='Issue' required='')
+        .input-box
+          span.details Peresented/published
+          select#inputGroupSelect01.custom-select(name='presentedPub' required='')
+            option(value='') Choose...
+            option(value='Presented') Presented
+            option(value='Published') Published
+      .action__btns
+        button.login(type='submit') Submit
