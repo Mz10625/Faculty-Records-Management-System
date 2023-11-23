@@ -15,15 +15,15 @@ head
 .container
   .title Conference Details 
   .content
-    form(method='post')
+    form(method='post' action="updateConference")
       .user-details
         .input-box
           span.details Name of Faculty 
-          input(type='text' name='fName' placeholder='Enter your name' required='')
+          input(type='text' name='fName' value=conferenceData.facultyName  required='')
         .input-box
           span.details Name of Department 
           select#inputGroupSelect01.custom-select(name='dept' required='')
-            option(value='') Choose...
+            option(selected=conferenceData.facultyDept) #{conferenceData.facultyDept}
             option(value='Computer Science and Engineering') Computer Science and Engineering
             option(value='Electronics and Telecommunication Engineering') Electronics and Telecommunication Engineering
             option(value='Environmental Engineering') Environmental Engineering
@@ -37,7 +37,7 @@ head
         .input-box
           span.details Designation
           select#inputGroupSelect01.custom-select(name='desig' required='')
-            option(value='') Choose...
+            option(selected = conferenceData.facultyDesignation) #{conferenceData.facultyDesignation}
             option(value='Director') Director
             option(value='Professor') Professor
             option(value='Assistant Professor') Assistant Professor
@@ -45,78 +45,79 @@ head
         .input-box
           span.details Author Or Co-author
           select#inputGroupSelect01.custom-select(name='authorOrCo' required='')
-            option(value='') Choose...
+            option(selected=conferenceData.authorCoAuthor) #{conferenceData.authorCoAuthor}
             option(value='Author') Author
             option(value='Co-Author') Co-Author
         .input-box
           span.details Name of First Author
-          input(type='text' name='firstAuthor' placeholder='Enter First Author' required='')
+          input(type='text' name='firstAuthor' value=conferenceData.firstAuthor required='')
         .input-box
           span.details Name of Co-Author-1
-          input(type='text' name='coAuthor1' placeholder='Enter co-author-1')
+          input(type='text' name='coAuthor1' value=conferenceData.coAuthor1)
         .input-box
           span.details Name of Co-Author-2
-          input(type='text' name='coAuthor2' placeholder='Enter co-author-2')
+          input(type='text' name='coAuthor2' value=conferenceData.coAuthor2)
         .input-box
           span.details Name of Co-Author-3
-          input(type='text' name='coAuthor3' placeholder='Enter co-author-3')
+          input(type='text' name='coAuthor3' value=conferenceData.coAuthor3)
         .input-box
           span.details Title of Paper
-          input(type='text' name='title' placeholder='Enter the title of paper' required='')
+          input(type='text' name='title' value=conferenceData.title required='')
         .input-box
           span.details Name of Conference
-          input(type='text' name='confName' placeholder='Enter Confreence name' required='')
+          input(type='text' name='confName' value=conferenceData.conferenceName required='')
         .input-box
           span.details International or National 
           select#inputGroupSelect01.custom-select(name='nationalOrInter' required='')
-            option(value='') Choose...
+            option(selected=conferenceData.nationalOrInternational) #{conferenceData.nationalOrInternational}
             option(value='International') International
             option(value='National') National
         .input-box
           span.details Name of Organizing Institute
-          input(type='text' name='institute' placeholder='Enter organizing institute' required='')
+          input(type='text' name='institute' value=conferenceData.organizingInstitute required='')
         .input-box
           span.details ISSN or e-ISSN Number
-          input(type='text' name='issnNo' placeholder='ISSN or e-ISSN Number')
+          input(type='text' name='issnNo' value=conferenceData.issnNo)
         .input-box
           span.details Volume
-          input(type='text' name='volumes' placeholder='Enter volume' required='')
+          input(type='text' name='volumes' value=conferenceData.volumes required='')
         .input-box
           span.details Enter pages
-          input(type='text' name='pageNo' placeholder='[From - To]' required='')
+          input(type='text' name='pageNo' value=conferenceData.pageNo required='')
         .input-box
           span.details Date of Conference
-          input(type='date' name='date' placeholder='Enter Date' required='')
+          input(type='date' name='date' value=conferenceData.date required='')
         .input-box
           span.details Indexing
-          input(type='text' name='indexing' placeholder='like Scopus, SCI, Web of Science, etc' required='')
+          input(type='text' name='indexing' value=conferenceData.indexing required='')
         .input-box
           span.details Number of Citation
-          input(type='text' name='citationsNo' placeholder='Enter number of citation ')
+          input(type='text' name='citationsNo' value=conferenceData.citationsNo)
         .input-box
           span.details Any Financial Support 
           select#inputGroupSelect01.custom-select(name='support' required='')
-            option(value='') Choose...
+            option(selected=conferenceData.financialSupport) #{conferenceData.financialSupport}
             option(value='YES') YES
             option(value='NO') NO
         .input-box
           span.details Name of Organization who suppoted for finance
-          input(type='text' name='supportOrg' placeholder='Name of Insituite')
+          input(type='text' name='supportOrg' value=conferenceData.financeSupportOrganisation)
         .input-box
           span.details Sponsored Amount
-          input(type='text' name='amount' placeholder='Amount ')
+          input(type='text' name='amount' value=conferenceData.amount)
         .input-box
           span.details Upload Certificate (GDrive Link)
           .input-container
-            input(type='link' name='link' placeholder='https://drive.google.com/' required='')
+            input(type='link' name='link' value=conferenceData.link required='')
         .input-box
           span.details Issue
-          input(type='text' name='issue' placeholder='Issue' required='')
+          input(type='text' name='issue' value=conferenceData.issue required='')
         .input-box
           span.details Peresented/published
           select#inputGroupSelect01.custom-select(name='presentedPub' required='')
-            option(value='') Choose...
+            option(selected=conferenceData.presentedPublished) #{conferenceData.presentedPublished}
             option(value='Presented') Presented
             option(value='Published') Published
+          input(type='hidden' name='conferenceIndex' value=conferenceIndex)
       .action__btns
         button.login(type='submit') Submit

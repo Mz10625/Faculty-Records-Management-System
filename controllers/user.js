@@ -290,7 +290,7 @@ function postUpdateWorkshopPage(req,res){
     res.render(viewsPath+"/updateWorkshop.pug",{workshopData : JSON.parse(req.body.workshopData),workshopIndex  : req.body.workshopIndex})
 }
 function postUpdateConferencePage(req,res){
-    res.render(viewsPath+"/updateConference.pug",{conferenceData : JSON.parse(req.body.conferenceData),conferenceIndex  : req.body.confIndex})
+    res.render(viewsPath+"/updateConference.pug",{conferenceData : JSON.parse(req.body.conferenceData),conferenceIndex : req.body.confIndex})
 }
 async function postupdateWorkshop(req,res){
     updatedData = req.body;
@@ -336,7 +336,61 @@ async function postupdateWorkshop(req,res){
         res.send("Failed to update Details");
     }
 }
+async function postUpdateConference(req,res){
+    updatedData = req.body;
+    
+    try{
+        const db = client.db('KITCOEK');
+        const userCredentials = db.collection('userCredentials');
+        let reqId = new ObjectId(req.cookies.connectId);
+        let findResult =await userCredentials.findOne({_id : reqId})
+        if(findResult == null){
+            throw new Error("User not found!!");
+        }
+        conference = findResult.conference[req.body.conferenceIndex];
 
+        conference.facultyName = updatedData.fName,
+        conference.facultyDesignation = updatedData.desig,
+        conference.facultyDept = updatedData.dept,
+        conference.authorCoAuthor = updatedData.authorOrCo,
+        conference.firstAuthor = updatedData.firstAuthor,
+        conference.coAuthor1 = updatedData.coAuthor1,
+        conference.coAuthor2 = updatedData.coAuthor2,
+        conference.coAuthor3 = updatedData.coAuthor3,
+        conference.title = updatedData.title,
+        conference.conferenceName = updatedData.confName,
+        conference.nationalOrInternational = updatedData.nationalOrInter,
+        conference.organizingInstitute = updatedData.institute,
+        conference.issnNo = updatedData.issnNo,
+        conference.volumes = updatedData.volumes,
+        conference.pageNo = updatedData.pageNo,
+        conference.date = updatedData.date,
+        conference.indexing = updatedData.indexing,
+        conference.citationsNo = updatedData.citationsNo,
+        conference.issue = updatedData.issue,
+        conference.link = updatedData.link,
+        conference.presentedPublished = updatedData.presentedPub,
+        conference.financialSupport = updatedData.support,
+        conference.financeSupportOrganisation = updatedData.supportOrg,
+        conference.amount = updatedData.amount,  
+        
+        findResult.conference[req.body.conferenceIndex] = conference;
+        let updateResult =await userCredentials.updateOne(
+            {_id : reqId},
+            {$set :{conference : findResult.conference}}
+            )
+            if(!updateResult.acknowledged){
+                throw new Error("Failed to update!!");
+            }
+            if(updateResult.matchedCount == 0){
+                throw new Error("User not found!!");
+            }
+            res.redirect("userHome");
+    }catch(error){
+        console.log(error);
+        res.send("Failed to update Details");
+    }
+}
 
 module.exports = {
     // userAuthenticate : authenticate,
@@ -357,5 +411,6 @@ module.exports = {
     postUpdateWorkshopPage : postUpdateWorkshopPage,
     postupdateWorkshop : postupdateWorkshop,
     postUpdateConferencePage : postUpdateConferencePage,
+    postUpdateConference : postUpdateConference,
 
 }

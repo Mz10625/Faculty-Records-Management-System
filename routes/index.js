@@ -150,6 +150,7 @@ app.post("/updateProfile",validateUserCookie,user.postUpdateProfile)
 app.post("/updateWorkshopPage",validateUserCookie,user.postUpdateWorkshopPage)
 app.post("/updateConferencePage",validateUserCookie,user.postUpdateConferencePage)
 app.post("/updateWorkshop",validateUserCookie,user.postupdateWorkshop)
+app.post("/updateConference",validateUserCookie,user.postUpdateConference)
 
 
 app.listen(PORT,"127.0.0.1",()=>{
