@@ -42,6 +42,32 @@ document.getElementById('conferenceBtn').addEventListener("click",()=>{
     })
     .catch(error => console.error('Error:', error));
 })
+document.getElementById('paperPublicationBtn').addEventListener("click",()=>{    
+    authenticate().then((authenticateUser)=>{
+        if(authenticateUser==true){
+            document.getElementById('paperPublicationAnchor').click();
+        }
+        else{
+            document.open();
+            document.write("Not Authorized");
+            document.close();
+        }
+    })
+    .catch(error => console.error('Error:', error));
+})
+document.getElementById('citationBtn').addEventListener("click",()=>{    
+    authenticate().then((authenticateUser)=>{
+        if(authenticateUser==true){
+            document.getElementById('citationAnchor').click();
+        }
+        else{
+            document.open();
+            document.write("Not Authorized");
+            document.close();
+        }
+    })
+    .catch(error => console.error('Error:', error));
+})
 document.getElementById('updateProfileBtn').addEventListener("click",()=>{    
     authenticate().then((authenticateUser)=>{
         if(authenticateUser==true){

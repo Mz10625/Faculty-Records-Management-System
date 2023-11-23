@@ -22,22 +22,22 @@
     
     <div class="action__btns">
       
-      <a class="login" href="adminHome.html">Home</a>
+      <a class="login" href="userHome">Home</a>
     </div> 
   </div>
   <div class="container">
     <div class="title">Paper Publication Details </div>
     <div class="content">
-      <form action="#">
+      <form method="post">
         <div class="user-details">
           <div class="input-box">
             <span class="details">Name of Faculty </span>
-            <input type="text" name="fname" placeholder="Enter your name" required>
+            <input type="text" name="fName" placeholder="Enter your name" required>
           </div>
           <div class="input-box">
             <span class="details">Name of Department </span>
-            <select class="custom-select" name="dept" id="inputGroupSelect01">
-              <option selected>Choose...</option>
+            <select class="custom-select" name="dept" id="inputGroupSelect01" required>
+              <option value="">Choose...</option>
               <option value="Computer Science and Engineering">Computer Science and Engineering</option>
               <option value="Electronics and Telecommunication Engineering">Electronics and Telecommunication Engineering</option>
               <option value="Environmental Engineering">Environmental Engineering</option>
@@ -52,8 +52,8 @@
           </div>
           <div class="input-box">
             <span class="details">Designation</span>
-            <select class="custom-select" name="desig" id="inputGroupSelect01">
-              <option selected>Choose...</option>
+            <select class="custom-select" name="desig" id="inputGroupSelect01" required>
+              <option value="">Choose...</option>
               <option value="Director">Director</option>
               <option value="Professor">Professor</option>
               <option value="Assistant Professor">Assistant Professor</option>
@@ -63,15 +63,12 @@
           </div>
           
           <div class="input-box">
-            <span class="details">Author Or Co-author</span>
-              
-          
-          <select class="custom-select" name="authorOrCo" id="inputGroupSelect01">
-            <option selected>Choose...</option>
-            <option value="1">Author</option>
-            <option value="2">Co-Author</option>
-            
-          </select>
+            <span class="details">Author Or Co-author</span>             
+            <select class="custom-select" name="authorOrCo" id="inputGroupSelect01" required>
+              <option value="">Choose...</option>
+              <option value="Author">Author</option>
+              <option value="Co-Author">Co-Author</option>            
+            </select>
           </div>
         
           <div class="input-box">
@@ -80,15 +77,15 @@
           </div>
           <div class="input-box">
             <span class="details">Name of Co-Author-1</span>
-            <input type="text" name="coAuthor1" placeholder="Enter co-author-1" required>
+            <input type="text" name="coAuthor1" placeholder="Optional" >
           </div>
           <div class="input-box">
             <span class="details">Name of Co-Author-2</span>
-            <input type="text" name="coAuthor2" placeholder="Enter co-author-2" required>
+            <input type="text" name="coAuthor2" placeholder="Optional" >
           </div>
           <div class="input-box">
             <span class="details">Name of Co-Author-3</span>
-            <input type="text" name="coAuthor3" placeholder="Enter co-author-3" required>
+            <input type="text" name="coAuthor3" placeholder="Optional" >
           </div>
           <div class="input-box">
             <span class="details">Title of Paper</span>
@@ -96,104 +93,85 @@
           </div>
           <div class="input-box">
             <span class="details">Name of Journal</span>
-            <input type="text" name="journalName" placeholder="Enter name of journal " required>
+            <input type="text" name="journalName" placeholder="Enter name of journal" required>
           </div>
          
           <div class="input-box">
-            <span class="details">International or National </span>
-              
-          
-          <select class="custom-select" name="nationalOrinter" id="inputGroupSelect01">
-            <option selected>Choose...</option>
-            <option value="1">International</option>
-            <option value="2">National</option>
-            
-          </select>
+            <span class="details">International or National </span>             
+            <select class="custom-select" name="nationalOrInter" id="inputGroupSelect01">
+              <option value="">Choose...</option>
+              <option value="International">International</option>
+              <option value="National">National</option>
+            </select>
           </div>
           <div class="input-box">
             <span class="details">ISSN or e-ISSN NUMBER</span>
-            <input type="text" name="ISSNore-ISSN" placeholder="Enter ISSN or E-ISSN Number" required>
+            <input type="text" name="issnNo" placeholder="Enter ISSN or E-ISSN Number" required>
           </div>
           <div class="input-box">
-            <span class="details">Name of Conference</span>
-            <input type="text" name="confName" placeholder="Enter Confreence name" required>
+            <span class="details">Volume</span>
+            <input type="text" name="volumes" placeholder="Enter volume" required>
           </div>
           <div class="input-box">
-            <span class="details">Name of Volume</span>
-            <input type="text" name="volName" placeholder="Enter volume" required>
+            <span class="details">Issue</span>
+            <input type="text" name="issue" placeholder="Issue" required>
           </div>
           <div class="input-box">
-            <span class="details">Enter page number</span>
-            <input type="text" name="pageno" placeholder="Enter page number" required>
+            <span class="details">Page number</span>
+            <input type="text" name="pageNo" placeholder="[From - To]" required>
           </div>
           <div class="input-box">
             <span class="details">Month of Publication</span>
-            <input type="date" name="publicMonth" placeholder="Enter month of publication " required>
+            <input type="date" name="publicationMonth" placeholder="Enter month of publication " required>
           </div>
           <div class="input-box">
             <span class="details">Year of publication(YYYY)</span>
-            <input type="text" name="publicYear" placeholder="Enter Index" required>
+            <input type="text" name="publicationYear" placeholder="Enter Index" required>
           </div>
 
           <div class="input-box">
             <span class="details">Indexing </span>
-            <input type="text" name="index" placeholder="Enter Indexing  " required>
+            <input type="text" name="indexing" placeholder="like Scopus, SCI, Web of Science, etc" required>
           </div>
-          
-          
           <div class="input-box">
             <span class="details">Impact Factor</span>
             <input type="text" name="impactFactor" placeholder="Enter impact factor" required>
           </div>
           <div class="input-box">
-            <span class="details">Number of Citation</span>
-            <input type="text" name="citationNo" placeholder="Enter number of citation   " required>
+            <span class="details">Number of Citations</span>
+            <input type="text" name="citationsNo" placeholder="Enter number of citations" required>
           </div>
           <div class="input-box">
             <span class="details">h-index</span>
-            <input type="text" name="h-index" placeholder="Enter h-index " required>
+            <input type="text" name="hIndex" placeholder="Enter h-index " required>
           </div>
           <div class="input-box">
             <span class="details">i10-index</span>
-            <input type="text" name="i10-index" placeholder="Enter i10-index " required>
+            <input type="text" name="i10Index" placeholder="Enter i10-index " required>
           </div>
           <div class="input-box">
             <span class="details">Any Financial Support </span>
-              
-          
-          
-          <select class="custom-select" name="yesOrno" id="inputGroupSelect01">
-            <option selected>Choose...</option>
-            <option value="1">YES</option>
-            <option value="2">NO</option>
-            
+          <select class="custom-select" name="support" id="inputGroupSelect01" required>
+            <option value="">Choose...</option>
+            <option value="YES">YES</option>
+            <option value="NO">NO</option>
           </select>
           </div>
           <div class="input-box">
             <span class="details">Name of Organization who suppoted for finance</span>
-            <input type="text" name="organName" placeholder="Enter name of insituite" required>
+            <input type="text" name="supportOrg" placeholder="Enter name of insituite" >
           </div>
-
           <div class="input-box">
             <span class="details">Sponsored Amount</span>
-            <input type="text" name="Samount" placeholder="Enter Amount" required>
+            <input type="text" name="amount" placeholder="Enter Amount">
           </div>
           <div class="input-box">
             <span class="details">Upload Certificate (GDrive Link)</span>
             <div class="input-container">
-                <!-- <a href="https://drive.google.com/open?id=1C2JDwjkHFLqW4upKiRU0DBOyYMBwSRxa" target="_blank">Google Drive Link</a> -->
                 <input type="link" name="link" placeholder="https://drive.google.com/" required>
             </div>
           </div>
-          
-              
-          
-          
-          
-          
-          
         </div>
-        
         <div class="action__btns">
           <button type="submit" class="login">Submit</button>
         </div>

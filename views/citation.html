@@ -6,7 +6,6 @@
     <title> Citation </title>
     <link rel="stylesheet" href="conference.css">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
    </head>
 
 <body>
@@ -19,22 +18,22 @@
       <h2>College of Engineering (Autonomous) Kolhapur</h2>
     </div>
     <div class="action__btns">
-      <a class="login" href="userHome.html">Home</a>
+      <a class="login" href="userHome">Home</a>
     </div> 
   </div>
   <div class="container">
     <div class="title">Citation Details </div>
     <div class="content">
-      <form action="#">
+      <form action="#" method="post">
         <div class="user-details">
           <div class="input-box">
             <span class="details">Name of Faculty </span>
-            <input type="text" name="f Name" placeholder="Enter your name" required>
+            <input type="text" name="fName" placeholder="Enter your name" required>
           </div>
           <div class="input-box">
             <span class="details">Name of Department </span>
             <select class="custom-select" name="dept" id="inputGroupSelect01">
-              <option selected>Choose...</option>
+              <option value="">Choose...</option>
               <option value="Computer Science and Engineering">Computer Science and Engineering</option>
               <option value="Electronics and Telecommunication Engineering">Electronics and Telecommunication Engineering</option>
               <option value="Environmental Engineering">Environmental Engineering</option>
@@ -50,28 +49,24 @@
           <div class="input-box">
             <span class="details">Designation</span>
             <select class="custom-select" name="desig" id="inputGroupSelect01">
-              <option selected>Choose...</option>
+              <option value="">Choose...</option>
               <option value="Director">Director</option>
               <option value="Professor">Professor</option>
               <option value="Assistant Professor">Assistant Professor</option>
               <option value="Librarian">Librarian</option>
-              
             </select>
           </div>
-          
           <div class="input-box">
             <span class="details">Author Or Co-author</span>
-           <select class="custom-select" name="authorOrCoA" id="inputGroupSelect01">
-            <option selected>Choose...</option>
-            <option value="1">Author</option>
-            <option value="2">Co-Author</option>
-            
+           <select class="custom-select" name="authorOrCo" id="inputGroupSelect01">
+            <option value="">Choose...</option>
+            <option value="Author">Author</option>
+            <option value="Co-Author">Co-Author</option>
           </select>
           </div> 
-
           <div class="input-box">
             <span class="details">Name of Author</span>
-            <input type="text" name="AuthorName" placeholder="Enter First Author" required>
+            <input type="text" name="firstAuthor" placeholder="Enter First Author" required>
           </div>
 
           <div class="input-box">
@@ -88,110 +83,55 @@
             <span class="details">Name of Co-Author-3</span>
             <input type="text" name="coAuthor3" placeholder="Enter co-author-3">
           </div>
-              
-          
-          
-        
-          
-
           <div class="input-box">
             <span class="details">Title of Citation</span>
-            <input type="text" name="citationTitle" placeholder="Enter the title of citation" required>
+            <input type="text" name="title" placeholder="Enter the title of citation" required>
           </div>
-          <div class="input-box">
+          <!-- <div class="input-box">
             <span class="details">Source</span>
             <input type="text" name="source" placeholder="Enter the source of citation" required>
-          </div>
-          <div class="input-box">
+          </div> -->
+          <!-- <div class="input-box">
             <span class="details">Date of Citation</span>
-            <input type="date" name="citationDate" placeholder="Enter Date of citation" required>
-          </div>
+            <input type="date" name="date" placeholder="Enter Date of citation" required>
+          </div> -->
           <div class="input-box">
             <span class="details">Indexing</span>
             <input type="text" name="indexing" placeholder="like Scopus, SCI, Web of Science, etc" required>
           </div>
-          <div class="input-box">
+          <!-- <div class="input-box">
             <span class="details">Page Numbers</span>
             <input type="text" name="pageNo" placeholder="Enter specific references to pages in a book" required>
           </div>
           <div class="input-box">
             <span class="details">International or National </span>
-              
-          
           <select class="custom-select" name="InterOrNational" id="inputGroupSelect01">
             <option selected>Choose...</option>
-            <option value="1">International</option>
-            <option value="2">National</option>
-            
+            <option value="International">International</option>
+            <option value="National">National</option>
           </select>
-          </div>
+          </div> -->
           <div class="input-box">
-            <span class="details">Month of Publication</span>
-            <input type="date" name="publicMonth" placeholder="Enter month of publication " required>
+            <span class="details">Year (YYYY)</span>
+            <input type="text" name="year" placeholder="Enter year" required>
           </div>
-          <div class="input-box">
-            <span class="details">Year of publication(YYYY)</span>
-            <input type="text" name="publicYear" placeholder="Enter Index" required>
-          </div>
-
-          <div class="input-box">
-            <span class="details">Indexing </span>
-            <input type="text" name="index" placeholder="Enter Indexing  " required>
-          </div>
-          
-          
-          <div class="input-box">
+          <!-- <div class="input-box">
             <span class="details">Impact Factor</span>
             <input type="text" name="impactFactor" placeholder="Enter impact factor" required>
-          </div>
+          </div> -->
           <div class="input-box">
-            <span class="details">Number of Citation</span>
-            <input type="text" name="citationNo" placeholder="Enter number of citation   " required>
+            <span class="details">Citated By</span>
+            <input type="text" name="citedBy" placeholder="Enter citated number" required>
           </div>
           <div class="input-box">
             <span class="details">h-index</span>
-            <input type="text" name="h-index" placeholder="Enter h-index " required>
+            <input type="text" name="hIndex" placeholder="Enter h-index " required>
           </div>
           <div class="input-box">
             <span class="details">i10-index</span>
-            <input type="text" name="i10-index" placeholder="Enter i10-index " required>
-          </div>
-          <div class="input-box">
-            <span class="details">Any Financial Support </span>
-              
-          
-          
-          <select class="custom-select" name="yesOrno" id="inputGroupSelect01">
-            <option selected>Choose...</option>
-            <option value="1">YES</option>
-            <option value="2">NO</option>
-            
-          </select>
-          </div>
-          <div class="input-box">
-            <span class="details">Name of Organization who suppoted for finance</span>
-            <input type="text" name="organName" placeholder="Enter name of insituite" required>
-          </div>
-
-          <div class="input-box">
-            <span class="details">Sponsored Amount</span>
-            <input type="text" name="Samount" placeholder="Enter Amount" required>
-          </div>
-          <div class="input-box">
-            <span class="details">Upload Certificate (GDrive Link)</span>
-            <div class="input-container">
-                <!-- <a href="https://drive.google.com/open?id=1C2JDwjkHFLqW4upKiRU0DBOyYMBwSRxa" target="_blank">Google Drive Link</a> -->
-                <input type="link" name="link" placeholder="https://drive.google.com/" required>
-            </div>
-          </div>
-          
-          
-          
+            <input type="text" name="i10Index" placeholder="Enter i10-index " required>
+          </div>        
         </div>
-        
-        <!-- <div class="button">
-          <input type="submit" value="Submit">
-        </div> -->
         <div class="action__btns">
           <button type="submit" class="login">Submit</button>
         </div>

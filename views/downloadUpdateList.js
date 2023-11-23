@@ -42,6 +42,38 @@ function updateConference(x,index){
     })
     .catch(error => console.error('Error:', error));
 }
+function updatePaperPublication(x,index){
+    authenticate().then((authenticateUser)=>{
+      if(authenticateUser==true){
+        const paperPublicationField = document.getElementById("paperPublicationField");
+        document.getElementById("paperPublicationIndex").value = index;
+        paperPublicationField.value = x;
+        document.getElementById('paperPublicationForm').submit();
+      }
+      else{
+        document.open();
+        document.write("Not Authorized");
+        document.close();
+      } 
+    })
+    .catch(error => console.error('Error:', error));
+}
+function updateCitation(x,index){
+    authenticate().then((authenticateUser)=>{
+      if(authenticateUser==true){
+        const citationField = document.getElementById("citationField");
+        document.getElementById("citationIndex").value = index;
+        citationField.value = x;
+        document.getElementById('citationForm').submit();
+      }
+      else{
+        document.open();
+        document.write("Not Authorized");
+        document.close();
+      } 
+    })
+    .catch(error => console.error('Error:', error));
+}
   
 async function downloadAllRecords(){
     authenticate().then((authenticateUser)=>{

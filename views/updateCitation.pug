@@ -1,0 +1,83 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  title  Citation 
+  link(rel='stylesheet' href='conference.css')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+.container0
+  #clg_logo
+    img(src='images/logo1.png' alt='logo')
+  .first-rectangle
+    h2#txt_color Kolhapur Institute of Technology&apos;s
+    h2 College of Engineering (Autonomous) Kolhapur
+  .action__btns
+    a.login(href='userHome') Home
+.container
+  .title Citation Details 
+  .content
+    form(action='updateCitation' method='post')
+      .user-details
+        .input-box
+          span.details Name of Faculty 
+          input(type='text' name='fName' value=citationData.facultyName required='')
+        .input-box
+          span.details Name of Department 
+          select#inputGroupSelect01.custom-select(name='dept')
+            option(selected=citationData.facultyDept) #{citationData.facultyDept}
+            option(value='Computer Science and Engineering') Computer Science and Engineering
+            option(value='Electronics and Telecommunication Engineering') Electronics and Telecommunication Engineering
+            option(value='Environmental Engineering') Environmental Engineering
+            option(value='Mechanical Engineering') Mechanical Engineering
+            option(value='Basic Science and Humanities') Basic Science and Humanities
+            option(value='Biotechnology Engineering') Biotechnology Engineering
+            option(value='Electrical Engineering') Electrical Engineering
+            option(value='Civil Engineering') Civil Engineering
+            option(value='Electronics Engineering') Electronics Engineering
+            option(value='Library') Library
+        .input-box
+          span.details Designation
+          select#inputGroupSelect01.custom-select(name='desig')
+            option(selected = citationData.facultyDesignation) #{citationData.facultyDesignation}
+            option(value='Director') Director
+            option(value='Professor') Professor
+            option(value='Assistant Professor') Assistant Professor
+            option(value='Librarian') Librarian
+        .input-box
+          span.details Author Or Co-author
+          select#inputGroupSelect01.custom-select(name='authorOrCo')
+            option(selected=citationData.authorCoAuthor) #{citationData.authorCoAuthor}
+            option(value='Author') Author
+            option(value='Co-Author') Co-Author
+        .input-box
+          span.details Name of Author
+          input(type='text' name='firstAuthor' value=citationData.firstAuthor required='')
+        .input-box
+          span.details Name of Co-Author-1
+          input(type='text' name='coAuthor1' value=citationData.coAuthor1)
+        .input-box
+          span.details Name of Co-Author-2
+          input(type='text' name='coAuthor2' value=citationData.coAuthor2)
+        .input-box
+          span.details Name of Co-Author-3
+          input(type='text' name='coAuthor3' value=citationData.coAuthor3)
+        .input-box
+          span.details Title of Citation
+          input(type='text' name='title' value=citationData.title required='')
+        .input-box
+          span.details Indexing
+          input(type='text' name='indexing' value=citationData.indexing required='')
+        .input-box
+          span.details Year (YYYY)
+          input(type='text' name='year' value=citationData.year required='')
+        .input-box
+          span.details Citated By
+          input(type='text' name='citedBy' value=citationData.citedBy required='')
+        .input-box
+          span.details h-index
+          input(type='text' name='hIndex' value=citationData.hIndex required='')
+        .input-box
+          span.details i10-index
+          input(type='text' name='i10Index' value=citationData.i10Index required='')
+        input(type='hidden' name='citationIndex' value=citationIndex)
+      .action__btns
+        button.login(type='submit') Submit

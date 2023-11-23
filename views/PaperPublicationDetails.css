@@ -1,18 +1,14 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap'); */
 * {
   margin: 0%;
   padding: 0%;
   box-sizing: border-box;
 }
 
-/* Set a background color for the entire page */
 body {
   background: linear-gradient(to top,black,black);
-  /* z-index: 1; */
   height: 100vh;
   width: 100vw;
-  /* box-sizing: border-box; */
-  overflow-y: scroll;
+  overflow-x:hidden;
 }
 #txt_color
 {

@@ -118,7 +118,94 @@ async function addConferenceData(data,reqCookie){
     }
     return false;
 }
-
+async function addPaperPublicationData(data,reqCookie){
+    const db = client.db('KITCOEK');
+    const userCollection = db.collection('userCredentials');
+    // console.log(data);
+    let PaperPublicationData = {"facultyName":data.fName,
+                        "facultyDesignation": data.desig,
+                        "facultyDept":data.dept,
+                        "authorCoAuthor":data.authorOrCo,
+                        "firstAuthor":data.firstAuthor,
+                        "coAuthor1":data.coAuthor1,
+                        "coAuthor2":data.coAuthor2,
+                        "coAuthor3":data.coAuthor3,
+                        "title":data.title,         
+                        "journal":data.journalName,   
+                        "nationalOrInternational":data.nationalOrInter,
+                        "issnNo":data.issnNo,
+                        "volumes":data.volumes,
+                        "issue":data.issue,
+                        "pageNo":data.pageNo,
+                        "publicationMonth":data.publicationMonth,
+                        "publicationYear":data.publicationYear,
+                        "indexing":data.indexing,
+                        "impactFactor":data.impactFactor,
+                        "citationsNo":data.citationsNo,
+                        "hIndex":data.hIndex,
+                        "i10Index":data.i10Index,
+                        "financialSupport":data.support,
+                        "financeSupportOrganisation":data.supportOrg,
+                        "amount":data.amount,                        
+                        "link":data.link,
+    }
+    let reqCookie_id = new ObjectId(reqCookie);
+    const findResult =  await userCollection.findOne({_id : reqCookie_id});
+    let paperPublication = findResult.paperPublication;
+    if(paperPublication){
+        let paperPublicationCount = (Object.keys(paperPublication).length) + 1;
+        paperPublication[paperPublicationCount.toString()] = PaperPublicationData;
+    }
+    else{
+        paperPublication ={"1" : PaperPublicationData};
+    }
+    const updateResult = await userCollection.updateOne(
+        {_id : reqCookie_id},
+        {$set :{paperPublication : paperPublication}}
+    );
+    if(updateResult != null){
+        return true;
+    }
+    return false;
+}
+async function addCitationData(data,reqCookie){
+    const db = client.db('KITCOEK');
+    const userCollection = db.collection('userCredentials');
+    // console.log(data);
+    let citationData = {"facultyName":data.fName,
+                        "facultyDesignation": data.desig,
+                        "facultyDept":data.dept,
+                        "authorCoAuthor":data.authorOrCo,
+                        "firstAuthor":data.firstAuthor,
+                        "coAuthor1":data.coAuthor1,
+                        "coAuthor2":data.coAuthor2,
+                        "coAuthor3":data.coAuthor3,
+                        "title":data.title,
+                        "indexing":data.indexing,
+                        "year":data.year,
+                        "citedBy":data.citedBy,
+                        "hIndex":data.hIndex,
+                        "i10Index":data.i10Index,
+    }
+    let reqCookie_id = new ObjectId(reqCookie);
+    const findResult =  await userCollection.findOne({_id : reqCookie_id});
+    let citation = findResult.citation;
+    if(citation){
+        let citationCount = (Object.keys(citation).length) + 1;
+        citation[citationCount.toString()] = citationData;
+    }
+    else{
+        citation ={"1" : citationData};
+    }
+    const updateResult = await userCollection.updateOne(
+        {_id : reqCookie_id},
+        {$set :{citation : citation}}
+    );
+    if(updateResult != null){
+        return true;
+    }
+    return false;
+}
 function getUserHome(req,res){
     try{
         if(redirected==true){
@@ -137,6 +224,12 @@ function getWorkshop(req,res){
 }
 function getConference(req,res){
     res.sendFile(viewsPath+"/conference.html"); 
+}
+function getPaperPublication(req,res){
+    res.sendFile(viewsPath+"/PaperPublication.html"); 
+}
+function getCitation(req,res){
+    res.sendFile(viewsPath+"/citation.html"); 
 }
 async function getUpdateProfile(req,res){
     try{
@@ -167,6 +260,18 @@ async function getDownloadUpdate(req,res){
             throw new Error("User not found!!");
         }
         findResult.password = -1;
+        if(findResult.workshop==null){
+            findResult["workshop"] = -1
+        }
+        if(findResult.conference==null){
+            findResult["conference"] = -1
+        }
+        if(findResult.paperpublication==null){
+            findResult["paperpublication"] = -1
+        }
+        if(findResult.citation==null){
+            findResult["citation"] = -1
+        }
         res.render(viewsPath+"/downloadUpdateList.pug",{userdata : findResult});
     }catch(error){
         console.log(error);
@@ -242,13 +347,34 @@ function postWorkshop(req,res){
         }
     })
 }
-
 function postConference(req,res){
     let data = req.body;
     // console.log(data);
     addConferenceData(data,req.cookies.connectId).then((value)=>{
         if(value){
             res.redirect("/conference"); 
+        }
+        else{
+            res.sendStatus(417);
+        }
+    })
+}
+function postPaperPublication(req,res){
+    let data = req.body;
+    addPaperPublicationData(data,req.cookies.connectId).then((value)=>{
+        if(value){
+            res.redirect("/paperPublication"); 
+        }
+        else{
+            res.sendStatus(417);
+        }
+    })
+}
+function postCitation(req,res){
+    let data = req.body;
+    addCitationData(data,req.cookies.connectId).then((value)=>{
+        if(value){
+            res.redirect("/citation"); 
         }
         else{
             res.sendStatus(417);
@@ -292,6 +418,13 @@ function postUpdateWorkshopPage(req,res){
 function postUpdateConferencePage(req,res){
     res.render(viewsPath+"/updateConference.pug",{conferenceData : JSON.parse(req.body.conferenceData),conferenceIndex : req.body.confIndex})
 }
+function postupdatePaperPublicationPage(req,res){
+    res.render(viewsPath+"/updatePaperPublication.pug",{paperPublicationData : JSON.parse(req.body.paperPublicationData),paperPublicationIndex : req.body.paperPublicationIndex})
+}
+function postUpdateCitationPage(req,res){
+    res.render(viewsPath+"/updateCitation.pug",{citationData : JSON.parse(req.body.citationData),citationIndex : req.body.citationIndex})
+}
+
 async function postupdateWorkshop(req,res){
     updatedData = req.body;
     
@@ -391,7 +524,106 @@ async function postUpdateConference(req,res){
         res.send("Failed to update Details");
     }
 }
+async function postUpdatePaperPublication(req,res){
+    updatedData = req.body;
+    try{
+        const db = client.db('KITCOEK');
+        const userCredentials = db.collection('userCredentials');
+        let reqId = new ObjectId(req.cookies.connectId);
+        let findResult =await userCredentials.findOne({_id : reqId})
+        if(findResult == null){
+            throw new Error("User not found!!");
+        }
+        paperPublication = findResult.paperPublication[req.body.paperPublicationIndex];
 
+        paperPublication.facultyName = updatedData.fName,
+        paperPublication.facultyDesignation = updatedData.desig,
+        paperPublication.facultyDept = updatedData.dept,
+        paperPublication.authorCoAuthor = updatedData.authorOrCo,
+        paperPublication.firstAuthor = updatedData.firstAuthor,
+        paperPublication.coAuthor1 = updatedData.coAuthor1,
+        paperPublication.coAuthor2 = updatedData.coAuthor2,
+        paperPublication.coAuthor3 = updatedData.coAuthor3,
+        paperPublication.title = updatedData.title,         
+        paperPublication.journal = updatedData.journalName,   
+        paperPublication.nationalOrInternational = updatedData.nationalOrInter,
+        paperPublication.issnNo = updatedData.issnNo,
+        paperPublication.volumes = updatedData.volumes,
+        paperPublication.issue = updatedData.issue,
+        paperPublication.pageNo = updatedData.pageNo,
+        paperPublication.publicationMonth = updatedData.publicationMonth,
+        paperPublication.publicationYear = updatedData.publicationYear,
+        paperPublication.indexing = updatedData.indexing,
+        paperPublication.impactFactor = updatedData.impactFactor,
+        paperPublication.citationsNo = updatedData.citationsNo,
+        paperPublication.hIndex = updatedData.hIndex,
+        paperPublication.i10Index = updatedData.i10Index,
+        paperPublication.financialSupport = updatedData.support,
+        paperPublication.financeSupportOrganisation = updatedData.supportOrg,
+        paperPublication.amount = updatedData.amount,                        
+        paperPublication.link = updatedData.link,
+
+        findResult.paperPublication[req.body.paperPublicationIndex] = paperPublication;
+        let updateResult =await userCredentials.updateOne(
+            {_id : reqId},
+            {$set :{paperPublication : findResult.paperPublication}}
+            )
+            if(!updateResult.acknowledged){
+                throw new Error("Failed to update!!");
+            }
+            if(updateResult.matchedCount == 0){
+                throw new Error("User not found!!");
+            }
+            res.redirect("userHome");
+    }catch(error){
+        console.log(error);
+        res.send("Failed to update Details");
+    }
+}
+async function postUpdateCitation(req,res){
+    updatedData = req.body;
+    try{
+        const db = client.db('KITCOEK');
+        const userCredentials = db.collection('userCredentials');
+        let reqId = new ObjectId(req.cookies.connectId);
+        let findResult =await userCredentials.findOne({_id : reqId})
+        if(findResult == null){
+            throw new Error("User not found!!");
+        }
+        citation = findResult.citation[req.body.citationIndex];
+
+        citation.facultyName = updatedData.fName,
+        citation.facultyDesignation = updatedData.desig,
+        citation.facultyDept = updatedData.dept,
+        citation.authorCoAuthor = updatedData.authorOrCo,
+        citation.firstAuthor = updatedData.firstAuthor,
+        citation.coAuthor1 = updatedData.coAuthor1,
+        citation.coAuthor2 = updatedData.coAuthor2,
+        citation.coAuthor3 = updatedData.coAuthor3,
+        citation.title = updatedData.title,
+        citation.indexing = updatedData.indexing,
+        citation.year = updatedData.year,
+        citation.citedBy = updatedData.citedBy,
+        citation.hIndex = updatedData.hIndex,
+        citation.i10Index = updatedData.i10Index,
+
+        findResult.citation[req.body.citationIndex] = citation;
+        let updateResult =await userCredentials.updateOne(
+            {_id : reqId},
+            {$set :{citation : findResult.citation}}
+            )
+            if(!updateResult.acknowledged){
+                throw new Error("Failed to update!!");
+            }
+            if(updateResult.matchedCount == 0){
+                throw new Error("User not found!!");
+            }
+            res.redirect("userHome");
+    }catch(error){
+        console.log(error);
+        res.send("Failed to update Details");
+    }
+}
 module.exports = {
     // userAuthenticate : authenticate,
     checkCookie : checkCookie,
@@ -404,13 +636,22 @@ module.exports = {
     getUpdateProfile : getUpdateProfile,
     getDownloadUpdate : getDownloadUpdate,
     getdownloadPersonalRecords : getdownloadPersonalRecords,
+    getPaperPublication : getPaperPublication,
+    getCitation : getCitation,
+
     postUserLogin : postUserLogin,
     postWorkshop : postWorkshop,
     postConference : postConference,
+    postPaperPublication : postPaperPublication,
+    postCitation : postCitation,
     postUpdateProfile : postUpdateProfile,
     postUpdateWorkshopPage : postUpdateWorkshopPage,
-    postupdateWorkshop : postupdateWorkshop,
     postUpdateConferencePage : postUpdateConferencePage,
+    postupdatePaperPublicationPage : postupdatePaperPublicationPage,
+    postUpdateCitationPage : postUpdateCitationPage,
+    postupdateWorkshop : postupdateWorkshop,
     postUpdateConference : postUpdateConference,
+    postUpdatePaperPublication : postUpdatePaperPublication,
+    postUpdateCitation : postUpdateCitation,
 
 }

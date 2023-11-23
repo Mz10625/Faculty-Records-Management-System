@@ -1,0 +1,126 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  title  Paper Publication Details 
+  link(rel='stylesheet' href='PaperPublicationDetails.css')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+.container0
+  #clg_logo
+    img(src='images/logo1.png' alt='logo')
+  .first-rectangle
+    h2#txt_color Kolhapur Institute of Technology&apos;s
+    h2 College of Engineering (Autonomous) Kolhapur
+  .action__btns
+    a.login(href='userHome') Home
+.container
+  .title Paper Publication Details 
+  .content
+    form(method='post' action="updatePaperPublication")
+      .user-details
+        .input-box
+          span.details Name of Faculty 
+          input(type='text' name='fName' value=paperPublicationData.facultyName required='')
+        .input-box
+          span.details Name of Department 
+          select#inputGroupSelect01.custom-select(name='dept' required='')
+            option(selected=paperPublicationData.facultyDept) #{paperPublicationData.facultyDept}
+            option(value='Computer Science and Engineering') Computer Science and Engineering
+            option(value='Electronics and Telecommunication Engineering') Electronics and Telecommunication Engineering
+            option(value='Environmental Engineering') Environmental Engineering
+            option(value='Mechanical Engineering') Mechanical Engineering
+            option(value='Basic Science and Humanities') Basic Science and Humanities
+            option(value='Biotechnology Engineering') Biotechnology Engineering
+            option(value='Electrical Engineering') Electrical Engineering
+            option(value='Civil Engineering') Civil Engineering
+            option(value='Electronics Engineering') Electronics Engineering
+            option(value='Library') Library
+        .input-box
+          span.details Designation
+          select#inputGroupSelect01.custom-select(name='desig' required='')
+            option(selected = paperPublicationData.facultyDesignation) #{paperPublicationData.facultyDesignation}
+            option(value='Director') Director
+            option(value='Professor') Professor
+            option(value='Assistant Professor') Assistant Professor
+            option(value='Librarian') Librarian
+        .input-box
+          span.details Author Or Co-author
+          select#inputGroupSelect01.custom-select(name='authorOrCo' required='')
+            option(selected=paperPublicationData.authorCoAuthor) #{paperPublicationData.authorCoAuthor}
+            option(value='Author') Author
+            option(value='Co-Author') Co-Author
+        .input-box
+          span.details Name of First Author
+          input(type='text' name='firstAuthor' value=paperPublicationData.firstAuthor required='')
+        .input-box
+          span.details Name of Co-Author-1
+          input(type='text' name='coAuthor1' value=paperPublicationData.coAuthor1)
+        .input-box
+          span.details Name of Co-Author-2
+          input(type='text' name='coAuthor2' value=paperPublicationData.coAuthor2)
+        .input-box
+          span.details Name of Co-Author-3
+          input(type='text' name='coAuthor3' value=paperPublicationData.coAuthor3)
+        .input-box
+          span.details Title of Paper
+          input(type='text' name='title' value=paperPublicationData.title required='')
+        .input-box
+          span.details Name of Journal
+          input(type='text' name='journalName' value=paperPublicationData.journal required='')
+        .input-box
+          span.details International or National 
+          select#inputGroupSelect01.custom-select(name='nationalOrInter')
+            option(selected=paperPublicationData.nationalOrInternational) #{paperPublicationData.nationalOrInternational}
+            option(value='International') International
+            option(value='National') National
+        .input-box
+          span.details ISSN or e-ISSN NUMBER
+          input(type='text' name='issnNo' value=paperPublicationData.issnNo required='')
+        .input-box
+          span.details Volume
+          input(type='text' name='volumes' value=paperPublicationData.volumes required='')
+        .input-box
+          span.details Issue
+          input(type='text' name='issue' value=paperPublicationData.issue required='')
+        .input-box
+          span.details Page number
+          input(type='text' name='pageNo' value=paperPublicationData.pageNo required='')
+        .input-box
+          span.details Month of Publication
+          input(type='date' name='publicationMonth' value=paperPublicationData.publicationMonth required='')
+        .input-box
+          span.details Year of publication(YYYY)
+          input(type='text' name='publicationYear' value=paperPublicationData.publicationYear required='')
+        .input-box
+          span.details Indexing 
+          input(type='text' name='indexing' value=paperPublicationData.indexing required='')
+        .input-box
+          span.details Impact Factor
+          input(type='text' name='impactFactor' value=paperPublicationData.impactFactor required='')
+        .input-box
+          span.details Number of Citations
+          input(type='text' name='citationsNo' value=paperPublicationData.citationsNo required='')
+        .input-box
+          span.details h-index
+          input(type='text' name='hIndex' value=paperPublicationData.hIndex required='')
+        .input-box
+          span.details i10-index
+          input(type='text' name='i10Index' value=paperPublicationData.i10Index required='')
+        .input-box
+          span.details Any Financial Support 
+          select#inputGroupSelect01.custom-select(name='support' required='')
+            option(selected=paperPublicationData.financialSupport) #{paperPublicationData.financialSupport}
+            option(value='YES') YES
+            option(value='NO') NO
+        .input-box
+          span.details Name of Organization who suppoted for finance
+          input(type='text' name='supportOrg' value=paperPublicationData.financeSupportOrganisation)
+        .input-box
+          span.details Sponsored Amount
+          input(type='text' name='amount' value=paperPublicationData.amount)
+        .input-box
+          span.details Upload Certificate (GDrive Link)
+          .input-container
+            input(type='link' name='link' value=paperPublicationData.link required='')
+            input(type='hidden' name='paperPublicationIndex' value=paperPublicationIndex)
+      .action__btns
+        button.login(type='submit') Submit

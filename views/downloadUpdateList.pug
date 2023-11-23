@@ -16,53 +16,105 @@ head
   .action__btns
     button(onclick=`downloadAllRecords()`) Download All Records
     a(id="getAnchor1" href="downloadPersonalRecords") 
-.tableDiv
-  - var workshopIndex = 1
-  table#table 
-    tr 
-      th Record  
-      th Name
-      th Organizing Institute
-      th Venue
-      th Nature
-      th Update
-     
-      each x in userdata.workshop
-        tr
-          td= "Workshop"
-          td= x.workshopName
-          td= x.orgInstitute
-          td= x.venue
-          td= x.nature
-          td
-            form(id="workshopForm" action="/updateWorkshopPage" method="post")
-              input(type="hidden" name="workshopData" id="workshopDataField")
-              input(type="hidden" name="workshopIndex" id="workshopIndex")
-            button#submit(type="submit" onclick=`updateWorkshop('${JSON.stringify(x)}','${workshopIndex}')`) Update 
-            - workshopIndex = workshopIndex + 1
-.tableDiv
-  - var confIndex = 1
-  table#table 
-    tr 
-      th Record  
-      th Name
-      th Title
-      th Organizing Institute
-      th Date
-      th Update
-     
-      each x in userdata.conference
-        tr
-          td= "Conference"
-          td= x.conferenceName
-          td= x.title
-          td= x.organizingInstitute
-          td= x.date
-          td
-            form(id="confForm" action="/updateConferencePage" method="post")
-              input(type="hidden" name="conferenceData" id="conferenceDataField")
-              input(type="hidden" name="confIndex" id="confIndex")
-            button#submit(type="submit" onclick=`updateConference('${JSON.stringify(x)}','${confIndex}')`) Update 
-            - confIndex = confIndex + 1
+if userdata.workshop !== -1
+  .tableDiv
+    - var workshopIndex = 1
+    table#table 
+      tr 
+        th Workshop Records  
+        th Name
+        th Organizing Institute
+        th Venue
+        th Nature
+        th Update
+      
+        each x in userdata.workshop
+          tr
+            td= "Workshop"
+            td= x.workshopName
+            td= x.orgInstitute
+            td= x.venue
+            td= x.nature
+            td
+              form(id="workshopForm" action="/updateWorkshopPage" method="post")
+                input(type="hidden" name="workshopData" id="workshopDataField")
+                input(type="hidden" name="workshopIndex" id="workshopIndex")
+              button#submit(type="submit" onclick=`updateWorkshop('${JSON.stringify(x)}','${workshopIndex}')`) Update 
+              - workshopIndex = workshopIndex + 1
+if userdata.conference !== -1
+  .tableDiv
+    - var confIndex = 1
+    table#table 
+      tr 
+        th Conference Records  
+        th Name
+        th Organizing Institute
+        th Title
+        th Date
+        th Update
+        
+        each x in userdata.conference
+          tr
+            td= "Conference"
+            td= x.conferenceName
+            td= x.organizingInstitute
+            td= x.title
+            td= x.date
+            td
+              form(id="confForm" action="/updateConferencePage" method="post")
+                input(type="hidden" name="conferenceData" id="conferenceDataField")
+                input(type="hidden" name="confIndex" id="confIndex")
+              button#submit(type="submit" onclick=`updateConference('${JSON.stringify(x)}','${confIndex}')`) Update 
+              - confIndex = confIndex + 1
+if userdata.paperPublication !== -1
+  .tableDiv
+    - var paperPublicationIndex = 1
+    table#table 
+      tr 
+        th Paper Publication Records  
+        th Title
+        th Journal
+        th Year
+        th ISSN or e-ISSN Number
+        th Update
+        
+        each x in userdata.paperPublication
+          tr
+            td= "Paper Publication"
+            td= x.title
+            td= x.journal
+            td= x.publicationYear
+            td= x.issnNo
+            td
+              form(id="paperPublicationForm" action="/updatePaperPublicationPage" method="post")
+                input(type="hidden" name="paperPublicationData" id="paperPublicationField")
+                input(type="hidden" name="paperPublicationIndex" id="paperPublicationIndex")
+              button#submit(type="submit" onclick=`updatePaperPublication('${JSON.stringify(x)}','${paperPublicationIndex}')`) Update 
+              - paperPublicationIndex = paperPublicationIndex + 1
+if userdata.citation !== -1
+  .tableDiv
+    - var citationIndex = 1
+    table#table 
+      tr 
+        th Citation Records  
+        th Title
+        th Indexing
+        th Year
+        th Cited By
+        th Update
+        
+        each x in userdata.citation
+          tr
+            td= "Paper Publication"
+            td= x.title
+            td= x.indexing
+            td= x.year
+            td= x.citedBy
+            td
+              form(id="citationForm" action="/updateCitationPage" method="post")
+                input(type="hidden" name="citationData" id="citationField")
+                input(type="hidden" name="citationIndex" id="citationIndex")
+              button#submit(type="submit" onclick=`updateCitation('${JSON.stringify(x)}','${citationIndex}')`) Update 
+              - citationIndex = citationIndex + 1
 
 script(src='downloadUpdateList.js') 
