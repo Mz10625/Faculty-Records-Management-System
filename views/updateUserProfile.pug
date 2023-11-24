@@ -39,6 +39,9 @@ head
           span.details Email 
           input(type='text' name='email' value=data.email required='')
         .input-box
+          span.details Employee Number 
+          input(type='text' name='employeeNo' value=data.employeeNo required='')
+        .input-box
           span.details Mobile Number
           input(type='text' name='phone' value=data.phone required='')
         .input-box
@@ -46,7 +49,7 @@ head
           input(type='text' name='username' value=data.username required='')
         .input-box
           span.details Password
-          input(type='password' name='password' placeholder="Enter password to update details" required='')
+          input(type='password' name='password' placeholder="Enter password to update details" required)
         .input-box
           span.details New Password
           input#newPass(type='text' name='newPassword' placeholder="Optional" )

@@ -267,7 +267,7 @@ async function getDownloadUpdate(req,res){
             findResult["conference"] = -1
         }
         if(findResult.paperpublication==null){
-            findResult["paperpublication"] = -1
+            findResult["paperPublication"] = -1
         }
         if(findResult.citation==null){
             findResult["citation"] = -1
@@ -390,26 +390,31 @@ async function postUpdateProfile(req,res){
         if(findResult == null){
             throw new Error("Incorrect password!!");
         }
+        if(req.body.newPassword != ""){
+            req.body.password = req.body.newPassword
+        }
         let updateResult =await userCredentials.updateOne(
             {_id : reqId},
             {$set :{
                 name : req.body.name,
                 phone : req.body.phone,
                 email : req.body.email,
+                employeeNo : req.body.employeeNo,
                 dept : req.body.dept,
                 username : req.body.username,
+                password : req.body.password
             }}
             )
             if(!updateResult.acknowledged){
                 throw new Error("Failed to update!!");
             }
             if(updateResult.matchedCount == 0){
-                throw new Error("User not found!!");
+                throw new Error("Incorrect Password!!");
             }
             res.redirect("userHome");
     }catch(error){
         console.log(error);
-        res.send("Failed to update Details");
+        res.send("Failed to update!! Incorrect Password");
     }
 }
 function postUpdateWorkshopPage(req,res){

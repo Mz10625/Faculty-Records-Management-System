@@ -7,7 +7,7 @@
      background: linear-gradient(to top,black,black);
     width: 100vw;
     height: 100vh;
-   
+    overflow-x: hidden;
   }
   .action__btns{
     display: flex;
@@ -81,7 +81,7 @@
     text-align: center;
     width: 100%;
     padding: 0.4rem;   
-    
+    margin-top: 1rem;
   }
   #submit{
       padding: 0.4rem 0.8rem;
@@ -100,8 +100,9 @@
     color: white;
   }
   #table th{   
-    background-color:rgba(255, 153, 37, 0.849);
+    background-color:rgba(255, 153, 37, 0.884);
     height: 2.5rem;
+    width: 18%;
     font-size: 1.1rem;
     color: rgba(255, 255, 255, 0.822);
   }

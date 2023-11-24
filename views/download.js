@@ -21,7 +21,7 @@ function jsonD(x){
       anchor1.href = "/downloadOneRecord/"+JSON.parse(x).phone+"/"+JSON.parse(x).name;
       // anchor2 = document.getElementById("getAnchor2");
       // anchor2.href ="/downloadConferenceFile/"+JSON.parse(x).phone+"/"+JSON.parse(x).name;
-      setTimeout(()=>{ anchor1.click() }, 8000);
+      setTimeout(()=>{ anchor1.click() }, 3000);
       // setTimeout(()=>{ anchor2.click() }, 8000);
     }
     else{

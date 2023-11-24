@@ -66,6 +66,7 @@ async function addUser(client,data){
         let userdata = {"name":data.fname,
                         "email":data.email,
                         "dept":data.dept,
+                        "employeeNo" : data.employeeNo,
                         "phone":data.phone,
                         "username":data.username,
                         "password":data.password,
@@ -124,6 +125,7 @@ async function updateUserData(client,ObjectId,updatedData){
                 name : updatedData.name,
                 phone : updatedData.phone,
                 email : updatedData.email,
+                employeeNo : updatedData.employeeNo,
                 dept : updatedData.dept,
                 username : updatedData.username,
                 password : updatedData.password,
@@ -149,9 +151,13 @@ function createZipFile(contact){
     zip.pipe(output);
     zip.file(path.dirname(__dirname)+"/routes/"+contact+"Workshop.xlsx", { name: 'Workshop.xlsx' });
     zip.file(path.dirname(__dirname)+"/routes/"+contact+"Conference.xlsx", { name: 'Conference.xlsx' });
+    zip.file(path.dirname(__dirname)+"/routes/"+contact+"paperPublication.xlsx", { name: 'PaperPublication.xlsx' });
+    zip.file(path.dirname(__dirname)+"/routes/"+contact+"Citation.xlsx", { name: 'Citation.xlsx' });
     zip.finalize().then(()=>{
         deleteFiles(path.dirname(__dirname)+"/routes/"+contact+"Workshop.xlsx");
         deleteFiles(path.dirname(__dirname)+"/routes/"+contact+"Conference.xlsx");
+        deleteFiles(path.dirname(__dirname)+"/routes/"+contact+"PaperPublication.xlsx");
+        deleteFiles(path.dirname(__dirname)+"/routes/"+contact+"Citation.xlsx");
     })
 }
 async function createExcelFile(data,singleUserData){
@@ -197,17 +203,71 @@ async function createExcelFile(data,singleUserData){
         { header: 'Indexing (like Scopus, SCI, Web of Science etc)', key: 'indexing', width: 20 },
         { header: 'Number of Citation', key: 'citationNum', width: 20 },
         { header: 'Issue', key: 'issue', width: 20 },
-        { header: 'Upload Certificate (GDrive Link)', key: 'certificateLink', width: 20 },
+        { header: 'Certificate (GDrive Link)', key: 'certificateLink', width: 20 },
         { header: 'Peresented/published', key: 'peresentedPublished', width: 20 },
         { header: 'Any Financial Support', key: 'financeSupport', width: 20 },
         { header: 'Financial support Organisation', key: 'financeSupportOrganisation', width: 20 },
         { header: 'Financial support amount', key: 'amount', width: 20 },
     ]
     conferenceWs.columns = headers; 
+
+    const paperPublicationWb = new Excel.Workbook();
+    const paperPublicationWs = paperPublicationWb.addWorksheet('Paper Publication Sheet');
+    headers = [
+        { header: 'Faculty name', key: 'facultyName', width: 20 },
+        { header: 'Faculty Designation', key: 'facultyDesignation', width: 20 },
+        { header: 'Faculty Department', key: 'facultyDept', width: 20 },
+        { header: 'Author Or Co-author', key: 'selectAuthorOrCo', width: 20 },
+        { header: 'First Author', key: 'firstAuth', width: 20 },
+        { header: 'Co-Author-1', key: 'CoAuth1', width: 20 },
+        { header: 'Co-Author-2', key: 'CoAuth2', width: 20 },
+        { header: 'Co-Author-3', key: 'CoAuth3', width: 20 },
+        { header: 'Title of Paper', key: 'paperTitle', width: 20 },
+        { header: 'Journal Name', key: 'journalName', width: 20},
+        { header: 'International or National', key: 'InternationalOrnot', width: 20 },
+        { header: 'ISSN or e-ISSN Number', key: 'issn', width: 20 },
+        { header: 'Volume', key: 'volName', width: 20 },
+        { header: 'Issue', key: 'issue', width: 20 },
+        { header: 'Page No [From-To]', key: 'pageNo', width: 20 },
+        { header: 'Month of Publication', key: 'publicationMonth', width: 20 },
+        { header: 'Year of Publication', key: 'publicationYear', width: 20 },
+        { header: 'Indexing (like Scopus, SCI, Web of Science etc)', key: 'indexing', width: 20 },
+        { header: 'Impact Factor', key: 'impactFactor', width: 20 },
+        { header: 'Number of Citation', key: 'citationNum', width: 20 },
+        { header: 'h-index', key: 'hIndex', width: 20 },
+        { header: 'i10-index', key: 'i10Index', width: 20 },
+        { header: 'Any Financial Support', key: 'financeSupport', width: 20 },
+        { header: 'Financial support Organisation', key: 'financeSupportOrganisation', width: 20 },
+        { header: 'Financial support amount', key: 'amount', width: 20 },
+        { header: 'Certificate (GDrive Link)', key: 'certificateLink', width: 20 },
+    ]
+    paperPublicationWs.columns = headers; 
+
+    const citationWb = new Excel.Workbook();
+    const citationWs = citationWb.addWorksheet('citation Sheet');
+    headers = [
+        { header: 'Faculty name', key: 'facultyName', width: 20 },
+        { header: 'Faculty Designation', key: 'facultyDesignation', width: 20 },
+        { header: 'Faculty Department', key: 'facultyDept', width: 20 },
+        { header: 'Author Or Co-author', key: 'selectAuthorOrCo', width: 20 },
+        { header: 'First Author', key: 'firstAuth', width: 20 },
+        { header: 'Co-Author-1', key: 'CoAuth1', width: 20 },
+        { header: 'Co-Author-2', key: 'CoAuth2', width: 20 },
+        { header: 'Co-Author-3', key: 'CoAuth3', width: 20 },
+        { header: 'Title of Citation', key: 'citationTitle', width: 20 },
+        { header: 'Indexing (like Scopus, SCI, Web of Science etc)', key: 'indexing', width: 20 },
+        { header: 'Year', key: 'year', width: 20 },
+        { header: 'Cited By', key: 'citedBy', width: 20 },
+        { header: 'h-index', key: 'hIndex', width: 20 },
+        { header: 'i10-index', key: 'i10Index', width: 20 },
+    ]
+    citationWs.columns = headers; 
     
     for(let i=0; i<data.length; i++){
         let workshopdata = data[i].workshop;
         let confData = data[i].conference;
+        let paperPublicationData = data[i].paperPublication;
+        let citationData = data[i].citation;
         if(workshopdata != null){
             // console.log(workshopdata);
             for(let i=1;i <= Object.keys(workshopdata).length;i++){
@@ -231,16 +291,43 @@ async function createExcelFile(data,singleUserData){
                 ]);
             }
         }
+        if(paperPublicationData != null){
+            for(let i=1;i <= Object.keys(paperPublicationData).length;i++){
+                let j = i.toString();
+                paperPublicationWs.addRow([paperPublicationData[j].facultyName,paperPublicationData[j].facultyDesignation,paperPublicationData[j].facultyDept,
+                    paperPublicationData[j].authorCoAuthor,paperPublicationData[j].firstAuthor,paperPublicationData[j].coAuthor1,paperPublicationData[j].coAuthor2,
+                    paperPublicationData[j].coAuthor3,paperPublicationData[j].title,paperPublicationData[j].journal,paperPublicationData[j].nationalOrInternational,
+                    paperPublicationData[j].issnNo,paperPublicationData[j].volumes,paperPublicationData[j].issue,
+                    paperPublicationData[j].pageNo,paperPublicationData[j].publicationMonth,paperPublicationData[j].publicationYear,
+                    paperPublicationData[j].indexing,paperPublicationData[j].impactFactor,paperPublicationData[j].citationsNo,paperPublicationData[j].hIndex,
+                    paperPublicationData[j].i10Index,paperPublicationData[j].financialSupport,paperPublicationData[j].financeSupportOrganisation,
+                    paperPublicationData[j].amount,paperPublicationData[j].link
+                ]);
+            }
+        }
+        if(citationData != null){
+            for(let i=1;i <= Object.keys(citationData).length;i++){
+                let j = i.toString();
+                citationWs.addRow([citationData[j].facultyName,citationData[j].facultyDesignation,citationData[j].facultyDept,
+                    citationData[j].authorCoAuthor,citationData[j].firstAuthor,citationData[j].coAuthor1,citationData[j].coAuthor2,
+                    citationData[j].coAuthor3,citationData[j].title,citationData[j].indexing,citationData[j].year,citationData[j].citedBy,citationData[j].hIndex,citationData[j].i10Index
+                ]);
+            }
+        }
     }
-    let newWorkshopFileName,newConferenceFileName;
+    let newWorkshopFileName,newConferenceFileName,newPaperPublicationName,newCitationName;
 
     if(singleUserData==1){
         newWorkshopFileName = "/"+data[0].phone+'Workshop.xlsx';
         newConferenceFileName =  "/"+data[0].phone+'Conference.xlsx';
+        newPaperPublicationName = "/"+data[0].phone+'PaperPublication.xlsx';
+        newCitationName = "/"+data[0].phone+'Citation.xlsx';
     }
     else{
         newWorkshopFileName = '/Workshop.xlsx';
         newConferenceFileName = '/Conference.xlsx';
+        newPaperPublicationName = '/PaperPublication.xlsx';
+        newCitationName = '/Citation.xlsx';
     }
     workshopWb.xlsx.writeFile( path.dirname(__dirname)+"/routes"+newWorkshopFileName)
             // .then(() => {
@@ -249,13 +336,19 @@ async function createExcelFile(data,singleUserData){
             .catch(err => {
                 console.log(err.message);
             });
+    paperPublicationWb.xlsx.writeFile( path.dirname(__dirname)+"/routes"+newPaperPublicationName)
+    .catch(err => {
+        console.log(err.message);
+    });
+    citationWb.xlsx.writeFile( path.dirname(__dirname)+"/routes"+newCitationName)
+    .catch(err => {
+        console.log(err.message);
+    });
     let c = await conferenceWb.xlsx.writeFile( path.dirname(__dirname)+"/routes"+newConferenceFileName)
-    // .then(() => {
-        //     return true;
-            // })
             .catch(err => {
                 console.log(err.message);
             });
+
     if(singleUserData==1){
         createZipFile(data[0].phone)
     }

@@ -14,7 +14,7 @@ body{
 .container {
   display: flex;
   width: 100vw;
-  height: 18vh;
+  height: 20vh;
   background-color: rgba(0, 0, 0, 0.4);
   
   /* justify-content: center; */

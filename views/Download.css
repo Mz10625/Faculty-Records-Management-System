@@ -87,7 +87,7 @@ body{
     padding: 0.4rem 0.8rem;
     outline: none;
     border: 2px solid gray;
-    border-radius: 15px;
+    border-radius: 10px;
     cursor: pointer;
     text-decoration: none;
     transition: all 0.3s ease;

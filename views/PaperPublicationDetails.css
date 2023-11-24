@@ -2,6 +2,7 @@
   margin: 0%;
   padding: 0%;
   box-sizing: border-box;
+  /* font-family: Arial, Helvetica, sans-serif; */
 }
 
 body {
@@ -185,8 +186,7 @@ form .input-box span.details{
   font-family: Arial;
   height: 45px; /* Match the height with input boxes */
 }
-.user-details .input-box input:focus,
-.user-details .input-box input:valid{
+.user-details .input-box input:focus{
   border-color: #4d9a63;
 }
  form .gender-details .gender-title{

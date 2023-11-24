@@ -216,8 +216,7 @@ form .input-box span.details{
   font-family: Arial;
   height: 45px; /* Match the height with input boxes */
 }
-.user-details .input-box input:focus,
-.user-details .input-box input:valid{
+.user-details .input-box input:focus{
   border-color: #4d9a63;
 }
  form .gender-details .gender-title{
