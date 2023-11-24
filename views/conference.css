@@ -79,6 +79,7 @@ body {
 .first-rectangle h2{
   padding: 0.1rem;
   margin-left: 2rem;
+  font-family: 'Times New Roman', Times, serif;
 }
 .first-rectangle {
   display: flex;

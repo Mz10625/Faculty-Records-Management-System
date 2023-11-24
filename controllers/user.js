@@ -266,7 +266,7 @@ async function getDownloadUpdate(req,res){
         if(findResult.conference==null){
             findResult["conference"] = -1
         }
-        if(findResult.paperpublication==null){
+        if(findResult.paperPublication==null){
             findResult["paperPublication"] = -1
         }
         if(findResult.citation==null){

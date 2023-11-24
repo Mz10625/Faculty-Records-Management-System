@@ -9,7 +9,7 @@ body{
   background: linear-gradient(to top,black,black);
   width: 100vw;
   height: 100vh;
-  /* font-family: Arial; */
+  font-family: 'Times New Roman', Times, serif;
   box-sizing: border-box;
   overflow-x: hidden;
 }
