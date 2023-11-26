@@ -36,8 +36,9 @@ head
           td= x.phone
           td
             //- button(onclick=`sendPostReq('${JSON.stringify(x)}')`) Update
-            form(action="updateList", method="post") 
+            form#form(action="updateList", method="post") 
               input(type="hidden" name="contact" value=x.phone)
+              //- input(type="hidden" name="token" id="updateListToken")
               button#submit(type="submit") Update 
       
       

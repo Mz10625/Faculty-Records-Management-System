@@ -16,7 +16,7 @@ head
 .container
   .title Update Details
   .content
-    form#form(method='post')
+    form#form(method='post' action="updateProfile")
       .user-details
         .input-box
           span.details Name of Faculty 
@@ -49,13 +49,13 @@ head
           input(type='text' name='username' value=data.username required='')
         .input-box
           span.details Password
-          input(type='password' name='password' placeholder="Enter password to update details" required)
+          input(type='password' name='password' placeholder="Enter password to update details"  required)
         .input-box
           span.details New Password
-          input#newPass(type='text' name='newPassword' placeholder="Optional" )
+          input#newPass(type='text' name='newPassword' placeholder="Optional" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters")
         .input-box
           span.details Confirm New Password
-          input#confirmNewPass(type='text' name='confirmNewPassword' placeholder="Optional" )
+          input#confirmNewPass(type='text' name='confirmNewPassword' placeholder="Optional" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters")
 
       .action__btns(align='center')
         button#submitBtn Submit 

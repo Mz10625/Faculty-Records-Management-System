@@ -7,82 +7,48 @@ window.addEventListener("load", (event) => {
     }
 });
 
-async function authenticate(){
-    token =  sessionStorage.getItem("token");
-    let res = await fetch("/authenticate",{
-                        method: 'GET',
-                        headers: {
-                            'Authorization': `Bearer ${token}`,
-                        },        
-                    })
-    return res.json();
-}
+// async function authenticate(){
+//     token =  sessionStorage.getItem("token");
+//     let res = await fetch("/authenticate",{
+//                         method: 'GET',
+//                         headers: {
+//                             'Authorization': `Bearer ${token}`,
+//                         },        
+//                     })
+//     return res.json();
+// }
 
 
 document.getElementById('addUserBtn').addEventListener("click",()=>{    
-    authenticate().then((authenticateUser)=>{
-        if(authenticateUser==true){
-            document.getElementById('addUserAnchor').click();
-        }
-        else{
-            document.open();
-            document.write("Not Authorized");
-            document.close();
-        }
-    })
-    .catch(error => console.error('Error:', error));
+    document.getElementById("addUserToken").value = sessionStorage.getItem("token");
+    document.getElementById("addUserForm").submit();
+    // authenticate().then((authenticateUser)=>{
+    //     if(authenticateUser==true){
+    //         document.getElementById('addUserAnchor').click();
+    //     }
+    //     else{
+    //         document.open();
+    //         document.write("Not Authorized");
+    //         document.close();
+    //     }
+    // })
+    // .catch(error => console.error('Error:', error));
 })
 
 document.getElementById('updateUserBtn').addEventListener("click",()=>{    
-    authenticate().then((authenticateUser)=>{
-        if(authenticateUser==true){
-            document.getElementById('updateUserAnchor').click();
-        }
-        else{
-            document.open();
-            document.write("Not Authorized");
-            document.close();
-        }
-    })
-    .catch(error => console.error('Error:', error));
+    document.getElementById("updateUserToken").value = sessionStorage.getItem("token");
+    document.getElementById("updateUserForm").submit();
 })
 
 document.getElementById('removeUserBtn').addEventListener("click",()=>{    
-    authenticate().then((authenticateUser)=>{
-        if(authenticateUser==true){
-            document.getElementById('removeUserAnchor').click();
-        }
-        else{
-            document.open();
-            document.write("Not Authorized");
-            document.close();
-        }
-    })
-    .catch(error => console.error('Error:', error));
+    document.getElementById("removeUserToken").value = sessionStorage.getItem("token");
+    document.getElementById("removeUserForm").submit();
 })
 document.getElementById('downloadBtn').addEventListener("click",()=>{    
-    authenticate().then((authenticateUser)=>{
-        if(authenticateUser==true){
-            document.getElementById('downloadAnchor').click();
-        }
-        else{
-            document.open();
-            document.write("Not Authorized");
-            document.close();
-        }
-    })
-    .catch(error => document.write(error));
+    document.getElementById("downloadToken").value = sessionStorage.getItem("token");
+    document.getElementById("downloadForm").submit();
 })
 document.getElementById('updatePasswordBtn').addEventListener("click",()=>{    
-    authenticate().then((authenticateUser)=>{
-        if(authenticateUser==true){
-            document.getElementById('updatePasswordAnchor').click();
-        }
-        else{
-            document.open();
-            document.write("Not Authorized");
-            document.close();
-        }
-    })
-    .catch(error => document.write(error));
+    document.getElementById("updatePasswordToken").value = sessionStorage.getItem("token");
+    document.getElementById("updatePasswordForm").submit();
 })

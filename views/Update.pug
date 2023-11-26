@@ -15,7 +15,7 @@ head
 .container
   .title Update Details
   .content
-    form(method='post' action="updateUserData")
+    form(method='post' action="updateUserData" id="form")
       .user-details
         .input-box
           span.details Name of Faculty 
@@ -36,19 +36,22 @@ head
             option(value='Library') Library
         .input-box
           span.details Employee Number 
-          input(type='text' name='employeeNo' value=data.employeeNo required='')
+          input(type='text' name='employeeNo' value=data.employeeNo  required='')
         .input-box
           span.details Email 
-          input(type='text' name='email' value=data.email required='')
+          input(type='text' name='email' value=data.email pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" title="Enter a valid email" required='')
         .input-box
           span.details Mobile Number
-          input(type='text' name='phone' value=data.phone required='')
+          input(type='text' name='phone' value=data.phone pattern="[789][0-9]{9}" required='')
         .input-box
           span.details User Name
           input(type='text' name='username' value=data.username required='')
         .input-box
           span.details Password
-          input(type='text' name='password' value=data.password required='')
+          input(type='text' name='password' value=data.password pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{4,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 4 characters" required='')
           input(type="hidden" name="_id" value=data._id)
+          input(type="hidden" name="token" id="updateUserToken")
       .action__btns(align='center')
-        button(type="submit") Submit 
+        button#submit(type="submit") Submit 
+
+script(src="update.js") 

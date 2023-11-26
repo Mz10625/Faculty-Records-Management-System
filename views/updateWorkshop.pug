@@ -76,11 +76,10 @@ head
         .input-box
           span.details Amount
           input(type='text' name='amount' value=workshopData.amount required='')
+        .input-box
+          span.details Certificate link
+          input(type='text' name='link' value=workshopData.link)
           input(type='hidden' name='workshopIndex' value=workshopIndex)
-        //
-          <div class="input-box">
-          <span class="details">Upload Certificate</span>
-          <input type="file" accept=".pdf,.doc,.docx" required>
-          </div>
+        
       .action__btns
         button.login(type='submit') Submit

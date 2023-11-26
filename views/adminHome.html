@@ -26,16 +26,22 @@
         <div class="second-container">
             <div class="box">
               <img src="images/Add_user.png" alt="logo" class="logo">
-                <div class="action__btns"  >          
+                <div class="action__btns"  >    
+                  <form id="addUserForm" action="addUserP" method="post">
+                    <input type="hidden" name="token" id="addUserToken">
+                  </form>      
                   <button class="login" id="addUserBtn">Add User</button>
-                  <a id="addUserAnchor" href="addUser"></a>
+                  <!-- <a id="addUserAnchor" href="addUser"></a> -->
                 </div>
             </div>
             <div class="box" >
               <img src="images/update_user.png" alt="logo"  class="logo">
                 <div class="action__btns">
+                  <form id="updateUserForm" action="updateListP" method="post">
+                    <input type="hidden" name="token" id="updateUserToken">
+                  </form>
                   <button class="login" id="updateUserBtn">Update User</button>
-                  <a id="updateUserAnchor" href="updateList"></a>
+                  <!-- <a id="updateUserAnchor" href="updateList"></a> -->
                 </div>              
             </div>
           </div>
@@ -44,15 +50,21 @@
             <div class="box">
               <img src="images/delete_user.png" alt="logo" class="logo">
                 <div class="action__btns"  >
+                  <form id="removeUserForm" action="removeUserP" method="post">
+                    <input type="hidden" name="token" id="removeUserToken">
+                  </form>
                   <button class="login" id="removeUserBtn">Remove User</button>
-                  <a id="removeUserAnchor" href="removeUser"></a>
+                  <!-- <a id="removeUserAnchor" href="removeUser"></a> -->
                 </div>
             </div>
             <div class="box" >
               <img src="images/download.jpg" alt="logo"  class="logo">
                 <div class="action__btns">
+                  <form id="downloadForm" action="downloadP" method="post">
+                    <input type="hidden" name="token" id="downloadToken">
+                  </form>
                   <button class="login" id="downloadBtn">Download</button>
-                  <a id="downloadAnchor" href="download"></a>
+                  <!-- <a id="downloadAnchor" href="download"></a> -->
                 </div>
             </div>
           </div>
@@ -60,8 +72,11 @@
             <div class="box" >
               <img src="images/update_user.png" alt="logo"  class="logo">
                 <div class="action__btns">
+                  <form id="updatePasswordForm" action="updatePasswordP" method="post">
+                    <input type="hidden" name="token" id="updatePasswordToken">
+                  </form>
                   <button class="login" id="updatePasswordBtn">Update Password</button>
-                  <a id="updatePasswordAnchor" href="updatePassword"></a>
+                  <!-- <a id="updatePasswordAnchor" href="updatePassword"></a> -->
                 </div>              
             </div>            
 	</body>

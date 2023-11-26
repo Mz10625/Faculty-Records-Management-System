@@ -1,18 +1,18 @@
-async function authenticate(){
-  token =  sessionStorage.getItem("token");
-  let res = await fetch("/authenticate",{
-                      method: 'GET',
-                      headers: {
-                          'Authorization': `Bearer ${token}`,
-                      },        
-                  })
-  return res.json();
-}
+// async function authenticate(){
+//   token =  sessionStorage.getItem("token");
+//   let res = await fetch("/authenticate",{
+//                       method: 'GET',
+//                       headers: {
+//                           'Authorization': `Bearer ${token}`,
+//                       },        
+//                   })
+//   return res.json();
+// }
 
 
 function jsonD(x){
-  authenticate().then((authenticateUser)=>{
-    if(authenticateUser==true){
+  // authenticate().then((authenticateUser)=>{
+  //   if(authenticateUser==true){
       const jsonDataField = document.getElementById("jsonDataField");
       jsonDataField.value = x;
       document.getElementById('form').submit();
@@ -23,29 +23,29 @@ function jsonD(x){
       // anchor2.href ="/downloadConferenceFile/"+JSON.parse(x).phone+"/"+JSON.parse(x).name;
       setTimeout(()=>{ anchor1.click() }, 3000);
       // setTimeout(()=>{ anchor2.click() }, 8000);
-    }
-    else{
-      document.open();
-      document.write("Not Authorized");
-      document.close();
-    } 
-  })
-  .catch(error => console.error('Error:', error));
+  //   }
+  //   else{
+  //     document.open();
+  //     document.write("Not Authorized");
+  //     document.close();
+  //   } 
+  // })
+  // .catch(error => console.error('Error:', error));
 }
 
 async function downloadAllRecords(){
-  authenticate().then((authenticateUser)=>{
-      console.log(authenticateUser);
-      if(authenticateUser==true){
+  // authenticate().then((authenticateUser)=>{
+  //     console.log(authenticateUser);
+  //     if(authenticateUser==true){
         anchor3 = document.getElementById("getAnchor3");
         // anchor4 = document.getElementById("getAnchor4");
         anchor3.click()
         // setTimeout(()=>{ anchor4.click() },6000);
-      }
-      else{
-        document.open();
-        document.write("Not Authorized");
-        document.close();
-      } 
-  })
+  //     }
+  //     else{
+  //       document.open();
+  //       document.write("Not Authorized");
+  //       document.close();
+  //     } 
+  // })
 }

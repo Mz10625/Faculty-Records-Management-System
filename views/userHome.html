@@ -37,15 +37,19 @@
             <div class="box">
               <img src="images/workshop.jpeg" alt="logo" class="logo">
                 <div class="action__btns"  >
+                  <form id="workshopForm" action="workshopP" method="post">
+                    <input type="hidden" name="token" id="workshopToken">
+                  </form>
                   <button id="workshopBtn" class="login" >Workshop</button>
-                  <a id="workshopAnchor" href="workshop"></a>
                 </div>
             </div>
             <div class="box" >
               <img src="images/conf.png" alt="logo"  class="logo">
                 <div class="action__btns">
+                  <form id="conferenceForm" action="conferenceP" method="post">
+                    <input type="hidden" name="token" id="conferenceToken">
+                  </form>
                   <button id="conferenceBtn" class="login" >Conference</button>
-                  <a id="conferenceAnchor" href="conference"></a>
                 </div>
             </div>
           </div>
@@ -54,6 +58,9 @@
             <div class="box">
               <img src="images/research.png" alt="logo" class="logo">
                 <div class="action__btns">          
+                  <form id="paperPublicationForm" action="paperPublicationP" method="post">
+                    <input type="hidden" name="token" id="paperPublicationToken">
+                  </form>
                   <button id="paperPublicationBtn" class="login" >Paper Publication</button>
                   <a id="paperPublicationAnchor" href="paperPublication"></a>
                 </div>
@@ -61,6 +68,9 @@
             <div class="box" >
               <img src="images/citation.png" alt="logo"  class="logo">
                 <div class="action__btns">
+                  <form id="citationForm" action="citationP" method="post">
+                    <input type="hidden" name="token" id="citationToken">
+                  </form>
                   <button id="citationBtn" class="login" >Citation</button>
                   <a id="citationAnchor" href="citation"></a>
                 </div>
@@ -70,6 +80,9 @@
             <div class="box" >
               <img src="images/update_user.png" alt="logo"  class="logo">
                 <div class="action__btns">
+                  <form id="updateProfileForm" action="updateProfileP" method="post">
+                    <input type="hidden" name="token" id="updateProfileToken">
+                  </form>
                   <button class="login" id="updateProfileBtn">Update Profile</button>
                   <a id="updateProfileAnchor" href="updateProfile"></a>
                 </div>              
@@ -77,6 +90,9 @@
             <div class="box" >
               <img src="images/download.jpg" alt="logo"  class="logo">
                 <div class="action__btns">
+                  <form id="downloadUpdateForm" action="downloadUpdateP" method="post">
+                    <input type="hidden" name="token" id="downloadUpdateToken">
+                  </form>
                   <button class="login" id="downloadUpdateBtn">Download / Update</button>
                   <a id="downloadUpdateAnchor" href="downloadUpdate"></a>
                 </div>              

@@ -29,7 +29,7 @@
     <div class="title">Workshop Details</div>
     <div class="content">
 
-      <form method="post">
+      <form id="workshopForm" action="workshop" method="post">
         <div class="user-details">
           <div class="input-box">
             <span class="details">Name of Faculty </span>
@@ -103,29 +103,21 @@
             <option value="No">NO</option>
           </select>
           </div>
-
           <div class="input-box">
             <span class="details">Name of Organization who suppoted for finance</span>
             <input type="text" name="supportOrg" placeholder="Enter name of insituite">
           </div>
-
           <div class="input-box">
             <span class="details">Amount</span>
             <input type="text" name="amount" placeholder="Enter Amount" required>
-          </div>
-          
-          <!--           
+          </div>   
           <div class="input-box">
             <span class="details">Upload Certificate</span>
-            <input type="file" accept=".pdf,.doc,.docx" required>
+            <input type="link" name="link"  pattern="https?://.+" placeholder="https://drive.google.com/" required>
           </div>
-           -->
-          
-         
-        </div>
-       
+        </div>       
         <div class="action__btns">
-          <button class="login" type="submit">Submit</button>
+          <button class="login"id="submit">Submit</button>
         </div> 
       </form>
     </div>

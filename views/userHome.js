@@ -5,95 +5,38 @@ window.addEventListener("load", (event) => {
         document.cookie =  "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     }
 });
-async function authenticate(){
-    token =  sessionStorage.getItem("token");
-    let res = await fetch("/authenticate",{
-                        method: 'GET',
-                        headers: {
-                            'Authorization': `Bearer ${token}`,
-                        },        
-                    })
-    return res.json();
-}
+// async function authenticate(){
+//     token =  sessionStorage.getItem("token");
+//     let res = await fetch("/authenticate",{
+//                         method: 'GET',
+//                         headers: {
+//                             'Authorization': `Bearer ${token}`,
+//                         },        
+//                     })
+//     return res.json();
+// }
 
 document.getElementById('workshopBtn').addEventListener("click",()=>{    
-    authenticate().then((authenticateUser)=>{
-        if(authenticateUser==true){
-            document.getElementById('workshopAnchor').click();
-        }
-        else{
-            document.open();
-            document.write("Not Authorized");
-            document.close();
-        }
-    })
-    .catch(error => console.error('Error:', error));
+    document.getElementById("workshopToken").value = sessionStorage.getItem("token");
+    document.getElementById("workshopForm").submit();
 })
 document.getElementById('conferenceBtn').addEventListener("click",()=>{    
-    authenticate().then((authenticateUser)=>{
-        if(authenticateUser==true){
-            document.getElementById('conferenceAnchor').click();
-        }
-        else{
-            document.open();
-            document.write("Not Authorized");
-            document.close();
-        }
-    })
-    .catch(error => console.error('Error:', error));
+    document.getElementById("conferenceToken").value = sessionStorage.getItem("token");
+    document.getElementById("conferenceForm").submit();
 })
 document.getElementById('paperPublicationBtn').addEventListener("click",()=>{    
-    authenticate().then((authenticateUser)=>{
-        if(authenticateUser==true){
-            document.getElementById('paperPublicationAnchor').click();
-        }
-        else{
-            document.open();
-            document.write("Not Authorized");
-            document.close();
-        }
-    })
-    .catch(error => console.error('Error:', error));
+    document.getElementById("paperPublicationToken").value = sessionStorage.getItem("token");
+    document.getElementById("paperPublicationForm").submit();
 })
 document.getElementById('citationBtn').addEventListener("click",()=>{    
-    authenticate().then((authenticateUser)=>{
-        if(authenticateUser==true){
-            document.getElementById('citationAnchor').click();
-        }
-        else{
-            document.open();
-            document.write("Not Authorized");
-            document.close();
-        }
-    })
-    .catch(error => console.error('Error:', error));
+    document.getElementById("citationToken").value = sessionStorage.getItem("token");
+    document.getElementById("citationForm").submit();
 })
 document.getElementById('updateProfileBtn').addEventListener("click",()=>{    
-    authenticate().then((authenticateUser)=>{
-        if(authenticateUser==true){
-            document.getElementById('updateProfileAnchor').click();
-        }
-        else{
-            document.open();
-            document.write("Not Authorized");
-            document.close();
-        }
-    })
-    .catch(error => document.write(error));
+    document.getElementById("updateProfileToken").value = sessionStorage.getItem("token");
+    document.getElementById("updateProfileForm").submit();
 })
 document.getElementById('downloadUpdateBtn').addEventListener("click",()=>{    
-    authenticate().then((authenticateUser)=>{
-        if(authenticateUser==true){
-            document.getElementById('downloadUpdateAnchor').click();
-        }
-        else{
-            document.open();
-            document.write("Not Authorized");
-            document.close();
-        }
-    })
-    .catch(error => document.write(error));
+    document.getElementById("downloadUpdateToken").value = sessionStorage.getItem("token");
+    document.getElementById("downloadUpdateForm").submit();
 })
-// document.getElementById('dropdown').addEventListener("click",()=>{
-//     document.getElementById("dropdown-options").style.display = "block";
-// })

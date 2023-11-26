@@ -24,7 +24,7 @@
   <div class="container">
     <div class="title">Conference Details </div>
     <div class="content">
-      <form method="post">
+      <form method="post" id="conferenceForm" action="conference">
         <div class="user-details">
           <div class="input-box">
             <span class="details">Name of Faculty </span>
@@ -146,7 +146,7 @@
             <span class="details">Upload Certificate (GDrive Link)</span>
             <div class="input-container">
                 <!-- <a href="https://drive.google.com/open?id=1C2JDwjkHFLqW4upKiRU0DBOyYMBwSRxa" target="_blank">Google Drive Link</a> -->
-                <input type="link" name="link" placeholder="https://drive.google.com/" required>
+                <input type="link" name="link"  pattern="https?://.+" placeholder="https://drive.google.com/" required>
             </div>
           </div>
         
@@ -164,8 +164,7 @@
           </div>
         </div>
         <div class="action__btns">
-          <!-- <a href="conference" class="login">Submit</a> -->
-          <button type="submit" class="login">Submit</button>
+          <button id="submit" class="login">Submit</button>
         </div>
       </form>
     </div>

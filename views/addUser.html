@@ -29,7 +29,7 @@
       <div class="title">Add User Details</div>
       <div class="content">
   
-        <form action="addUser" method="post">
+        <form action="addUser" id="form" method="post">
           <div class="user-details">
             <div class="input-box">
               <span class="details">Name of Faculty </span>
@@ -58,14 +58,13 @@
               <input type="text" name="employeeNo" placeholder="Enter your Employee number" required>
             </div>
             
-          
             <div class="input-box">
               <span class="details">Email </span>
-              <input type="text" name="email" placeholder="Enter Email.." required>
+              <input type="text" name="email" placeholder="Enter Email.." pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" required>
             </div>
             <div class="input-box">
               <span class="details">Mobile Number</span>
-              <input type="text" name="phone" placeholder="Enter Mobile Number" required>
+              <input type="text" name="phone" placeholder="Enter Mobile Number" pattern="[789][0-9]{9}" required>
             </div>
             <div class="input-box">
               <span class="details">User Name</span>
@@ -73,18 +72,12 @@
             </div>
             <div class="input-box">
               <span class="details">Password</span>
-              <input type="text" name="password" placeholder="Enter Password" required>
+              <input type="text" name="password" placeholder="Enter Password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{4,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 4 characters"  required>
             </div>    
-  <!--           
-            <div class="input-box">
-              <span class="details">Upload Certificate</span>
-              <input type="file" accept=".pdf,.doc,.docx" required>
-            </div>
-             -->             
+            <input type="hidden" name="token" id="addUserToken">
           </div>
-         
           <div class="action__btns">
-            <button class="login">Submit</button>
+            <button class="login" id="submitBtn">Submit</button>
           </div> 
         </form>
       </div>

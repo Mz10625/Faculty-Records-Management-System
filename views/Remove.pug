@@ -37,6 +37,7 @@ head
           td
             form(id="form" action="/removeUser" method="post")
               input(type="hidden" name="jsonData" id="jsonDataField")
+              input(type="hidden" name="token" id="RemoveToken")
             button#submit(onclick=`jData(${JSON.stringify(x._id)})`) Remove
 
             

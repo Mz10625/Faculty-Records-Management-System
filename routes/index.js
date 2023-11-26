@@ -1,7 +1,9 @@
 // const exp = require("constants");
+require('dotenv').config()
 const express = require("express");
 const jsonwebtoken = require("jsonwebtoken");
 const PORT = process.env.PORT || 80;
+const KEY = process.env.SECRET_KEY;
 // console.log(process.env)
 const path = require("path");
 const fs = require('fs');
@@ -14,9 +16,7 @@ const viewsPath = path.dirname(__dirname)+"/views";
 
 const {MongoClient} = require('mongodb');
 const ObjectId = require('mongodb').ObjectId;
-// const { checkCookie } = require("../controllers/admin");
-// const { validateHeaderName } = require("http");
-const uri = "mongodb+srv://suyashnalawade001:mongo0104atlas@cluster0.t7roaby.mongodb.net/?retryWrites=true&w=majority"
+const uri =  process.env.URI;
 const client = new MongoClient(uri)
 async function connect_DB(){
     try{
@@ -49,7 +49,6 @@ app.use(express.static(viewsPath));
 app.use(express.json())//      Data cannot be parsed in json form as it is urlencoded
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
 
 admin.getClientVariable(client);
 user.getClientVariable(client);
@@ -88,15 +87,15 @@ const validateUserCookie =  (req,res,next)=>{
 }
 
 const authenticate = (req,res,next)=>{
-    if (!req.headers.authorization) {
+    // console.log(req.body)
+    if (!req.body.token) {
         return res.status(401).json(false);
     }    
     try {              
-        const authHeader = req.headers.authorization;    
-        const token = authHeader.split(" ")[1];
-        const user = jsonwebtoken.verify(token,"12345");
-        return res.json(true);
-        // next();
+        // const token = authHeader.split(" ")[1];
+        // return res.json(true);
+        const user = jsonwebtoken.verify(req.body.token,KEY);
+        next();
     }catch (error) {
         return res.status(401).json(false);
     }
@@ -106,25 +105,27 @@ const authenticate = (req,res,next)=>{
 app.get("/",admin.getIndex)
 app.get("/userLogin",admin.getUserLogin)
 app.get("/adminLogin",admin.getAdminLogin)
+
 app.get("/adminHome",validateAdminCookie,admin.getAdminHome)
-app.get("/addUser",validateAdminCookie,admin.getAddUser)
-app.get("/download",validateAdminCookie,admin.getDownload)
-app.get("/updateList",validateAdminCookie,admin.getUpdateList)
+// app.get("/addUser",validateAdminCookie,admin.getAddUser)
+app.post("/addUserP",authenticate,validateAdminCookie,admin.getAddUser)
+app.post("/updateListP",authenticate,validateAdminCookie,admin.getUpdateList)
+app.post("/downloadP",authenticate,validateAdminCookie,admin.getDownload)
 app.get("/downloadOneRecord/:contact/:name",validateAdminCookie,admin.getDownloadOneRecord)
 // app.get("/downloadConferenceFile/:contact/:name",validateCookie,admin.getDownloadConferenceFile)
 app.get("/downloadAllRecords",validateAdminCookie,admin.getDownloadAllRecords)
 // app.get("/downloadAllConferenceRecords",validateCookie,admin.getDownloadAllConferenceRecords)
-app.get("/removeUser",validateAdminCookie,admin.getRemoveUser)
-app.get("/updatePassword",validateAdminCookie,admin.getUpdatePassword)
+app.post("/removeUserP",authenticate,validateAdminCookie,admin.getRemoveUser)
+app.post("/updatePasswordP",authenticate,validateAdminCookie,admin.getUpdatePassword)
 
 // User GET Routes
 app.get("/userHome",validateUserCookie,user.getUserHome)
-app.get("/workshop",validateUserCookie,user.getWorkshop)
-app.get("/conference",validateUserCookie,user.getConference)
-app.get("/paperPublication",validateUserCookie,user.getPaperPublication)
-app.get("/citation",validateUserCookie,user.getCitation)
-app.get("/updateProfile",validateUserCookie,user.getUpdateProfile)
-app.get("/downloadUpdate",validateUserCookie,user.getDownloadUpdate)
+app.post("/workshopP",authenticate,validateUserCookie,user.getWorkshop)
+app.post("/conferenceP",authenticate,validateUserCookie,user.getConference)
+app.post("/paperPublicationP",authenticate,validateUserCookie,user.getPaperPublication)
+app.post("/citationP",authenticate,validateUserCookie,user.getCitation)
+app.post("/updateProfileP",authenticate,validateUserCookie,user.getUpdateProfile)
+app.post("/downloadUpdateP",authenticate,validateUserCookie,user.getDownloadUpdate)
 app.get("/downloadPersonalRecords",validateUserCookie,user.getdownloadPersonalRecords)
 
 
@@ -137,12 +138,14 @@ app.get("/logout",(req,res)=>{
 
 // Admin POST Routes
 app.post("/adminLogin",admin.postAdminLogin)
-app.post("/addUser",validateAdminCookie,admin.postAddUser)
+app.post("/addUser",authenticate,validateAdminCookie,admin.postAddUser)
 app.post("/updateList",validateAdminCookie,admin.postUpdateList)
 app.post("/updateUserData",validateAdminCookie,admin.postUpdateUserData)
 app.post("/download",validateAdminCookie,admin.postDownload)
-app.post("/removeUser",validateAdminCookie,admin.postRemoveUser)
-app.post("/updatePassword",validateAdminCookie,admin.postUpdatePassword)
+app.post("/removeUser",authenticate,validateAdminCookie,admin.postRemoveUser)
+app.post("/updatePassword",authenticate,validateAdminCookie,admin.postUpdatePassword)
+
+
 
 // User POST Routes
 app.post("/userLogin",user.postUserLogin)

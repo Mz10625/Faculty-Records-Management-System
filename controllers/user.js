@@ -1,3 +1,5 @@
+require('dotenv').config()
+const KEY = process.env.SECRET_KEY;
 const jsonwebtoken = require("jsonwebtoken");
 const path = require("path");
 const fs = require('fs');
@@ -48,7 +50,8 @@ async function addWorkshopData(client,data,ObjectId,reqCookie){
                         "endDate":data.endDate,
                         "financialSupport":data.support,
                         "financeSupportOrganisation":data.supportOrg,
-                        "amount":data.amount,                        
+                        "amount":data.amount, 
+                        "link":data.link,                      
     }
     let reqCookie_id = new ObjectId(reqCookie);
     const findResult =  await userCollection.findOne({_id : reqCookie_id});
@@ -210,7 +213,7 @@ function getUserHome(req,res){
     try{
         if(redirected==true){
             const token = req.cookies.token;
-            const verify = jsonwebtoken.verify(token,"12345");
+            const verify = jsonwebtoken.verify(token,KEY);
             redirected = false;
         }
         res.sendFile(viewsPath+"/userHome.html");
@@ -322,7 +325,7 @@ function postUserLogin(req,res){
                 httpOnly: true,
                 // sameSite: 'lax'
             });
-            res.cookie(`token`, jsonwebtoken.sign({ pass: data.Password}, "12345"), 
+            res.cookie(`token`, jsonwebtoken.sign({ pass: data.Password}, KEY), 
             {
                 maxAge: 1800000,
                 secure: true,
@@ -340,7 +343,7 @@ function postWorkshop(req,res){
     // console.log(data);
     addWorkshopData(client,data,ObjectId,req.cookies.connectId).then((value)=>{
         if(value){
-            res.redirect("/workshop"); 
+            res.sendFile(viewsPath+"/workshop.html");
         }
         else{
             res.sendStatus(417);
@@ -352,7 +355,7 @@ function postConference(req,res){
     // console.log(data);
     addConferenceData(data,req.cookies.connectId).then((value)=>{
         if(value){
-            res.redirect("/conference"); 
+            res.sendFile(viewsPath+"/conference.html");
         }
         else{
             res.sendStatus(417);
@@ -456,6 +459,7 @@ async function postupdateWorkshop(req,res){
         workshop.financialSupport = updatedData.support
         workshop.financeSupportOrganisation = updatedData.supportOrg
         workshop.amount = updatedData.amount
+        workshop.link = updatedData.link
         
         findResult.workshop[req.body.workshopIndex] = workshop;
         let updateResult =await userCredentials.updateOne(

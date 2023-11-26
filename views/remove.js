@@ -12,19 +12,21 @@ async function authenticate(){
 
 function jData(id){
     if(confirm("Are you sure you want to remove this Record?")==true){
-        authenticate().then((authenticateUser)=>{
-                if(authenticateUser==true){
+        // authenticate().then((authenticateUser)=>{
+        //         if(authenticateUser==true){
+            
+                    document.getElementById("RemoveToken").value = sessionStorage.getItem("token");
                     const jsonDataField = document.getElementById("jsonDataField");
                     const form = document.getElementById("form");
                 jsonDataField.value = id;
                 form.submit();
-            }
-            else{
-                document.open();
-                document.write("Not Authorized");
-                document.close();
-            }
-        })
+        //     }
+        //     else{
+        //         document.open();
+        //         document.write("Not Authorized");
+        //         document.close();
+        //     }
+        // })
     }
 }
 document.getElementById("homeBtn").addEventListener("click",()=>{

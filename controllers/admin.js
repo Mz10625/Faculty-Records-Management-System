@@ -1,4 +1,5 @@
-
+require('dotenv').config()
+KEY = process.env.SECRET_KEY;
 const Excel = require('exceljs');
 const fs = require('fs');
 const path = require("path");
@@ -178,6 +179,7 @@ async function createExcelFile(data,singleUserData){
         { header: 'Financial support', key: 'financialSupport', width: 20 },
         { header: 'Financial support Organisation', key: 'financeSupportOrganisation', width: 20 },
         { header: 'Financial support amount', key: 'amount', width: 20 },
+        { header: 'Certificate link', key: 'link', width: 20 },
     ]
     workshopWs.columns = headers; 
 
@@ -275,7 +277,7 @@ async function createExcelFile(data,singleUserData){
                 workshopWs.addRow([workshopdata[j].facultyName,workshopdata[j].facultyDesignation,workshopdata[j].facultyDept,
                     workshopdata[j].workshopName,workshopdata[j].orgInstitute,workshopdata[j].venue,workshopdata[j].nature,
                     workshopdata[j].duration,workshopdata[j].startDate,workshopdata[j].endDate,workshopdata[j].financialSupport,
-                    workshopdata[j].financeSupportOrganisation,workshopdata[j].amount
+                    workshopdata[j].financeSupportOrganisation,workshopdata[j].amount,workshopdata[j].link
                 ]);
             }
         }
@@ -393,7 +395,7 @@ function getAdminHome(req,res){
     try{
         if(redirected==true){
             const token = req.cookies.token;
-            const verify = jsonwebtoken.verify(token,"12345");
+            const verify = jsonwebtoken.verify(token,KEY);
             redirected = false;
         }
         res.sendFile(viewsPath+"/adminHome.html");
@@ -562,7 +564,7 @@ function postAdminLogin(req,res){
                 httpOnly: true,
                 // sameSite: 'lax'
             });
-            res.cookie(`token`, jsonwebtoken.sign({ pass: data.Password}, "12345"), 
+            res.cookie(`token`, jsonwebtoken.sign({ pass: data.Password}, KEY), 
             {
                 maxAge: 1800000,
                 secure: true,
@@ -570,7 +572,7 @@ function postAdminLogin(req,res){
                 // sameSite: 'lax'
             });
             // res.json({
-            //     token: jsonwebtoken.sign({ pass: data.Password}, "12345"),               
+            //     token: jsonwebtoken.sign({ pass: data.Password}, KEY),               
             // })
             redirected = true;
             res.redirect("/adminHome");
@@ -584,7 +586,8 @@ function postAddUser(req,res){
     let data = req.body;
     addUser(client,data).then((value)=>{
         if(value){
-            res.redirect("/addUser"); 
+            // res.send("/addUser"); 
+            res.sendFile(viewsPath+"/addUser.html");
         }
         else{
             res.sendStatus(417);
@@ -606,7 +609,14 @@ function postUpdateUserData(req,res){
     let data = req.body;
     updateUserData(client,ObjectId,data).then((value)=>{
         if(value.value){
-            res.redirect("/updateList"); 
+            download(client).then((value)=>{
+                if(value){
+                    res.render(viewsPath+"/updateList.pug",{userdata:value.userdata});
+                }
+                else{
+                    res.sendStatus(404);
+                }
+            })
         }
         else{
             res.sendStatus(417);
@@ -631,7 +641,14 @@ function postRemoveUser(req,res){
     let data=req.body;
     removeUser(client,ObjectId,data.jsonData).then((value)=>{
         if(value==1){
-            res.redirect("/removeUser");
+            download(client).then((value)=>{                
+                if(value){
+                    res.render(viewsPath+"/Remove.pug",{userdata:value.userdata});
+                }
+                else{
+                    res.sendStatus(404);
+                }
+            })
         }
         else{
             res.sendStatus(404);
@@ -653,7 +670,8 @@ async function postUpdatePassword(req,res){
         res.render(viewsPath+"/updateAdminPassword.pug");
     }catch(error){
         console.log(error);
-        res.redirect("/updatePassword");
+        res.send("Failed to update password");
+        // res.redirect("/updatePassword");
     }
 }
 
