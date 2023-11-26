@@ -2,7 +2,7 @@
 require('dotenv').config()
 const express = require("express");
 const jsonwebtoken = require("jsonwebtoken");
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 8000;
 const KEY = process.env.SECRET_KEY;
 // console.log(process.env)
 const path = require("path");
