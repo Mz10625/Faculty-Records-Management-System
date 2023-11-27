@@ -12,6 +12,7 @@ body {
   width: 100vw;
   height: 100vh;
   z-index: 1;
+  overflow: hidden;
 }
 
 .action__btns {
@@ -135,14 +136,19 @@ body {
   }
 
   .second-container {
-    padding: 0 10px;
     flex-direction: column;
   }
-
+  .first-rectangle h2 {
+    font-size: 1rem;
+    margin: 0.1% 8%;
+  }
+  .container #clg_logo img {
+    width: 8rem;
+  }
   .box {
-    max-width: 100%;
+    width: 80%;
     margin: 10px 0;
-    height: 40%;
+    height: 30%;
   }
 
   .logo {
@@ -150,36 +156,38 @@ body {
   }
 
   .action__btns {
-    width: 60%;
+    width: 40%;
   }
 
   .login {
     font-size: 0.5rem;
-    padding: 0.5rem 1rem;
+    padding: 0.8rem 1rem;
+    border-radius: 0.8rem;
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 550px) {
   .container {
     height: 12vh;
   }
-
-  .box {
-    width: 50%;
-    height: 33%;
+  .first-rectangle h2 {
+    font-size: 0.9rem;
+    margin: 0.1% 12%;
   }
-
+  .box{
+    width: 80%;
+    height: 30%;
+  }
+  .container #clg_logo img {
+    width: 7rem;
+  }
   .logo {
     height: 50px;
   }
-
-  .action__btns {
-    width: 45%;
- 
-  }
-
   .login {
     font-size: 0.4rem;
-    padding: 0.3rem 0.7rem;
+    padding: 0.7rem 0.8rem;
+    border: 1px solid #9333ea;
+    font-size: 0.5rem;
   }
 }

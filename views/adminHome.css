@@ -243,7 +243,7 @@ body{
       font-size: 0.4rem;
      border-radius: 0.8rem;
       padding: 0.5rem 1rem;
-      
+      border: 1px solid #9333ea;
     }
     .container #clg_logo img {
       width: 150%;
