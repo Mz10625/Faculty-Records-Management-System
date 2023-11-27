@@ -191,3 +191,11 @@ body {
     font-size: 0.5rem;
   }
 }
+@media screen and (max-width: 480px) {
+  .first-rectangle h2 {
+    display:none;
+  }
+  .container #clg_logo img {
+    margin-left: 4rem;
+  }
+}

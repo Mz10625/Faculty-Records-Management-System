@@ -598,7 +598,7 @@ function postUpdateList(req,res){
     let data = req.body;
     getDataToUpdate(client,data.contact).then((value)=>{
         if(value.value){
-            res.render(viewsPath+"/update.pug",{data:value.userdata}); 
+            res.render(viewsPath+"/Update.pug",{data:value.userdata}); 
         }
         else{
             res.sendStatus(417);
