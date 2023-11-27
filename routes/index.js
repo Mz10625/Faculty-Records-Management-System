@@ -165,5 +165,5 @@ app.post("/updateCitation",validateUserCookie,user.postUpdateCitation)
 
 
 app.listen(PORT,"127.0.0.1",()=>{
-    console.log("listening...")
+    console.log("Listening on port "+PORT);
 })
