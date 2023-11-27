@@ -2,7 +2,7 @@
 require('dotenv').config()
 const express = require("express");
 const jsonwebtoken = require("jsonwebtoken");
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 5000;
 const KEY = process.env.SECRET_KEY;
 // console.log(process.env)
 const path = require("path");
@@ -164,6 +164,6 @@ app.post("/updatePaperPublication",validateUserCookie,user.postUpdatePaperPublic
 app.post("/updateCitation",validateUserCookie,user.postUpdateCitation)
 
 
-app.listen(PORT,"127.0.0.1",()=>{
+app.listen(PORT,"0.0.0.0",()=>{
     console.log("Listening on port "+PORT);
 })
